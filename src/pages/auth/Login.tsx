@@ -55,9 +55,6 @@ export default function Login() {
                 ogin
               </Title>
             </Flex>
-            <Text ta="center" fz="sm" c="dimmed">
-              Hey, Enter your credentials to access the dashboard.
-            </Text>
             <TextInput
               placeholder="Username or Email"
               {...form.getInputProps("username")}
