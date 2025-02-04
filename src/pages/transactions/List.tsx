@@ -29,6 +29,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
       return row.original.expiredAt ? formatDate(row.original.expiredAt) : "-";
     },
   },
+
   {
     accessorKey: "coupon.couponAmount",
     header: "Coupon Amount",
@@ -48,6 +49,10 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "coupon.validDays",
     header: "Valid Days",
+  },
+  {
+    accessorKey: "mobifinReferenceId",
+    header: "Mobifin Reference Id",
   },
   {
     accessorKey: "coupon.description",
@@ -102,7 +107,7 @@ export function TransactionList() {
   return (
     <Stack>
       <Group justify="space-between" align="center">
-        <Title order={3}>Transactions Report</Title>
+        <Title order={3}>CCN COUPON Report</Title>
         <Flex gap="sm">
           <DateFilter />
           <StatusFilter />

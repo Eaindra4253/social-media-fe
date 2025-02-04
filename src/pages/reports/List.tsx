@@ -49,7 +49,7 @@ export function ReportList() {
   return (
     <Stack>
       <Group justify="space-between" align="center">
-        <Title order={3}>GNG Reports</Title>
+        <Title order={3}>GNG COUPON Report</Title>
         <Flex gap="sm">
           <DateFilter defaultValue={new Date()} />
           <DownloadReport />
