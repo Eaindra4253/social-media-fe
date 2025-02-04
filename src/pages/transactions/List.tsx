@@ -1,7 +1,9 @@
 import { DateFilter, StatusFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
+import { ERROR_COLOR, SUCCESS_COLOR, WARNING_COLOR } from "@/configs/constants";
 import { formatDate } from "@/utils/date";
-import { Flex, Group, Stack, Title } from "@mantine/core";
+import { Flex, Group, Stack, Text, Title } from "@mantine/core";
+import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { DownloadReport } from "./DownloadReport";
 import { usePurchaseReports } from "./quries";
@@ -50,6 +52,39 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "coupon.description",
     header: "Description",
+  },
+  {
+    accessorKey: "coupon.description",
+    header: "Description",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    size: 300,
+    Cell: ({ row }) => {
+      let c: string;
+
+      switch (row.original.status) {
+        case "PENDING":
+          c = WARNING_COLOR;
+          break;
+        case "PURCHASED":
+          c = ERROR_COLOR;
+          break;
+        default:
+          c = SUCCESS_COLOR;
+          break;
+      }
+
+      return (
+        <Flex align="center" justify="flex-start" gap="xs">
+          <IconCircleFilled size={10} color={c} />
+          <Text fw="bold" fz="xs" c="gray" tt="capitalize">
+            {row.original.status?.toLocaleLowerCase()}
+          </Text>
+        </Flex>
+      );
+    },
   },
   {
     accessorKey: "transactionId",
