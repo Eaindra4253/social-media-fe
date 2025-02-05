@@ -10,6 +10,7 @@ export function DateFilter(props: DateInputProps) {
   return (
     <DateInput
       clearable
+      maxDate={new Date()}
       size="xs"
       placeholder="Date Filter"
       leftSection={<IconCalendar size={16} />}
@@ -28,7 +29,17 @@ export function StatusFilter() {
   return (
     <Select
       clearable
-      data={["PENDING", "PURCHASED", "USED"]}
+      data={[
+        {
+          label: "Active",
+          value: "PURCHASED",
+        },
+        {
+          label: "Used",
+          value: "USED",
+        },
+      ]}
+      checkIconPosition="right"
       size="xs"
       placeholder="Status Filter"
       value={useParamsHelper().getParam("status")}

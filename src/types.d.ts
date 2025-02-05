@@ -19,6 +19,7 @@ declare global {
   type User = {
     id: string;
     username: string;
+    phoneNumber: string;
     createdAt: string;
     updatedAt: string;
     role: string;
@@ -37,6 +38,7 @@ declare global {
     updatedAt: string;
     transactions: Transactions;
     coupon: Coupon;
+    user: User;
   }
 
   export interface Transactions {
@@ -73,5 +75,9 @@ declare global {
     receiptId: string;
     totalAmount: number;
     transDateTime: string;
+    couponUsedDate: string;
+    couponAmount?: string;
+    couponCode?: string;
+    phoneNumber?: string;
   }
 }

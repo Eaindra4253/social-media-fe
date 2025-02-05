@@ -3,12 +3,12 @@ import { IconReceipt, IconReport } from "@tabler/icons-react";
 
 export const menus: SidebarMenuType[] = [
   {
-    label: "GNG Report",
+    label: "GNG Coupon Report",
     path: "/",
     icon: <IconReport size={16} />,
   },
   {
-    label: "Transaction Report",
+    label: "CCN Coupon Report",
     path: "/transactions",
     icon: <IconReceipt size={16} />,
   },

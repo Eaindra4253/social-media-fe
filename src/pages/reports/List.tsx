@@ -18,8 +18,12 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     },
   },
   {
+    accessorKey: "transactionId",
+    header: "GNG Transaction Id",
+  },
+  {
     accessorKey: "information",
-    header: "Transaction Id",
+    header: "CCN Transaction Id",
   },
   {
     accessorKey: "store",
@@ -34,12 +38,44 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     header: "Amount",
   },
   {
+    accessorKey: "totalAmount",
+    header: "Total Amount",
+  },
+  {
     accessorKey: "receiptId",
     header: "Receipt Id",
   },
   {
     accessorKey: "terminal",
     header: "Terminal",
+  },
+  {
+    accessorKey: "couponUsedDate",
+    header: "Used Date",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.couponUsedDate
+        ? formatDate(row.original.couponUsedDate)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "couponCode",
+    header: "Coupon Code",
+    size: 100,
+  },
+  {
+    accessorKey: "couponAmount",
+    header: "Coupon Amount",
+    size: 100,
+  },
+  {
+    accessorKey: "phoneNumber",
+    header: "User Phone",
+    size: 120,
+    Cell: ({ row }) => {
+      return row.original.phoneNumber?.replace("959", "09") ?? "-";
+    },
   },
 ];
 
