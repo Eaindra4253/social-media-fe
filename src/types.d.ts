@@ -5,6 +5,10 @@ declare global {
     data: T;
   };
 
+  type ApiErrorResponse = {
+    message: string;
+  };
+
   type ApiResponseList<T> = {
     data: T[];
     totalCount: number;

@@ -1,15 +1,17 @@
+import Logo from "@/assets/logo.png";
 import { useLayoutStore } from "@/components/DashboardLayout/layout.store";
 import { HEADER_HEIGHT } from "@/configs/constants";
 import {
   ActionIcon,
   AppShell,
+  Avatar,
   Box,
   Burger,
   Center,
   Flex,
   HoverCard,
+  Image,
   NavLink,
-  Paper,
   ScrollArea,
   Stack,
   Text,
@@ -136,8 +138,10 @@ export function SideBar({ menus }: { menus: SidebarMenuType[] }) {
           h="100%"
         >
           {!opened && (
-            <Flex gap="xs">
-              <Paper radius="sm" bg="primary.1" w={30} />
+            <Flex gap="xs" align="center">
+              <Avatar size="md" bg="primary.0">
+                <Image src={Logo} width={24} height={24} />
+              </Avatar>
               <Text>Coupon ADMIN</Text>
             </Flex>
           )}
