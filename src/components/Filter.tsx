@@ -38,6 +38,10 @@ export function StatusFilter() {
           label: "Used",
           value: "USED",
         },
+        {
+          label: "Expired",
+          value: "EXPIRED",
+        },
       ]}
       checkIconPosition="right"
       size="xs"
