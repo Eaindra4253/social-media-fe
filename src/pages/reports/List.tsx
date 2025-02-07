@@ -28,11 +28,11 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   },
   {
     accessorKey: "store",
-    header: "Store",
+    header: "Store Code",
   },
   {
     accessorKey: "staff",
-    header: "Staff",
+    header: "Staff Id",
   },
   {
     accessorKey: "amount",
