@@ -40,7 +40,7 @@ export function usePurchaseDownloadReports() {
       const a = document.createElement("a");
       a.href = url;
       a.target = "_blank";
-      a.download = "Purchase Report.xlsx";
+      a.download = "CCN Coupon Report.xlsx";
       document.body.appendChild(a);
       a.click();
       a.remove();

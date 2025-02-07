@@ -24,6 +24,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   {
     accessorKey: "information",
     header: "CCN Transaction Id",
+    size: 300,
   },
   {
     accessorKey: "store",
@@ -35,15 +36,15 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   },
   {
     accessorKey: "amount",
-    header: "Amount",
+    header: "Coupon Amount",
   },
   {
     accessorKey: "totalAmount",
-    header: "Total Amount",
+    header: "Pay Slip Amount",
   },
   {
     accessorKey: "receiptId",
-    header: "Receipt Id",
+    header: "PaySlip Id",
   },
   {
     accessorKey: "terminal",
@@ -66,7 +67,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   },
   {
     accessorKey: "couponAmount",
-    header: "Coupon Amount",
+    header: "CCN Coupon Amount",
     size: 100,
   },
   {

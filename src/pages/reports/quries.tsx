@@ -39,7 +39,7 @@ export function useGngDownloadReports() {
       const a = document.createElement("a");
       a.href = url;
       a.target = "_blank";
-      a.download = "gng Report.xlsx";
+      a.download = "GNG Coupon Report.xlsx";
       document.body.appendChild(a);
       a.click();
       a.remove();
