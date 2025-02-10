@@ -1,5 +1,6 @@
 import { DateFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
+import { useParamsHelper } from "@/hooks/useParamHelper";
 import { formatDate } from "@/utils/date";
 import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
@@ -83,12 +84,16 @@ const columns: MRT_ColumnDef<GngReport>[] = [
 export function ReportList() {
   const { data, isLoading } = useGngReports();
 
+  const { getParam } = useParamsHelper();
+
+  const date = getParam("date") ?? new Date();
+
   return (
     <Stack>
       <Group justify="space-between" align="center">
         <Title order={3}>GNG COUPON Report</Title>
         <Flex gap="sm">
-          <DateFilter defaultValue={new Date()} />
+          <DateFilter defaultValue={new Date(date)} />
           <DownloadReport />
         </Flex>
       </Group>
