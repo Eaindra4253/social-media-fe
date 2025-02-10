@@ -56,7 +56,9 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     header: "Used Date",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.usedDate ? formatDate(row.original.usedDate) : "-";
+      return row.original.usedDate !== "-"
+        ? formatDate(row.original.usedDate)
+        : "-";
     },
   },
   {
