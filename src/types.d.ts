@@ -70,18 +70,18 @@ declare global {
   }
 
   export interface GngReport {
-    information: string;
-    store: string;
-    terminal: string;
-    staff: string;
-    amount: number;
-    transactionId: string;
-    receiptId: string;
-    totalAmount: number;
     transDateTime: string;
-    couponUsedDate: string;
-    couponAmount?: string;
-    couponCode?: string;
-    phoneNumber?: string;
+    gngTransactionId: string;
+    ccnTransactionId: string;
+    storeCode: string;
+    staffId: string;
+    gngCouponAmount: number;
+    paySlipAmount: number;
+    paySlipId: string;
+    terminal: string;
+    usedDate: string;
+    couponCode: string;
+    ccnCouponAmount: number;
+    userPhone: string;
   }
 }

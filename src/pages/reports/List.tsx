@@ -56,9 +56,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     header: "Used Date",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.couponUsedDate
-        ? formatDate(row.original.couponUsedDate)
-        : "-";
+      return row.original.usedDate ? formatDate(row.original.usedDate) : "-";
     },
   },
   {
@@ -76,7 +74,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     header: "User Phone",
     size: 120,
     Cell: ({ row }) => {
-      return row.original.phoneNumber?.replace("959", "09") ?? "-";
+      return row.original.userPhone?.replace("959", "09") ?? "-";
     },
   },
 ];
