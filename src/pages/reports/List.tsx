@@ -18,32 +18,32 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     },
   },
   {
-    accessorKey: "transactionId",
+    accessorKey: "gngTransactionId",
     header: "GNG Transaction Id",
   },
   {
-    accessorKey: "information",
+    accessorKey: "ccnTransactionId",
     header: "CCN Transaction Id",
     size: 300,
   },
   {
-    accessorKey: "store",
+    accessorKey: "storeCode",
     header: "Store Code",
   },
   {
-    accessorKey: "staff",
+    accessorKey: "staffId",
     header: "Staff Id",
   },
   {
-    accessorKey: "amount",
+    accessorKey: "gngCouponAmount",
     header: "Coupon Amount",
   },
   {
-    accessorKey: "totalAmount",
+    accessorKey: "paySlipAmount",
     header: "Pay Slip Amount",
   },
   {
-    accessorKey: "receiptId",
+    accessorKey: "paySlipId",
     header: "PaySlip Id",
   },
   {
@@ -51,7 +51,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     header: "Terminal",
   },
   {
-    accessorKey: "couponUsedDate",
+    accessorKey: "usedDate",
     header: "Used Date",
     size: 200,
     Cell: ({ row }) => {
@@ -62,16 +62,16 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   },
   {
     accessorKey: "couponCode",
-    header: "Coupon Code",
+    header: "CCN Coupon Code",
     size: 100,
   },
   {
-    accessorKey: "couponAmount",
+    accessorKey: "ccnCouponAmount",
     header: "CCN Coupon Amount",
     size: 100,
   },
   {
-    accessorKey: "phoneNumber",
+    accessorKey: "userPhone",
     header: "User Phone",
     size: 120,
     Cell: ({ row }) => {
