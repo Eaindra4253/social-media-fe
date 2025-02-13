@@ -5,7 +5,7 @@ import {
   PURCHASED_COLOR,
   SUCCESS_COLOR,
 } from "@/configs/constants";
-import { formatDate } from "@/utils/date";
+import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
@@ -18,7 +18,9 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     header: "Used Date",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.usedDate ? formatDate(row.original.usedDate) : "-";
+      return row.original.usedDate
+        ? formatDateTimeZone(row.original.usedDate)
+        : "-";
     },
   },
   {
@@ -31,7 +33,9 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     header: "Purchase Date",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.createdAt ? formatDate(row.original.createdAt) : "-";
+      return row.original.createdAt
+        ? formatDateTimeZone(row.original.createdAt)
+        : "-";
     },
   },
   {
@@ -41,7 +45,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   },
   {
     accessorKey: "user.phoneNumber",
-    header: "Phone",
+    header: "User Phone Number",
     size: 120,
     Cell: ({ row }) => {
       return row.original.user?.phoneNumber?.replace("959", "09") ?? "-";

@@ -1,7 +1,7 @@
 import { DateFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
 import { useParamsHelper } from "@/hooks/useParamHelper";
-import { formatDate } from "@/utils/date";
+import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { DownloadReport } from "./DownloadReport";
@@ -14,7 +14,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     size: 250,
     Cell: ({ row }) => {
       return row.original.transDateTime
-        ? formatDate(row.original.transDateTime)
+        ? formatDateTimeZone(row.original.transDateTime)
         : "-";
     },
   },
@@ -37,7 +37,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   },
   {
     accessorKey: "gngCouponAmount",
-    header: "Coupon Amount",
+    header: "GNG Coupon Amount",
   },
   {
     accessorKey: "paySlipAmount",
@@ -57,13 +57,13 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     size: 200,
     Cell: ({ row }) => {
       return row.original.usedDate !== "-"
-        ? formatDate(row.original.usedDate)
+        ? formatDateTimeZone(row.original.usedDate)
         : "-";
     },
   },
   {
     accessorKey: "couponCode",
-    header: "CCN Coupon Code",
+    header: "Coupon Code",
     size: 100,
   },
   {

@@ -2,9 +2,10 @@ import { DateValue } from "@mantine/dates";
 import dayjs from "dayjs";
 import timezone from "dayjs/plugin/timezone";
 
-export function formatDate(date: Date | string) {
-  dayjs.extend(timezone);
-  return dayjs(date).tz("Asia/Yangon").format("YYYY-MMM-DD hh:mm:ss A");
+export function formatDateTimeZone(date: Date | string) {
+  return new Date(date).toLocaleString("en-US", {
+    timeZone: "Asia/Yangon",
+  });
 }
 
 export function formatDateFilter(date?: DateValue) {
