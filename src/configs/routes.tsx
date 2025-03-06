@@ -5,6 +5,7 @@ import { ReportList } from "@/pages/reports/List";
 import { TransactionList } from "@/pages/transactions/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
+import { QrScanner } from "@/pages/qr-scanner/QrScanner";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
         path: "transactions",
         element: <TransactionList />,
       },
+      {
+        path: "qr-scanner",
+        element: <QrScanner />
+      }
     ],
   },
   {
