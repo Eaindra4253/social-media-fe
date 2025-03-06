@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Scanner } from "@yudiel/react-qr-scanner";
 import {
   Container,
@@ -9,11 +10,14 @@ import {
 } from "@mantine/core";
 
 export function QrScanner() {
+  const [qrResult, setQrResult] = useState<string>("");
+
   type QrCodeResult = { rawValue: string };
 
   const handleScan = (data: QrCodeResult[] | null): void => {
     if (data && data.length > 0) {
-      console.log("Scanned Data:", data[0].rawValue);
+      setQrResult(data[0].rawValue);  
+      console.log("Scanned Data:", data[0].rawValue); 
     }
   };
 
@@ -42,6 +46,12 @@ export function QrScanner() {
         >
           <Scanner onScan={handleScan} onError={handleError} />
         </Card>
+        {qrResult && ( 
+          <Box>
+            <Text size="lg" w={500}>Scanned Result:</Text>
+            <Text size="md">{qrResult}</Text>
+          </Box>
+        )}
       </Stack>
     </Container>
   );
