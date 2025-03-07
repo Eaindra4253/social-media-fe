@@ -62,11 +62,6 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     },
   },
   {
-    accessorKey: "couponCode",
-    header: "Coupon Code",
-    size: 100,
-  },
-  {
     accessorKey: "ccnCouponAmount",
     header: "CCN Coupon Amount",
     size: 100,
