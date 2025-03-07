@@ -1,13 +1,6 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
-import {
-  Container,
-  Stack,
-  Box,
-  Text,
-  Title,
-  Card,
-} from "@mantine/core";
+import { Container, Stack, Box, Text, Title, Card } from "@mantine/core";
 
 export function QrScanner() {
   const [qrResult, setQrResult] = useState<string>("");
@@ -16,8 +9,8 @@ export function QrScanner() {
 
   const handleScan = (data: QrCodeResult[] | null): void => {
     if (data && data.length > 0) {
-      setQrResult(data[0].rawValue);  
-      console.log("Scanned Data:", data[0].rawValue); 
+      setQrResult(data[0].rawValue);
+      console.log("Scanned Data:", data[0].rawValue);
     }
   };
 
@@ -27,7 +20,7 @@ export function QrScanner() {
 
   return (
     <Container size="100%" h="100vh" p="md">
-      <Stack justify="flex-start" align="flex-start" h="100%" gap="xl">
+      <Stack justify="center" align="center" h="100vh" gap="xl">
         <Box w="100%" ta="start">
           <Title order={2} size="h2">
             Scan QR Code
@@ -41,14 +34,16 @@ export function QrScanner() {
           shadow="xl"
           radius="xl"
           p="lg"
-          w="100%"
+          w="60%"
           mih={{ base: "250px", sm: "300px", md: "350px" }}
         >
           <Scanner onScan={handleScan} onError={handleError} />
         </Card>
-        {qrResult && ( 
-          <Box>
-            <Text size="lg" w={500}>Scanned Result:</Text>
+        {qrResult && (
+          <Box ta="center">
+            <Text size="lg" w={500}>
+              Scanned Result:
+            </Text>
             <Text size="md">{qrResult}</Text>
           </Box>
         )}
