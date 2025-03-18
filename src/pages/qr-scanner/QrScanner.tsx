@@ -56,21 +56,20 @@ export function QrScanner() {
   }, []);
 
   return (
-    <Container size="100%" h="100vh" p="md" >
+    <Container size="100%" p="md" >
       <Title order={2} size="h2" ta='center' mb='10px'>
         Coupon Scan
       </Title>
       <Text c="dimmed" size="sm" ta='center' mb='20px'>
         Align the QR code within the frame to scan.
       </Text>
-      <Stack align="center" h="80vh">
+      <Stack align="center">
         <Card
           withBorder
           shadow="xl"
           radius="xl"
           p="lg"
           w={matchesSm ? "98%" : matches ? "90%" : matchesLg ? "40%" : "60%"}
-          mih='400px'
           bd='1px solid #444'
           pos='relative'
         >
@@ -79,13 +78,6 @@ export function QrScanner() {
               pos='absolute'
               top="50%"
               left="50%"
-              style={{
-                transform: 'translate(-50%, -50%)',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                padding: '10px',
-                borderRadius: '5px',
-                zIndex: 1,
-              }}
             >
               <Text size="sm">Loading...</Text>
             </Box>
