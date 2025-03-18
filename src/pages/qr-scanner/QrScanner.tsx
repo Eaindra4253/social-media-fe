@@ -4,7 +4,6 @@ import Utf8 from 'crypto-js/enc-utf8';
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { Container, Stack, Box, Text, Title, Card } from "@mantine/core";
 import { useScanQrCode } from './quries';
-import { useMediaQuery } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
 
 const encryptionKey = 'CMP_TNX_CODE';
@@ -13,9 +12,6 @@ export function QrScanner() {
   const [qrResult, setQrResult] = useState<string>("");
   const [decryptedResult, setDecryptedResult] = useState<string>("");
   const { mutate, isError, isSuccess, status, data } = useScanQrCode();
-  const matches = useMediaQuery('(max-width: 768px)');
-  const matchesSm = useMediaQuery('(max-width: 576px)');
-  const matchesLg = useMediaQuery('(min-width: 992px)');
   const navigate = useNavigate();
 
   const decryptData = useCallback((encryptedData: string): string => {
@@ -69,10 +65,6 @@ export function QrScanner() {
           shadow="xl"
           radius="xl"
           p="lg"
-          w={matchesSm ? "98%" : matches ? "90%" : matchesLg ? "40%" : "60%"}
-          mih='400px'
-          bd='1px solid #444'
-          pos='relative'
         >
           {status === 'pending' ? (
             <Box
@@ -102,7 +94,6 @@ export function QrScanner() {
             <Text size="md">{decryptedResult}</Text>
             {status === 'pending' && <Text size="sm">Loading...</Text>}
             {isError && <Text size="sm" c="red">Error occurred while processing.</Text>}
-            {/* {isSuccess && <Text size="sm" c="green">Successfully processed!</Text>} */}
           </Box>
         )}
       </Stack>
