@@ -29,6 +29,14 @@ declare global {
     role: string;
   };
 
+  type QrScanResponse = {
+    transactionId: string;
+    amount: number;
+    couponName: string;
+    couponType: string;
+    outletType: string;
+  }
+
   export interface PurchaseReport {
     id: number;
     userId: number;

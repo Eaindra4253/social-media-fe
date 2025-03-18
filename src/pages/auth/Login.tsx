@@ -26,8 +26,8 @@ export default function Login() {
       password: "",
     },
     validate: {
-      username: (value) => (value.length > 0 ? null : "Username is required"),
-      password: (value) => (value.length > 0 ? null : "Password is required"),
+      username: (value: string) => (value.length > 0 ? null : "Username is required"),
+      password: (value: string) => (value.length > 0 ? null : "Password is required"),
     },
   });
 
