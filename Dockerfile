@@ -3,9 +3,11 @@ FROM node:21-alpine3.18
 
 ARG VITE_API_URL
 ARG VITE_API_KEY
+ARG ENC_CODE
 # Set environment variables during the build process
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_API_KEY=$VITE_API_KEY
+ENV ENC_CODE=$ENC_CODE
  
 # Set the working directory inside the container
 WORKDIR /app
