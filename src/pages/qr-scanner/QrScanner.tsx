@@ -14,12 +14,11 @@ import {
 import { useScanQrCode } from "./quries";
 import { useNavigate } from "react-router-dom";
 
-const encryptionKey = "CMP_TNX_CODE";
+const encryptionKey = import.meta.env.VITE_ENC_CODE;
 
 export function QrScanner() {
-  const [qrResult, setQrResult] = useState<string>("");
   const [decryptedResult, setDecryptedResult] = useState<string>("");
-  const { mutate, isError, isSuccess, status, data } = useScanQrCode();
+  const { mutate, isSuccess, status, data } = useScanQrCode();
   const navigate = useNavigate();
 
   const decryptData = useCallback((encryptedData: string): string => {
@@ -63,7 +62,6 @@ export function QrScanner() {
     (data: { rawValue: string }[] | null): void => {
       if (data && data.length > 0) {
         const rawValue = data[0].rawValue;
-        setQrResult(rawValue);
         const decrypted = decryptData(rawValue);
         setDecryptedResult(decrypted);
       }
