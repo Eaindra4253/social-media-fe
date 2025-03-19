@@ -4,7 +4,6 @@ import Utf8 from 'crypto-js/enc-utf8';
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { Container, Stack, Box, Text, Title, Card } from "@mantine/core";
 import { useScanQrCode } from './quries';
-import { useMediaQuery } from '@mantine/hooks';
 import { useNavigate } from 'react-router-dom';
 
 const encryptionKey = 'CMP_TNX_CODE';
@@ -13,9 +12,6 @@ export function QrScanner() {
   const [qrResult, setQrResult] = useState<string>("");
   const [decryptedResult, setDecryptedResult] = useState<string>("");
   const { mutate, isError, isSuccess, status, data } = useScanQrCode();
-  const matches = useMediaQuery('(max-width: 768px)');
-  const matchesSm = useMediaQuery('(max-width: 576px)');
-  const matchesLg = useMediaQuery('(min-width: 992px)');
   const navigate = useNavigate();
 
   const decryptData = useCallback((encryptedData: string): string => {
@@ -56,47 +52,23 @@ export function QrScanner() {
   }, []);
 
   return (
-    <Container size="100%" p="md" >
-      <Title order={2} size="h2" ta='center' mb='10px'>
+    <Container size="100%" p="md">
+      <Title order={2} size="h2" ta="center" mb="sm">
         Coupon Scan
       </Title>
-      <Text c="dimmed" size="sm" ta='center' mb='20px'>
+      <Text c="dimmed" size="sm" ta="center" mb="lg">
         Align the QR code within the frame to scan.
       </Text>
-      <Stack align="center">
-        <Card
-          withBorder
-          shadow="xl"
-          radius="xl"
-          p="lg"
-          w={matchesSm ? "98%" : matches ? "90%" : matchesLg ? "40%" : "60%"}
-          bd='1px solid #444'
-          pos='relative'
-        >
+      <Stack align="center" justify="center" gap="lg">
+        <Card withBorder shadow="xl" radius="xl" p="lg" w={{ base: '100%', sm: '90%', md: '60%', lg: '40%' }}>
           {status === 'pending' ? (
-            <Box
-              pos='absolute'
-              top="50%"
-              left="50%"
-            >
+            <Box display="flex" ta="center" h="100%">
               <Text size="sm">Loading...</Text>
             </Box>
           ) : (
             <Scanner onScan={handleScan} onError={handleError} />
           )}
-          <Box pos='absolute' top="50%" left="50%" w='60%' h='60%' />
         </Card>
-        {decryptedResult && (
-          <Box ta="center" style={{ marginTop: '20px' }}>
-            <Text size="lg" w={500}>
-              Decrypted Result:
-            </Text>
-            <Text size="md">{decryptedResult}</Text>
-            {status === 'pending' && <Text size="sm">Loading...</Text>}
-            {isError && <Text size="sm" c="red">Error occurred while processing.</Text>}
-            {/* {isSuccess && <Text size="sm" c="green">Successfully processed!</Text>} */}
-          </Box>
-        )}
       </Stack>
     </Container>
   );
