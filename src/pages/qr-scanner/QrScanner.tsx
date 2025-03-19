@@ -2,7 +2,15 @@ import { useState, useEffect, useCallback } from "react";
 import AES from "crypto-js/aes";
 import Utf8 from "crypto-js/enc-utf8";
 import { Scanner } from "@yudiel/react-qr-scanner";
-import { Container, Stack, Box, Text, Title, Card } from "@mantine/core";
+import {
+  Container,
+  Stack,
+  Text,
+  Title,
+  Card,
+  Loader,
+  Center,
+} from "@mantine/core";
 import { useScanQrCode } from "./quries";
 import { useNavigate } from "react-router-dom";
 
@@ -84,9 +92,9 @@ export function QrScanner() {
           w={{ base: "100%", sm: "90%", md: "60%", lg: "40%" }}
         >
           {status === "pending" ? (
-            <Box display="flex" ta="center" h="100%">
-              <Text size="sm">Loading...</Text>
-            </Box>
+            <Center maw="100%" h={100}>
+              <Loader color="blue" size="md" />
+            </Center>
           ) : (
             <Scanner onScan={handleScan} onError={handleError} />
           )}
