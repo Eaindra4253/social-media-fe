@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
-import AES from 'crypto-js/aes';
-import Utf8 from 'crypto-js/enc-utf8';
+import AES from "crypto-js/aes";
+import Utf8 from "crypto-js/enc-utf8";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { Container, Stack, Box, Text, Title, Card } from "@mantine/core";
-import { useScanQrCode } from './quries';
-import { useNavigate } from 'react-router-dom';
+import { useScanQrCode } from "./quries";
+import { useNavigate } from "react-router-dom";
 
-const encryptionKey = 'CMP_TNX_CODE';
+const encryptionKey = "CMP_TNX_CODE";
 
 export function QrScanner() {
   const [qrResult, setQrResult] = useState<string>("");
@@ -26,26 +26,42 @@ export function QrScanner() {
   }, []);
 
   useEffect(() => {
-    if (decryptedResult && decryptedResult !== "Decryption failed" && decryptedResult !== "Decryption error") {
-      mutate({ purchaseId: decryptedResult });
+    if (
+      decryptedResult &&
+      decryptedResult !== "Decryption failed" &&
+      decryptedResult !== "Decryption error"
+    ) {
+      mutate(
+        { purchaseId: decryptedResult },
+        {
+          onSuccess: () => {
+            setDecryptedResult("");
+          },
+          onError: () => {
+            setDecryptedResult("");
+          },
+        }
+      );
     }
   }, [decryptedResult, mutate]);
 
   useEffect(() => {
     if (isSuccess && data) {
-      navigate('/success', { state: data });
+      navigate("/success", { state: data });
     }
   }, [isSuccess, data, navigate]);
 
-  const handleScan = useCallback((data: { rawValue: string }[] | null): void => {
-    if (data && data.length > 0) {
-      const rawValue = data[0].rawValue;
-      setQrResult(rawValue);
-      const decrypted = decryptData(rawValue);
-      setDecryptedResult(decrypted);
-      console.log("Decrypted Data:", decrypted);
-    }
-  }, [decryptData]);
+  const handleScan = useCallback(
+    (data: { rawValue: string }[] | null): void => {
+      if (data && data.length > 0) {
+        const rawValue = data[0].rawValue;
+        setQrResult(rawValue);
+        const decrypted = decryptData(rawValue);
+        setDecryptedResult(decrypted);
+      }
+    },
+    [decryptData]
+  );
 
   const handleError = useCallback((err: unknown) => {
     console.error("Scan Error:", err);
@@ -60,8 +76,14 @@ export function QrScanner() {
         Align the QR code within the frame to scan.
       </Text>
       <Stack align="center" justify="center" gap="lg">
-        <Card withBorder shadow="xl" radius="xl" p="lg" w={{ base: '100%', sm: '90%', md: '60%', lg: '40%' }}>
-          {status === 'pending' ? (
+        <Card
+          withBorder
+          shadow="xl"
+          radius="xl"
+          p="lg"
+          w={{ base: "100%", sm: "90%", md: "60%", lg: "40%" }}
+        >
+          {status === "pending" ? (
             <Box display="flex" ta="center" h="100%">
               <Text size="sm">Loading...</Text>
             </Box>
