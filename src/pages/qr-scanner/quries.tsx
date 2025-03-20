@@ -9,8 +9,8 @@ export function useScanQrCode() {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (data: { purchaseId: string }) => {
-      const response = await purchasedCoupon({ purchaseId: data.purchaseId });
+    mutationFn: async (data: { purchaseId: string ; apiKey: string }) => {
+      const response = await purchasedCoupon({ purchaseId: data.purchaseId, apiKey: data.apiKey });
       return response.data;
     },
     onSuccess: (data) => {

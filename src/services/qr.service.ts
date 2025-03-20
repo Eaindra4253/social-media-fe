@@ -1,6 +1,6 @@
 import api from "@/configs/api";
 
-export function purchasedCoupon(data: { purchaseId: string }) {
+export function purchasedCoupon(data: { purchaseId: string; apiKey: string }) {
   return api.post<ApiResponse<QrScanResponse>>("/admin/usePurchasedCoupon", data);
 }
 

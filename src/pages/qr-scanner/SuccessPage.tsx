@@ -7,13 +7,15 @@ import {
   Stack,
   Text,
   Title,
+  Button,
 } from "@mantine/core";
 import { IconAlertTriangle, IconCheck } from "@tabler/icons-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export function SuccessPage() {
   const location = useLocation();
   const data = location.state;
+  const navigate = useNavigate();
 
   return (
     <Container size="sm" px="md">
@@ -40,7 +42,7 @@ export function SuccessPage() {
                 title="Bummer!"
                 color="red"
               >
-                This coupon is not valid.
+                Transaction Failed!
               </Alert>
             )}
           </>
@@ -52,6 +54,10 @@ export function SuccessPage() {
           </Box>
         )}
       </Card>
+      <Space h="md" />
+      <Button fullWidth onClick={() => navigate(-1)}>
+        Scan Again
+      </Button>
     </Container>
   );
 }

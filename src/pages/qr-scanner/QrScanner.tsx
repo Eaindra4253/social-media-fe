@@ -26,6 +26,7 @@ export function QrScanner() {
 
     mutate({
       purchaseId: decrypted.purchaseId,
+      apiKey: decrypted.apiKey,
     });
   };
 
