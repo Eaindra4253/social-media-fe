@@ -22,7 +22,3 @@ export const gngReportKeys = {
   details: () => [...gngReportKeys.all, "detail"] as const,
   detail: (id: number) => [...gngReportKeys.details(), id] as const,
 };
-
-export const queryKeys = {
-  all: ["queryKeys"] as const,
-};

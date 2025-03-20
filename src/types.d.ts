@@ -27,7 +27,7 @@ declare global {
     createdAt: string;
     updatedAt: string;
     outletType: string;
-    role: string;
+    role: "ADMIN" | "SCANNER";
   };
 
   type QrScanResponse = {
@@ -36,6 +36,13 @@ declare global {
     couponName: string;
     couponType: string;
     outletType: string;
+  };
+
+  type DecryptedQrScan = {
+    purchaseId: string;
+    amount: number;
+    outletType: string;
+    apiKey: string;
   };
 
   export interface PurchaseReport {

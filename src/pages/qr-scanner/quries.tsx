@@ -1,28 +1,31 @@
-import { queryKeys } from "@/configs/queryKeys";
 import { purchasedCoupon } from "@/services/qr.service";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 export function useScanQrCode() {
-  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   return useMutation({
     mutationFn: async (data: { purchaseId: string }) => {
       const response = await purchasedCoupon({ purchaseId: data.purchaseId });
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.all });
+    onSuccess: (data) => {
       notifications.show({
         color: "green",
         title: "Success",
         icon: <IconCheck />,
         message: "QR Code Scanned Successfully",
       });
+
+      navigate("/qr-scanner/success", { state: data });
     },
-    onError: (error: any) => {
-      const message = error?.response?.data?.message || (error as Error)?.message || "QR Code Scan Failed";
+    onError: (error: AxiosError<ApiErrorResponse>) => {
+      const message = error?.response?.data?.message;
+
       notifications.show({
         color: "red",
         title: "Error",

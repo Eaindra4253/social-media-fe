@@ -26,8 +26,10 @@ export default function Login() {
       password: "",
     },
     validate: {
-      username: (value: string) => (value.length > 0 ? null : "Username is required"),
-      password: (value: string) => (value.length > 0 ? null : "Password is required"),
+      username: (value: string) =>
+        value.length > 0 ? null : "Username is required",
+      password: (value: string) =>
+        value.length > 0 ? null : "Password is required",
     },
   });
 
@@ -38,7 +40,9 @@ export default function Login() {
     });
   };
 
-  if (user) return <Navigate to="/" />;
+  if (user?.role === "ADMIN") return <Navigate to="/" />;
+
+  if (user?.role === "SCANNER") return <Navigate to="/qr-scanner" />;
 
   return (
     <Center w="100vw" h="100vh">

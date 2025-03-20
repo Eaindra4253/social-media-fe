@@ -1,12 +1,13 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { ErrorPage } from "@/components/pages/ErrorPage";
 import Login from "@/pages/auth/Login";
+import { QrScanner } from "@/pages/qr-scanner/QrScanner";
+import { SuccessPage } from "@/pages/qr-scanner/SuccessPage";
 import { ReportList } from "@/pages/reports/List";
 import { TransactionList } from "@/pages/transactions/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
-import { QrScanner } from "@/pages/qr-scanner/QrScanner";
-import { SuccessPage } from "@/pages/SuccessPage";
+import { ScannerLayout } from "@/pages/qr-scanner";
 
 export const router = createBrowserRouter([
   {
@@ -22,14 +23,20 @@ export const router = createBrowserRouter([
         path: "transactions",
         element: <TransactionList />,
       },
+    ],
+  },
+  {
+    path: "qr-scanner",
+    element: <ScannerLayout />,
+    children: [
       {
-        path: "qr-scanner",
+        index: true,
         element: <QrScanner />,
       },
       {
-        path: "/success",
-        element: <SuccessPage />
-      }
+        path: "success",
+        element: <SuccessPage />,
+      },
     ],
   },
   {

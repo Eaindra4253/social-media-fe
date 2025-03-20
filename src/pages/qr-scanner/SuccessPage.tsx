@@ -1,15 +1,15 @@
-import { useLocation } from "react-router-dom";
 import {
-  Container,
-  Title,
-  Text,
-  Box,
-  Stack,
-  Card,
   Alert,
+  Box,
+  Card,
+  Container,
   Space,
+  Stack,
+  Text,
+  Title,
 } from "@mantine/core";
 import { IconAlertTriangle, IconCheck } from "@tabler/icons-react";
+import { useLocation } from "react-router-dom";
 
 export function SuccessPage() {
   const location = useLocation();
