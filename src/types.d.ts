@@ -26,6 +26,7 @@ declare global {
     phoneNumber: string;
     createdAt: string;
     updatedAt: string;
+    outletType: string;
     role: string;
   };
 
@@ -35,7 +36,7 @@ declare global {
     couponName: string;
     couponType: string;
     outletType: string;
-  }
+  };
 
   export interface PurchaseReport {
     id: number;

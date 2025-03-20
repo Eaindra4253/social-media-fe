@@ -39,7 +39,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     },
   },
   {
-    accessorKey: "coupon.couponAmount",
+    accessorKey: "coupon.amount",
     header: "Coupon Amount",
     size: 100,
   },
