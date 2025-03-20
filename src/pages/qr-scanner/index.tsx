@@ -14,7 +14,9 @@ export function ScannerLayout() {
   return (
     <AppShell header={{ height: HEADER_HEIGHT }}>
       <Header />
-      <Outlet />
+      <AppShell.Main>
+        <Outlet />
+      </AppShell.Main>
     </AppShell>
   );
 }
