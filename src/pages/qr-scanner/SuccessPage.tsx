@@ -28,11 +28,10 @@ export function SuccessPage() {
                 </Card.Section>
                 <Stack align="center" p="md">
                   <Title order={3} ta="center" c="green">
-                    Coupon Valid!
+                    Transaction Success!
                   </Title>
                   <Text size="sm">Coupon Name: {data.couponName}</Text>
                   <Text size="sm">Discount: {data.amount} Kyats</Text>
-                  <Text size="sm">Transaction ID: {data.transactionId}</Text>
                 </Stack>
               </>
             ) : (
