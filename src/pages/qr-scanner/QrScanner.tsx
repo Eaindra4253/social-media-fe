@@ -1,6 +1,4 @@
 import { useState, useEffect, useCallback } from "react";
-import AES from "crypto-js/aes";
-import Utf8 from "crypto-js/enc-utf8";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import {
   Container,
@@ -13,6 +11,7 @@ import {
 } from "@mantine/core";
 import { useScanQrCode } from "./quries";
 import { useNavigate } from "react-router-dom";
+import { decrypt } from "@/utils/crypto";
 
 const encryptionKey = import.meta.env.VITE_ENC_CODE;
 
@@ -23,14 +22,14 @@ export function QrScanner() {
 
   const decryptData = useCallback((encryptedData: string): string => {
     try {
-      const bytes = AES.decrypt(encryptedData, encryptionKey);
-      const decrypted = bytes.toString(Utf8);
+      const decrypted = decrypt(encryptedData, encryptionKey);
       return decrypted || "Decryption failed";
     } catch (error) {
       console.error("Decryption Error:", error);
       return "Decryption error";
     }
   }, []);
+
 
   useEffect(() => {
     if (
@@ -62,8 +61,8 @@ export function QrScanner() {
     (data: { rawValue: string }[] | null): void => {
       if (data && data.length > 0) {
         const rawValue = data[0].rawValue;
-        const decrypted = decryptData(rawValue);
-        setDecryptedResult(decrypted);
+        const decrypted: any = decryptData(rawValue);
+        setDecryptedResult(decrypted?.purchaseId);
       }
     },
     [decryptData]
