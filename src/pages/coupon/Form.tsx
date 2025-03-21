@@ -22,7 +22,7 @@ import { createCouponSchema } from "@/configs/schema";
 import { modals } from "@mantine/modals";
 import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
 
-export function CouponUpdateForm({ data }: { data: CouponList }) {
+export function CouponUpdateForm({ data }: { data: Coupon }) {
   const [opened, { close, open }] = useDisclosure();
   const { isPending, mutateAsync } = useUpdateCoupon(data.id);
 
@@ -59,7 +59,7 @@ export function CouponUpdateForm({ data }: { data: CouponList }) {
   );
 }
 
-export function CouponDisableForm({ data }: { data: CouponList }) {
+export function CouponDisableForm({ data }: { data: Coupon }) {
   const { mutateAsync } = useUpdateCoupon(data.id);
 
   const isActive = data.isActive === true ? false : true;

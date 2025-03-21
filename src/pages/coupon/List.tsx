@@ -7,7 +7,7 @@ import { formatDateTimeZone } from "@/utils/date";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { Text } from "@mantine/core";
 
-const columns: MRT_ColumnDef<CouponList>[] = [
+const columns: MRT_ColumnDef<Coupon>[] = [
   {
     accessorKey: "code",
     header: "Code",
@@ -135,7 +135,7 @@ export function CouponList() {
           <CouponCreateForm />
         </Flex>
       </Group>
-      <DataTable<CouponList>
+      <DataTable<Coupon>
         data={data?.data ?? []}
         columns={columns}
         isLoading={isLoading}

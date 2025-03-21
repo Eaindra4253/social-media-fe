@@ -5,7 +5,7 @@ export function createCoupon(data: CreateCouponRequest) {
 }
 
 export function getCoupons(params?: Record<string, unknown>) {
-  return api.get<ApiResponseList<CouponList>>("/coupons", { params });
+  return api.get<ApiResponseList<Coupon>>("/coupons", { params });
 }
 
 export function updateCoupon(id: number, data: Record<string, unknown>) {
