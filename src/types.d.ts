@@ -75,6 +75,8 @@ declare global {
     name: string;
     thumbnail: string;
     imageUrl: string;
+    logo: string;
+    category: string;
     couponType: string;
     outletType: string;
     description: string;
