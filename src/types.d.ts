@@ -79,10 +79,29 @@ declare global {
     outletType: string;
     description: string;
     couponAmount: number;
-    pointAmount: number;
+    amount: number;
     createdAt: string;
     updatedAt: string;
     validDays: number;
+  }
+
+  export interface CouponList {
+    id: number;
+    code: string;
+    name: string;
+    thumbnail: string;
+    imageUrl: string;
+    category: string;
+    logo: string;
+    couponType: string;
+    outletType: string;
+    description: string;
+    remark: string;
+    amount: number;
+    createdAt: string;
+    updatedAt: string;
+    validDays: number;
+    isActive: boolean;
   }
 
   export interface GngReport {
@@ -99,5 +118,19 @@ declare global {
     couponCode: string;
     ccnCouponAmount: number;
     userPhone: string;
+  }
+
+  export interface CreateCouponRequest {
+    code: string;
+    name: string;
+    description: string;
+    amount: number;
+    thumbnail: string;
+    imageUrl: string;
+    logo: string;
+    category: string;
+    couponType: string;
+    outletType: string;
+    validDays: number;
   }
 }
