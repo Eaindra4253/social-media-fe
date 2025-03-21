@@ -8,6 +8,7 @@ import { TransactionList } from "@/pages/transactions/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
 import { ScannerLayout } from "@/pages/qr-scanner";
+import { ScanErrorPage } from "@/pages/qr-scanner/ScanErrorPage";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: "success",
         element: <SuccessPage />,
+      },
+      {
+        path: "error",
+        element: <ScanErrorPage />,
       },
     ],
   },

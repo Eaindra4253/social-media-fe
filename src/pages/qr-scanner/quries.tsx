@@ -9,8 +9,11 @@ export function useScanQrCode() {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (data: { purchaseId: string ; apiKey: string }) => {
-      const response = await purchasedCoupon({ purchaseId: data.purchaseId, apiKey: data.apiKey });
+    mutationFn: async (data: { purchaseId: string; apiKey: string }) => {
+      const response = await purchasedCoupon({
+        purchaseId: data.purchaseId,
+        apiKey: data.apiKey,
+      });
       return response.data;
     },
     onSuccess: (data) => {
@@ -32,6 +35,8 @@ export function useScanQrCode() {
         icon: <IconCheck />,
         message: message,
       });
+
+      navigate("/qr-scanner/error", { state: message });
     },
   });
 }
