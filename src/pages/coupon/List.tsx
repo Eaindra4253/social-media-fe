@@ -77,6 +77,21 @@ const columns: MRT_ColumnDef<CouponList>[] = [
     size: 100,
   },
   {
+    accessorKey: "thumbnail",
+    header: "Thumbnail",  
+    size: 100,
+  },
+  {
+    accessorKey: "imageUrl",
+    header: "Image URL",
+    size: 100,
+  },
+  {
+    accessorKey: "logo",
+    header: "Logo",
+    size: 100,
+  },
+  {
     accessorKey: "isActive",
     header: "Is Active",
     size: 100,
