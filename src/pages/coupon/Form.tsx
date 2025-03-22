@@ -88,7 +88,6 @@ export function CouponDisableForm({ data }: { data: Coupon }) {
         color={statusField === "Active" ? ERROR_COLOR : SUCCESS_COLOR}
         variant="transparent"
         onClick={confirmDialog}
-        title={`${status} User`}
       >
         {statusField === "Active" ? (
           <IconCircleX size={20} />
