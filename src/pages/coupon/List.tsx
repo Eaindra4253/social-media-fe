@@ -1,11 +1,10 @@
 import { DataTable } from "@/components/table/DataTable";
-import { Flex, Group, Stack, Title } from "@mantine/core";
+import { Flex, Group, Stack, Title, Text } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { CouponCreateForm, CouponDisableForm, CouponUpdateForm } from "./Form";
 import { useGetCoupons } from "./queries";
 import { formatDateTimeZone } from "@/utils/date";
 import { IconCircleFilled } from "@tabler/icons-react";
-import { Text } from "@mantine/core";
 
 const columns: MRT_ColumnDef<Coupon>[] = [
   {
@@ -42,6 +41,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     accessorKey: "description",
     header: "Description",
     size: 200,
+    Cell: ({ row }) => <Text lineClamp={2}>{row.original.description}</Text>,
   },
   {
     accessorKey: "remark",
@@ -78,7 +78,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
   },
   {
     accessorKey: "thumbnail",
-    header: "Thumbnail",  
+    header: "Thumbnail",
     size: 100,
   },
   {
