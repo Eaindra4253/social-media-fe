@@ -39,8 +39,33 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     },
   },
   {
+    accessorKey: "expiredAt",
+    header: "Expire Date",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.expiredAt
+        ? formatDateTimeZone(row.original.expiredAt)
+        : "-";
+    },
+  },
+  {
     accessorKey: "coupon.amount",
     header: "Coupon Amount",
+    size: 100,
+  },
+  {
+    accessorKey: "coupon.category",
+    header: "Coupon Category",
+    size: 100,
+  },
+  {
+    accessorKey: "coupon.couponType",
+    header: "Coupon Type",
+    size: 100,
+  },
+  {
+    accessorKey: "coupon.outletType",
+    header: "Outlet Type",
     size: 100,
   },
   {
@@ -112,7 +137,7 @@ export function TransactionList() {
         columns={columns}
         isLoading={isLoading}
         columnPinning={{
-          right: ["user.phoneNumber", "createdAt", "status"],
+          right: ["user.phoneNumber", "createdAt",  "expiredAt", "status",],
         }}
         total={data?.totalCount}
       />
