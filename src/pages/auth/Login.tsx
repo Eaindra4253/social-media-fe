@@ -50,13 +50,13 @@ export default function Login() {
         <form onSubmit={form.onSubmit(onSubmit)}>
           <Stack>
             <Flex align="baseline" justify="center">
-              <Title c="primary">A</Title>
+              <Title c="primary">R</Title>
               <Title order={3} ta="center">
-                dmin&nbsp;
+                eward&nbsp;
               </Title>
-              <Title c="primary">L</Title>
+              <Title c="primary">S</Title>
               <Title order={3} ta="center">
-                ogin
+                ystem
               </Title>
             </Flex>
             <TextInput
