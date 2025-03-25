@@ -5,6 +5,7 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { CouponCreateForm, CouponDisableForm, CouponUpdateForm } from "./Form";
 import { useGetCoupons } from "./queries";
+import { CouponStatusFilter, CouponTypeFilter, OutletTypeFilter } from "@/components/Filter";
 
 const columns: MRT_ColumnDef<Coupon>[] = [
   {
@@ -132,6 +133,9 @@ export function CouponList() {
       <Group justify="space-between" align="center">
         <Title order={3}>COUPON LIST</Title>
         <Flex gap="sm">
+          <CouponTypeFilter />
+          <OutletTypeFilter />
+          <CouponStatusFilter />
           <CouponCreateForm />
         </Flex>
       </Group>

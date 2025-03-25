@@ -32,6 +32,9 @@ export function useGetCoupons() {
   const { getParam } = useParamsHelper();
 
   const params = {
+    outletType: getParam("outletType") ?? undefined,
+    couponType: getParam("couponType") ?? undefined,
+    isActive: getParam("isActive") ?? undefined,
     page: getParam("page") ?? 1,
     limit: getParam("limit") ?? 10,
   };

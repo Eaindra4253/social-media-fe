@@ -177,13 +177,13 @@ export function CouponForm({
           {...form.getInputProps("amount")}
         />
         <TextInput
-          label="Thumbnail URL"
-          placeholder="Enter Thumbnail URL"
+          label="Carousel URL"
+          placeholder="Enter Carousel URL"
           {...form.getInputProps("thumbnail")}
         />
         <TextInput
-          label="Image URL"
-          placeholder="Enter Image URL"
+          label="Banner URL"
+          placeholder="Enter Banner URL"
           {...form.getInputProps("imageUrl")}
         />
         <TextInput
@@ -201,7 +201,6 @@ export function CouponForm({
           placeholder="Pick one"
           data={[
             { value: "ETICKET", label: "ETICKET" },
-            { value: "E", label: "E" },
           ]}
           {...form.getInputProps("category")}
         />
@@ -210,7 +209,7 @@ export function CouponForm({
           placeholder="Pick one"
           data={[
             { value: "EMONEY", label: "EMONEY" },
-            { value: "E", label: "E" },
+            { value: "POINT", label: "POINT" },
           ]}
           {...form.getInputProps("couponType")}
         />
