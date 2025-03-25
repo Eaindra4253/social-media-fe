@@ -1,26 +1,26 @@
+import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
+import { createCouponSchema } from "@/configs/schema";
 import {
-  Stack,
-  TextInput,
-  Group,
+  ActionIcon,
   Button,
+  Group,
   Modal,
   NumberInput,
-  Textarea,
   Select,
-  ActionIcon,
+  Stack,
+  Textarea,
+  TextInput,
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
 import {
   IconCircleCheck,
   IconCircleX,
   IconEdit,
   IconPlus,
 } from "@tabler/icons-react";
-import { useDisclosure } from "@mantine/hooks";
 import { useCreateCoupon, useUpdateCoupon } from "./queries";
-import { createCouponSchema } from "@/configs/schema";
-import { modals } from "@mantine/modals";
-import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
 
 export function CouponUpdateForm({ data }: { data: Coupon }) {
   const [opened, { close, open }] = useDisclosure();
@@ -36,7 +36,7 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
       >
         <IconEdit size={20} />
       </ActionIcon>
-      <Modal opened={opened} onClose={close} title="Update Coupon">
+      <Modal opened={opened} onClose={close} title="Update Coupon" size="lg">
         <CouponForm
           isPending={isPending}
           initialValues={{
@@ -52,7 +52,9 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
             couponType: data.couponType,
             outletType: data.outletType,
           }}
-          handleSubmit={(values: any) => mutateAsync(values).then(close)}
+          handleSubmit={(values: Partial<CreateCouponRequest>) =>
+            mutateAsync(values).then(close)
+          }
         />
       </Modal>
     </>
@@ -108,7 +110,7 @@ export function CouponCreateForm() {
       <Button onClick={open} leftSection={<IconPlus />} radius="md" size="xs">
         Create Coupon
       </Button>
-      <Modal opened={opened} onClose={close} title="Add Coupon">
+      <Modal opened={opened} onClose={close} title="Add Coupon" size="lg">
         <CouponForm
           isPending={isPending}
           handleSubmit={(values) => mutateAsync(values).then(close)}
@@ -166,6 +168,7 @@ export function CouponForm({
         <Textarea
           label="Description"
           placeholder="Enter Description"
+          rows={4}
           {...form.getInputProps("description")}
         />
         <NumberInput

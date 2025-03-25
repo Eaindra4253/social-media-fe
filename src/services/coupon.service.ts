@@ -8,6 +8,6 @@ export function getCoupons(params?: Record<string, unknown>) {
   return api.get<ApiResponseList<Coupon>>("/coupons", { params });
 }
 
-export function updateCoupon(id: number, data: Record<string, unknown>) {
+export function updateCoupon(id: number, data: Partial<CreateCouponRequest>) {
   return api.put(`coupons/${id}`, data);
 }

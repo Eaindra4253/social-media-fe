@@ -1,10 +1,10 @@
 import { DataTable } from "@/components/table/DataTable";
-import { Flex, Group, Stack, Title, Text } from "@mantine/core";
+import { formatDateTimeZone } from "@/utils/date";
+import { Flex, Group, Stack, Text, Title } from "@mantine/core";
+import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { CouponCreateForm, CouponDisableForm, CouponUpdateForm } from "./Form";
 import { useGetCoupons } from "./queries";
-import { formatDateTimeZone } from "@/utils/date";
-import { IconCircleFilled } from "@tabler/icons-react";
 
 const columns: MRT_ColumnDef<Coupon>[] = [
   {
@@ -20,7 +20,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    size: 200,
+    size: 240,
   },
   {
     accessorKey: "category",
@@ -48,7 +48,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     header: "Remark",
     size: 150,
     Cell: ({ row }) => {
-      return row.original.remark ?? "-";
+      return <Text lineClamp={2}>{row.original.remark ?? "-"}</Text>;
     },
   },
   {
@@ -112,7 +112,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
   {
     accessorKey: "_id",
     header: "Actions",
-    size: 150,
+    size: 100,
     Cell: ({ row }) => {
       return (
         <Flex gap="xs">
@@ -140,7 +140,7 @@ export function CouponList() {
         columns={columns}
         isLoading={isLoading}
         columnPinning={{
-          right: ["_id"],
+          right: ["isActive", "_id"],
         }}
         total={data?.totalCount ?? 0}
       />

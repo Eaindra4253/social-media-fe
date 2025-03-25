@@ -45,7 +45,7 @@ declare global {
     apiKey: string;
   };
 
-  export interface PurchaseReport {
+  interface PurchaseReport {
     id: number;
     userId: number;
     couponId: number;
@@ -61,7 +61,7 @@ declare global {
     user: User;
   }
 
-  export interface Transactions {
+  interface Transactions {
     id: string;
     status: string;
     createdAt: string;
@@ -69,7 +69,7 @@ declare global {
     purchaseId: number;
   }
 
-  export interface Coupon {
+  interface Coupon {
     id: number;
     code: string;
     name: string;
@@ -88,7 +88,7 @@ declare global {
     isActive: boolean;
   }
 
-  export interface GngReport {
+  interface GngReport {
     transDateTime: string;
     gngTransactionId: string;
     ccnTransactionId: string;
@@ -104,7 +104,7 @@ declare global {
     userPhone: string;
   }
 
-  export interface CreateCouponRequest {
+  interface CreateCouponRequest {
     code: string;
     name: string;
     description: string;
