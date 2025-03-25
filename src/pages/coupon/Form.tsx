@@ -69,8 +69,8 @@ export function CouponDisableForm({ data }: { data: Coupon }) {
 
   const confirmDialog = () => {
     modals.openConfirmModal({
-      title: `${statusField} User`,
-      children: `Are you sure you want to ${statusField} this user?`,
+      title: `${statusField} Coupon`,
+      children: `Are you sure you want to ${statusField} this Coupon?`,
       labels: {
         confirm: statusField,
         cancel: "Cancel",
@@ -141,7 +141,7 @@ export function CouponForm({
       imageUrl: "",
       logo: "",
       validDays: 1,
-      category: "ETICKET",
+      category: "E-TICKET",
       couponType: "EMONEY",
       outletType: "PREMIER",
     },
@@ -196,13 +196,9 @@ export function CouponForm({
           placeholder="Enter Valid Days"
           {...form.getInputProps("validDays")}
         />
-        <Select
+        <TextInput
           label="Category"
-          placeholder="Pick one"
-          data={[
-            { value: "ETICKET", label: "ETICKET" },
-            { value: "E", label: "E" },
-          ]}
+          placeholder="Enter Category"
           {...form.getInputProps("category")}
         />
         <Select
