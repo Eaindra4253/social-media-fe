@@ -8,9 +8,9 @@ import { useGetCoupons } from "./queries";
 
 const columns: MRT_ColumnDef<Coupon>[] = [
   {
-    accessorKey: "code",
-    header: "Code",
-    size: 100,
+    accessorKey: "name",
+    header: "Name",
+    size: 240,
   },
   {
     accessorKey: "amount",
@@ -18,9 +18,9 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     size: 100,
   },
   {
-    accessorKey: "name",
-    header: "Name",
-    size: 240,
+    accessorKey: "code",
+    header: "Code",
+    size: 100,
   },
   {
     accessorKey: "category",

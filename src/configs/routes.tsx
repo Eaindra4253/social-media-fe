@@ -1,15 +1,14 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { ErrorPage } from "@/components/pages/ErrorPage";
 import Login from "@/pages/auth/Login";
+import { CouponList } from "@/pages/coupon/List";
+import { ScannerLayout } from "@/pages/qr-scanner";
 import { QrScanner } from "@/pages/qr-scanner/QrScanner";
+import { ScanErrorPage } from "@/pages/qr-scanner/ScanErrorPage";
 import { SuccessPage } from "@/pages/qr-scanner/SuccessPage";
-import { ReportList } from "@/pages/reports/List";
 import { TransactionList } from "@/pages/transactions/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
-import { ScannerLayout } from "@/pages/qr-scanner";
-import { ScanErrorPage } from "@/pages/qr-scanner/ScanErrorPage";
-import { CouponList } from "@/pages/coupon/List";
 
 export const router = createBrowserRouter([
   {
@@ -19,10 +18,6 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ReportList />,
-      },
-      {
-        path: "transactions",
         element: <TransactionList />,
       },
       {

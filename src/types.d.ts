@@ -110,6 +110,7 @@ declare global {
     description: string;
     amount: number;
     thumbnail: string;
+    remark: string;
     imageUrl: string;
     logo: string;
     category: string;

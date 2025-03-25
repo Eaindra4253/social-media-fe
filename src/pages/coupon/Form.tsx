@@ -40,6 +40,7 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
         <CouponForm
           isPending={isPending}
           initialValues={{
+            remark: data.remark,
             code: data.code,
             name: data.name,
             description: data.description,
@@ -141,6 +142,7 @@ export function CouponForm({
       imageUrl: "",
       logo: "",
       validDays: 1,
+      remark: "",
       category: "E-TICKET",
       couponType: "EMONEY",
       outletType: "PREMIER",
@@ -170,6 +172,12 @@ export function CouponForm({
           placeholder="Enter Description"
           rows={4}
           {...form.getInputProps("description")}
+        />
+        <Textarea
+          label="Remark"
+          placeholder="Enter Remark"
+          rows={4}
+          {...form.getInputProps("remark")}
         />
         <NumberInput
           label="Point Amount"
@@ -221,7 +229,7 @@ export function CouponForm({
           {...form.getInputProps("outletType")}
         />
 
-        <Group justify="flex-end" gap="sm">
+        <Group justify="flex-end">
           <Button
             loading={isPending}
             disabled={isPending}
