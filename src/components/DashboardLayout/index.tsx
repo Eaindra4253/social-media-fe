@@ -14,6 +14,8 @@ export default function DashboardLayout({ menus }: DashboardLayoutProps) {
 
   if (!user) return <Navigate to="/login" />;
 
+  if (user.role === "SCANNER") return <Navigate to="/qr-scanner" />;
+
   return (
     <AppShell
       layout="alt"

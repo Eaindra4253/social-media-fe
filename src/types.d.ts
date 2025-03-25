@@ -26,10 +26,26 @@ declare global {
     phoneNumber: string;
     createdAt: string;
     updatedAt: string;
-    role: string;
+    outletType: string;
+    role: "ADMIN" | "SCANNER";
   };
 
-  export interface PurchaseReport {
+  type QrScanResponse = {
+    transactionId: string;
+    amount: number;
+    couponName: string;
+    couponType: string;
+    outletType: string;
+  };
+
+  type DecryptedQrScan = {
+    purchaseId: string;
+    amount: number;
+    outletType: string;
+    apiKey: string;
+  };
+
+  interface PurchaseReport {
     id: number;
     userId: number;
     couponId: number;
@@ -45,7 +61,7 @@ declare global {
     user: User;
   }
 
-  export interface Transactions {
+  interface Transactions {
     id: string;
     status: string;
     createdAt: string;
@@ -53,23 +69,26 @@ declare global {
     purchaseId: number;
   }
 
-  export interface Coupon {
+  interface Coupon {
     id: number;
     code: string;
     name: string;
     thumbnail: string;
     imageUrl: string;
+    category: string;
+    logo: string;
     couponType: string;
     outletType: string;
     description: string;
-    couponAmount: number;
-    pointAmount: number;
+    remark: string;
+    amount: number;
     createdAt: string;
     updatedAt: string;
     validDays: number;
+    isActive: boolean;
   }
 
-  export interface GngReport {
+  interface GngReport {
     transDateTime: string;
     gngTransactionId: string;
     ccnTransactionId: string;
@@ -83,5 +102,19 @@ declare global {
     couponCode: string;
     ccnCouponAmount: number;
     userPhone: string;
+  }
+
+  interface CreateCouponRequest {
+    code: string;
+    name: string;
+    description: string;
+    amount: number;
+    thumbnail: string;
+    imageUrl: string;
+    logo: string;
+    category: string;
+    couponType: string;
+    outletType: string;
+    validDays: number;
   }
 }
