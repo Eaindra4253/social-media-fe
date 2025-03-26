@@ -9,6 +9,7 @@ import { SuccessPage } from "@/pages/qr-scanner/SuccessPage";
 import { TransactionList } from "@/pages/transactions/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
+import { PhotoList } from "@/pages/photo/List";
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: "coupons",
         element: <CouponList />,
+      },
+      {
+        path: "photos",
+        element: <PhotoList />,
       },
     ],
   },

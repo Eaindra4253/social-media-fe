@@ -118,4 +118,11 @@ declare global {
     outletType: string;
     validDays: number;
   }
+
+  interface Image {
+    id: number;
+    url: string;
+    filename: string;
+    type: string;
+  }
 }
