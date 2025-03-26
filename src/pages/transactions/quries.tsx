@@ -11,6 +11,7 @@ export function usePurchaseReports() {
   const { getParam } = useParamsHelper();
 
   const query = {
+    outletType: getParam("outletType") ?? undefined,
     page: getParam("page") ?? undefined,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,

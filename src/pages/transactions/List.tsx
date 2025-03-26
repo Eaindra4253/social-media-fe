@@ -1,4 +1,4 @@
-import { DateFilter, StatusFilter } from "@/components/Filter";
+import { DateFilter, OutletTypeFilter, StatusFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
 import {
   ERROR_COLOR,
@@ -122,6 +122,7 @@ export function TransactionList() {
       <Group justify="space-between" align="center">
         <Title order={3}>CCN COUPON Report</Title>
         <Flex gap="sm">
+          <OutletTypeFilter />
           <DateFilter />
           <StatusFilter />
           <DownloadReport />

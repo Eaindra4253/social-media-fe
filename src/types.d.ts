@@ -124,5 +124,7 @@ declare global {
     url: string;
     filename: string;
     type: string;
+    createdAt: string;
+    updatedAt: string;
   }
 }
