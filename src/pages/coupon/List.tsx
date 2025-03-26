@@ -1,3 +1,4 @@
+import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Text, Title } from "@mantine/core";
@@ -16,6 +17,45 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     accessorKey: "amount",
     header: "Amount",
     size: 100,
+  },
+  {
+    accessorKey: "thumbnail",
+    header: "Thumbnail",
+    size: 100,
+    Cell: ({ row }) => (
+      <Flex align="center" justify="flex-start" gap="xs">
+        <ImagePreviewButton
+          imageUrl={`${import.meta.env.VITE_API_URL}/${row.original.thumbnail}`}
+          label={row.original.thumbnail}
+        />
+      </Flex>
+    ),
+  },
+  {
+    accessorKey: "imageUrl",
+    header: "Image URL",
+    size: 100,
+    Cell: ({ row }) => (
+      <Flex align="center" justify="flex-start" gap="xs">
+        <ImagePreviewButton
+          imageUrl={`${import.meta.env.VITE_API_URL}/${row.original.imageUrl}`}
+          label={row.original.imageUrl}
+        />
+      </Flex>
+    ),
+  },
+  {
+    accessorKey: "logo",
+    header: "Logo",
+    size: 100,
+    Cell: ({ row }) => (
+      <Flex align="center" justify="flex-start" gap="xs">
+        <ImagePreviewButton
+          imageUrl={`${import.meta.env.VITE_API_URL}/${row.original.logo}`}
+          label={row.original.logo}
+        />
+      </Flex>
+    ),
   },
   {
     accessorKey: "code",
@@ -76,21 +116,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     header: "Valid Days",
     size: 100,
   },
-  {
-    accessorKey: "thumbnail",
-    header: "Thumbnail",
-    size: 100,
-  },
-  {
-    accessorKey: "imageUrl",
-    header: "Image URL",
-    size: 100,
-  },
-  {
-    accessorKey: "logo",
-    header: "Logo",
-    size: 100,
-  },
+
   {
     accessorKey: "isActive",
     header: "Is Active",

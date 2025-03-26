@@ -33,4 +33,8 @@ export const couponKeys = {
 
 export const photoKeys = {
   all: ["photoKeys"] as const,
+  lists: () => [...photoKeys.all, "list"] as const,
+  list: (filters: string) => [...photoKeys.lists(), { filters }] as const,
+  details: () => [...photoKeys.all, "detail"] as const,
+  detail: (id: number) => [...photoKeys.details(), id] as const,
 };

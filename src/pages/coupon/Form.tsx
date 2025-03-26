@@ -1,3 +1,4 @@
+import { PhotoSelect } from "@/components/selects/PhotoSelect";
 import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
 import { createCouponSchema } from "@/configs/schema";
 import {
@@ -184,17 +185,20 @@ export function CouponForm({
           placeholder="Enter Point Amount"
           {...form.getInputProps("amount")}
         />
-        <TextInput
+        <PhotoSelect
+          type="BANNER"
           label="Thumbnail URL"
           placeholder="Enter Thumbnail URL"
           {...form.getInputProps("thumbnail")}
         />
-        <TextInput
+        <PhotoSelect
+          type="CAROUSEL"
           label="Image URL"
           placeholder="Enter Image URL"
           {...form.getInputProps("imageUrl")}
         />
-        <TextInput
+        <PhotoSelect
+          type="LOGO"
           label="Logo"
           placeholder="Enter Logo"
           {...form.getInputProps("logo")}
