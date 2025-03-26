@@ -26,8 +26,10 @@ export default function Login() {
       password: "",
     },
     validate: {
-      username: (value) => (value.length > 0 ? null : "Username is required"),
-      password: (value) => (value.length > 0 ? null : "Password is required"),
+      username: (value: string) =>
+        value.length > 0 ? null : "Username is required",
+      password: (value: string) =>
+        value.length > 0 ? null : "Password is required",
     },
   });
 
@@ -38,7 +40,9 @@ export default function Login() {
     });
   };
 
-  if (user) return <Navigate to="/" />;
+  if (user?.role === "ADMIN") return <Navigate to="/" />;
+
+  if (user?.role === "SCANNER") return <Navigate to="/qr-scanner" />;
 
   return (
     <Center w="100vw" h="100vh">
@@ -46,13 +50,13 @@ export default function Login() {
         <form onSubmit={form.onSubmit(onSubmit)}>
           <Stack>
             <Flex align="baseline" justify="center">
-              <Title c="primary">A</Title>
+              <Title c="primary">R</Title>
               <Title order={3} ta="center">
-                dmin&nbsp;
+                eward&nbsp;
               </Title>
-              <Title c="primary">L</Title>
+              <Title c="primary">S</Title>
               <Title order={3} ta="center">
-                ogin
+                ystem
               </Title>
             </Flex>
             <TextInput

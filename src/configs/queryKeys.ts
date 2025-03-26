@@ -22,3 +22,15 @@ export const gngReportKeys = {
   details: () => [...gngReportKeys.all, "detail"] as const,
   detail: (id: number) => [...gngReportKeys.details(), id] as const,
 };
+
+export const couponKeys = {
+  all: ["couponKeys"] as const,
+  lists: () => [...couponKeys.all, "list"] as const,
+  list: (filters: string) => [...couponKeys.lists(), { filters }] as const,
+  details: () => [...couponKeys.all, "detail"] as const,
+  detail: (id: number) => [...couponKeys.details(), id] as const,
+};
+
+export const photoKeys = {
+  all: ["photoKeys"] as const,
+};

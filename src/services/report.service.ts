@@ -2,20 +2,20 @@ import api from "@/configs/api";
 import { getCurrentDateReport } from "@/utils/date";
 
 export function getPurchasedReports(params?: Record<string, unknown>) {
-  return api.get<ApiResponseList<PurchaseReport>>("/report/coupon-reports", {
+  return api.get<ApiResponseList<PurchaseReport>>("/admin/coupon-reports", {
     params,
   });
 }
 
 export function getPurchasedReportsDownload(params?: Record<string, unknown>) {
-  return api.get("/report/coupon-reports-download", {
+  return api.get("/admin/coupon-reports-download", {
     params,
     responseType: "blob",
   });
 }
 
 export function getGngReports(params?: Record<string, unknown>) {
-  return api.get<GngReport[]>("/report/gng-reports", {
+  return api.get<GngReport[]>("/admin/gng-reports", {
     params: {
       date: params?.date ?? getCurrentDateReport(),
     },
@@ -23,7 +23,7 @@ export function getGngReports(params?: Record<string, unknown>) {
 }
 
 export function getGngReportsDownload(params?: Record<string, unknown>) {
-  return api.get("/report/gng-reports-download", {
+  return api.get("/admin/gng-reports-download", {
     params: {
       date: params?.date ?? getCurrentDateReport(),
     },
