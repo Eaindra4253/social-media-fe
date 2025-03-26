@@ -37,7 +37,7 @@ export function PhotoList() {
     {
       accessorKey: "createdAt",
       header: "Created At",
-      size: 100,
+      size: 150,
       Cell: ({ row }) => {
         return row.original.createdAt !== "-"
           ? formatDateTimeZone(row.original.createdAt)
@@ -47,7 +47,7 @@ export function PhotoList() {
     {
       accessorKey: "updatedAt",
       header: "Updated At",
-      size: 100,
+      size: 150,
       Cell: ({ row }) => {
         return row.original.updatedAt !== "-"
           ? formatDateTimeZone(row.original.updatedAt)

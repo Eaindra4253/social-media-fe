@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
+import { notifications } from "@mantine/notifications";
 
 interface ImageUploadButtonProps {
   opened: boolean;
@@ -30,7 +31,7 @@ export function ImageUploadButton({
   uploadPhoto,
 }: ImageUploadButtonProps) {
   const [files, setFiles] = useState<FileUpload[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const handleFileChange = (newFiles: File[]) => {
     const tempFiles = newFiles.map((file) => ({
@@ -56,8 +57,8 @@ export function ImageUploadButton({
             { value: "IMAGE_URL", label: "IMAGE_URL" },
             { value: "LOGO", label: "LOGO" },
           ]}
-          value={selectedCategory}
-          onChange={setSelectedCategory}
+          value={selectedType}
+          onChange={setSelectedType}
         />
 
         <FileButton
@@ -97,9 +98,27 @@ export function ImageUploadButton({
 
         <Button
           onClick={() => {
+            if (!selectedType) {
+              notifications.show({
+                title: "Error",
+                message: "Please select a type",
+                color: "red",
+              });
+              return;
+            }
+
+            if (files.length === 0) {
+              notifications.show({
+                title: "Error",
+                message: "Please select image",
+                color: "red",
+              });
+              return;
+            }
+
             const formData = new FormData();
             files.forEach((file) => formData.append("files", file.file));
-            formData.append("type", selectedCategory as string);
+            formData.append("type", selectedType as string);
             uploadPhoto(formData);
             onClose();
           }}
