@@ -88,6 +88,7 @@ export function ImageTypeFilter() {
   return (
     <Select
       searchable={false}
+      clearable
       value={getParam("type")}
       onChange={(e) => {
         setParams({ type: e, page: 1 });
