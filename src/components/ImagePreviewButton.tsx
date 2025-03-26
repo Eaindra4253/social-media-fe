@@ -12,8 +12,8 @@ export function ImagePreviewButton({
 
   return (
     <>
-      <Button size="xs" variant="light" onClick={open}>
-        {label}
+      <Button size="lg" variant="transparent" onClick={open} p="0" m="0">
+        <Image src={imageUrl} alt={label} fit="contain" />
       </Button>
       <Modal opened={opened} onClose={close} size="lg">
         <Image src={imageUrl} alt={label} width={300} height={300} />
