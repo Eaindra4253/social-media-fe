@@ -136,8 +136,8 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     header: "Is Active",
     size: 100,
     Cell: ({ row }) => {
-      const c = row.original.isActive === true ? "#00cc88" : "#ff3366";
-      const status = row.original.isActive === true ? "Active" : "Inactive";
+      const c = row.original.isActive ? "#00cc88" : "#ff3366";
+      const status = row.original.isActive ? "Active" : "Inactive";
 
       return (
         <Flex align="center" justify="flex-start" gap="xs">
