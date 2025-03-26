@@ -30,3 +30,7 @@ export const couponKeys = {
   details: () => [...couponKeys.all, "detail"] as const,
   detail: (id: number) => [...couponKeys.details(), id] as const,
 };
+
+export const photoKeys = {
+  all: ["photoKeys"] as const,
+};

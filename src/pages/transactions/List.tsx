@@ -24,11 +24,6 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     },
   },
   {
-    accessorKey: "coupon.code",
-    header: "Coupon Code",
-    size: 100,
-  },
-  {
     accessorKey: "createdAt",
     header: "Purchase Date",
     size: 200,

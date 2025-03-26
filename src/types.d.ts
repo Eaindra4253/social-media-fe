@@ -110,11 +110,19 @@ declare global {
     description: string;
     amount: number;
     thumbnail: string;
+    remark: string;
     imageUrl: string;
     logo: string;
     category: string;
     couponType: string;
     outletType: string;
     validDays: number;
+  }
+
+  interface Image {
+    id: number;
+    url: string;
+    filename: string;
+    type: string;
   }
 }

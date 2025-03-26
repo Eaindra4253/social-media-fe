@@ -40,6 +40,7 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
         <CouponForm
           isPending={isPending}
           initialValues={{
+            remark: data.remark,
             code: data.code,
             name: data.name,
             description: data.description,
@@ -69,8 +70,8 @@ export function CouponDisableForm({ data }: { data: Coupon }) {
 
   const confirmDialog = () => {
     modals.openConfirmModal({
-      title: `${statusField} User`,
-      children: `Are you sure you want to ${statusField} this user?`,
+      title: `${statusField} Coupon`,
+      children: `Are you sure you want to ${statusField} this Coupon?`,
       labels: {
         confirm: statusField,
         cancel: "Cancel",
@@ -141,7 +142,8 @@ export function CouponForm({
       imageUrl: "",
       logo: "",
       validDays: 1,
-      category: "ETICKET",
+      remark: "",
+      category: "E-TICKET",
       couponType: "EMONEY",
       outletType: "PREMIER",
     },
@@ -171,6 +173,12 @@ export function CouponForm({
           rows={4}
           {...form.getInputProps("description")}
         />
+        <Textarea
+          label="Remark"
+          placeholder="Enter Remark"
+          rows={4}
+          {...form.getInputProps("remark")}
+        />
         <NumberInput
           label="Point Amount"
           placeholder="Enter Point Amount"
@@ -196,12 +204,9 @@ export function CouponForm({
           placeholder="Enter Valid Days"
           {...form.getInputProps("validDays")}
         />
-        <Select
+        <TextInput
           label="Category"
-          placeholder="Pick one"
-          data={[
-            { value: "ETICKET", label: "ETICKET" },
-          ]}
+          placeholder="Enter Category"
           {...form.getInputProps("category")}
         />
         <Select
@@ -224,7 +229,7 @@ export function CouponForm({
           {...form.getInputProps("outletType")}
         />
 
-        <Group justify="flex-end" gap="sm">
+        <Group justify="flex-end">
           <Button
             loading={isPending}
             disabled={isPending}
