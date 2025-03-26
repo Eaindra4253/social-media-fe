@@ -1,5 +1,5 @@
 import { SidebarMenuType } from "@/components/DashboardLayout/types";
-import { IconReceipt } from "@tabler/icons-react";
+import { IconPhoto, IconReceipt } from "@tabler/icons-react";
 
 export const menus: SidebarMenuType[] = [
   {
@@ -12,9 +12,9 @@ export const menus: SidebarMenuType[] = [
     path: "/coupons",
     icon: <IconReceipt size={16} />,
   },
-  // {
-  //   label: "Image List",
-  //   path: "/photos",
-  //   icon: <IconPhoto size={16} />,
-  // },
+  {
+    label: "Image List",
+    path: "/photos",
+    icon: <IconPhoto size={16} />,
+  },
 ];

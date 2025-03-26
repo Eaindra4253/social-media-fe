@@ -16,6 +16,7 @@ import { DataTable } from "@/components/table/DataTable";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { formatDateTimeZone } from "@/utils/date";
 import { PhotoDeleteForm } from "./Form";
+import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 
 export function PhotoList() {
   const { data, isLoading } = useGetPhotos();
@@ -37,15 +38,17 @@ export function PhotoList() {
       accessorKey: "url",
       header: "Image",
       size: 100,
-      Cell: ({ row }) => (
-        <Image
-          width="100px"
-          height="auto"
-          src={`${import.meta.env.VITE_API_URL}/${row.original.url}`}
-          alt={row.original.filename}
-          key={row.id}
-        />
-      ),
+      Cell: ({ row }) =>
+        row.original.url ? (
+          <Flex align="center" justify="flex-start" gap="xs">
+            <ImagePreviewButton
+              imageUrl={`${import.meta.env.VITE_API_URL}/${row.original.url}`}
+              label={row.original.url}
+            />
+          </Flex>
+        ) : (
+          "-"
+        ),
     },
     { accessorKey: "type", header: "Type", size: 100 },
     { accessorKey: "filename", header: "Filename", size: 100 },

@@ -1,7 +1,7 @@
 import api from "@/configs/api";
 
-export function getPhotos() {
-  return api.get<Image[]>("/images");
+export function getPhotos(params?: Record<string, unknown>) {
+  return api.get<Image[]>("/images", { params });
 }
 
 export function uploadPhoto(data: FormData) {
