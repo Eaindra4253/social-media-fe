@@ -49,7 +49,7 @@ export function PhotoSelect({
   type,
   ...props
 }: Omit<SelectProps, "data"> & {
-  type?: "LOGO" | "CAROUSEL" | "BANNER";
+  type?: "LOGO" | "THUMBNAIL" | "IMAGE_URL";
 }) {
   const { data, isLoading } = useGetPhotos(type);
 
