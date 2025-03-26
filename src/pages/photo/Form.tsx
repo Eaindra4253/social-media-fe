@@ -25,7 +25,7 @@ export function PhotoDeleteForm({ id }: { id: number }) {
   return (
     <Center>
       <ActionIcon color="red" onClick={confirmDialog} variant="transparent">
-        <IconTrash size="2rem" />
+        <IconTrash size={20} />
       </ActionIcon>
     </Center>
   );

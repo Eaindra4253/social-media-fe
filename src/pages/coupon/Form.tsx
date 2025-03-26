@@ -66,8 +66,8 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
 export function CouponDisableForm({ data }: { data: Coupon }) {
   const { mutateAsync } = useUpdateCoupon(data.id);
 
-  const isActive = data.isActive === true ? false : true;
-  const statusField = data.isActive === true ? "Inactive" : "Active";
+  const isActive = data.isActive ? false : true;
+  const statusField = data.isActive ? "Inactive" : "Active";
 
   const confirmDialog = () => {
     modals.openConfirmModal({

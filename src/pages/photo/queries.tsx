@@ -1,13 +1,20 @@
 import { photoKeys } from "@/configs/queryKeys";
+import { useParamsHelper } from "@/hooks/useParamHelper";
 import { getPhotos, uploadPhoto, deletePhoto } from "@/services/photo.service";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useGetPhotos() {
+  const { getParam } = useParamsHelper();
+
+  const params = {
+    type: getParam("type") ?? undefined,
+  };
+
   return useQuery({
-    queryKey: photoKeys.all,
-    queryFn: () => getPhotos(),
+    queryKey: photoKeys.list(JSON.stringify(params)),
+    queryFn: () => getPhotos(params),
     select: (data) => data.data,
   });
 }

@@ -82,6 +82,36 @@ export function CouponTypeFilter() {
   );
 }
 
+export function ImageTypeFilter() {
+  const { setParams, getParam } = useParamsHelper();
+
+  return (
+    <Select
+      searchable={false}
+      value={getParam("type")}
+      onChange={(e) => {
+        setParams({ type: e, page: 1 });
+      }}
+      size="xs"
+      placeholder="Filter Image Type"
+      data={[
+        {
+          label: "THUMBNAIL",
+          value: "THUMBNAIL",
+        },
+        {
+          label: "IMAGE_URL",
+          value: "IMAGE_URL",
+        },
+        {
+          label: "LOGO",
+          value: "LOGO",
+        },
+      ]}
+    />
+  )
+}
+
 export function OutletTypeFilter(props: OutletTypeSelectProps) {
   const { setParam } = useParamsHelper();
 
