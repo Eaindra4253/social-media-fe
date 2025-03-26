@@ -62,6 +62,7 @@ export function CouponTypeFilter() {
   return (
     <Select
       searchable={false}
+      clearable
       value={getParam("couponType")}
       onChange={(e) => {
         setParams({ couponType: e, page: 1 });
