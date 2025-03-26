@@ -1,14 +1,14 @@
-import { Button, Flex, Group, Stack, Title } from "@mantine/core";
-import { useGetPhotos, useUploadPhoto } from "./queries";
-import { DataTable } from "@/components/table/DataTable";
-import { MRT_ColumnDef } from "mantine-react-table";
-import { formatDateTimeZone } from "@/utils/date";
-import { PhotoDeleteForm } from "./Form";
-import { ImagePreviewButton } from "@/components/ImagePreviewButton";
-import { ImageUploadButton } from "./ImageUploadButton";
-import { useDisclosure } from "@mantine/hooks";
 import { ImageTypeFilter } from "@/components/Filter";
+import { ImagePreviewButton } from "@/components/ImagePreviewButton";
+import { DataTable } from "@/components/table/DataTable";
+import { formatDateTimeZone } from "@/utils/date";
+import { Button, Flex, Group, Stack, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import { IconUpload } from "@tabler/icons-react";
+import { MRT_ColumnDef } from "mantine-react-table";
+import { PhotoDeleteForm } from "./Form";
+import { ImageUploadButton } from "./ImageUploadButton";
+import { useGetPhotos, useUploadPhoto } from "./queries";
 
 export function PhotoList() {
   const { data, isLoading } = useGetPhotos();
@@ -81,7 +81,7 @@ export function PhotoList() {
           <ImageTypeFilter />
           <Button
             onClick={open}
-            leftSection={<IconUpload />}
+            leftSection={<IconUpload size={16} />}
             radius="md"
             size="xs"
           >

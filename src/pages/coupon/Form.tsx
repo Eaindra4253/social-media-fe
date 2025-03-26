@@ -186,13 +186,13 @@ export function CouponForm({
           {...form.getInputProps("amount")}
         />
         <PhotoSelect
-          type="BANNER"
+          type="THUMBNAIL"
           label="Thumbnail URL"
           placeholder="Enter Thumbnail URL"
           {...form.getInputProps("thumbnail")}
         />
         <PhotoSelect
-          type="CAROUSEL"
+          type="IMAGE_URL"
           label="Image URL"
           placeholder="Enter Image URL"
           {...form.getInputProps("imageUrl")}

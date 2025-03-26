@@ -2,7 +2,7 @@ import { photoKeys } from "@/configs/queryKeys";
 import { getPhotos } from "@/services/photo.service";
 import { useQuery } from "@tanstack/react-query";
 
-export function useGetPhotos(type?: "LOGO" | "CAROUSEL" | "BANNER") {
+export function useGetPhotos(type?: "LOGO" | "THUMBNAIL" | "IMAGE_URL") {
   const params = {
     type,
   };
