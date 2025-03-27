@@ -46,6 +46,32 @@ export function ImageUploadButton({
     setFiles(files.filter((file) => file.id !== fileToRemove.id));
   };
 
+  const handleUpload = () => {
+    if (!selectedType) {
+      notifications.show({
+        title: "Error",
+        message: "Please select a type",
+        color: "red",
+      });
+      return;
+    }
+
+    if (files.length === 0) {
+      notifications.show({
+        title: "Error",
+        message: "Please select image",
+        color: "red",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    files.forEach((file) => formData.append("files", file.file));
+    formData.append("type", selectedType as string);
+    uploadPhoto(formData);
+    onClose();
+  };
+
   return (
     <Modal size="xl" opened={opened} onClose={onClose} title="Upload Images">
       <Stack>
@@ -98,29 +124,7 @@ export function ImageUploadButton({
 
         <Button
           onClick={() => {
-            if (!selectedType) {
-              notifications.show({
-                title: "Error",
-                message: "Please select a type",
-                color: "red",
-              });
-              return;
-            }
-
-            if (files.length === 0) {
-              notifications.show({
-                title: "Error",
-                message: "Please select image",
-                color: "red",
-              });
-              return;
-            }
-
-            const formData = new FormData();
-            files.forEach((file) => formData.append("files", file.file));
-            formData.append("type", selectedType as string);
-            uploadPhoto(formData);
-            onClose();
+            handleUpload();
           }}
         >
           Submit
