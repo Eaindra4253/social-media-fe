@@ -10,6 +10,7 @@ import { TransactionList } from "@/pages/transactions/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
 import { PhotoList } from "@/pages/photo/List";
+import { UserList } from "@/pages/user/List";
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const router = createBrowserRouter([
         path: "photos",
         element: <PhotoList />,
       },
+      {
+        path: "users",
+        element: <UserList />
+      }
     ],
   },
   {

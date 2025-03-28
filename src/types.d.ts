@@ -21,13 +21,16 @@ declare global {
   };
 
   type User = {
-    id: string;
+    id: number;
     username: string;
+    email: string;
+    password: string;
     phoneNumber: string;
+    role: "ADMIN" | "SCANNER" | "PREMIERSCANNER" | "PREMIERADMIN";
+    outletType: "GNG" | "CAPITAL" | "PREMIER";
     createdAt: string;
     updatedAt: string;
-    outletType: string;
-    role: "ADMIN" | "SCANNER";
+    isActive: boolean;
   };
 
   type QrScanResponse = {
@@ -126,5 +129,14 @@ declare global {
     type: string;
     createdAt: string;
     updatedAt: string;
+  }
+
+  interface CreateUserRequest {
+    username: string;
+    password: string;
+    email: string;
+    outletType: "GNG" | "CAPITAL" | "PREMIER";
+    role: "SCANNER" | "ADMIN" | "PREMIERSCANNER" | "PREMIERADMIN";
+    isActive: boolean;
   }
 }

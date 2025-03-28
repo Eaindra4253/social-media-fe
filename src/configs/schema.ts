@@ -13,3 +13,24 @@ export const createCouponSchema = z.object({
   couponType: z.string().min(1, { message: "Coupon Type is required" }),
   outletType: z.string().min(1, { message: "Outlet Type is required" }),
 });
+
+export const createUserSchema = z.object({
+  username: z.string().min(1, { message: "Username is required" }),
+  password: z.string().min(1, { message: "Password is required" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  outletType: z.string(),
+  role: z.string().min(1, { message: "Role is required" }),
+  isActive: z.boolean(),
+});
+
+export const updateUserSchema = z.object({
+  username: z
+    .string()
+    .refine((value) => value.length, { message: "Username is required" }),
+  email: z
+    .string()
+    .email()
+    .refine((value) => value.length, { message: "Email is required" }),
+  outletType: z.string(),
+  role: z.enum(["MODERATOR", "ADMIN"], { message: "Role is required" }),
+});
