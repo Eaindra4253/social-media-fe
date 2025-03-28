@@ -6,12 +6,11 @@ import { Button, Flex, Group, Stack, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconUpload } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
-import { PhotoDeleteForm } from "./Form";
 import { ImageUploadButton } from "./ImageUploadButton";
 import { useGetPhotos, useUploadPhoto } from "./queries";
 
 export function PhotoList() {
-  const { data, isLoading } = useGetPhotos();
+  const { data, isFetching } = useGetPhotos();
   const { mutate: uploadPhoto } = useUploadPhoto();
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -54,18 +53,18 @@ export function PhotoList() {
           : "-";
       },
     },
-    {
-      accessorKey: "_id",
-      header: "Actions",
-      size: 100,
-      Cell: ({ row }) => {
-        return (
-          <Flex gap="xs">
-            <PhotoDeleteForm id={row.original.id} />
-          </Flex>
-        );
-      },
-    },
+    // {
+    //   accessorKey: "_id",
+    //   header: "Actions",
+    //   size: 100,
+    //   Cell: ({ row }) => {
+    //     return (
+    //       <Flex gap="xs">
+    //         <PhotoDeleteForm id={row.original.id} />
+    //       </Flex>
+    //     );
+    //   },
+    // },
   ];
 
   return (
@@ -92,10 +91,7 @@ export function PhotoList() {
       <DataTable<Image>
         data={data ?? []}
         columns={columns}
-        isLoading={isLoading}
-        columnPinning={{
-          right: ["_id"],
-        }}
+        isLoading={isFetching}
       />
     </Stack>
   );

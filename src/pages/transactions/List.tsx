@@ -1,4 +1,4 @@
-import { DateFilter, OutletTypeFilter, StatusFilter } from "@/components/Filter";
+import { DateFilter, StatusFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
 import {
   ERROR_COLOR,
@@ -14,32 +14,12 @@ import { usePurchaseReports } from "./quries";
 
 const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
-    accessorKey: "usedDate",
-    header: "Used Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.usedDate
-        ? formatDateTimeZone(row.original.usedDate)
-        : "-";
-    },
-  },
-  {
     accessorKey: "createdAt",
     header: "Purchase Date",
     size: 200,
     Cell: ({ row }) => {
       return row.original.createdAt
         ? formatDateTimeZone(row.original.createdAt)
-        : "-";
-    },
-  },
-  {
-    accessorKey: "expiredAt",
-    header: "Expire Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.expiredAt
-        ? formatDateTimeZone(row.original.expiredAt)
         : "-";
     },
   },
@@ -112,6 +92,26 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
       return row.original.transactions?.id ?? "-";
     },
   },
+  {
+    accessorKey: "usedDate",
+    header: "Used Date",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.usedDate
+        ? formatDateTimeZone(row.original.usedDate)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "expiredAt",
+    header: "Expire Date",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.expiredAt
+        ? formatDateTimeZone(row.original.expiredAt)
+        : "-";
+    },
+  },
 ];
 
 export function TransactionList() {
@@ -122,7 +122,6 @@ export function TransactionList() {
       <Group justify="space-between" align="center">
         <Title order={3}>CCN COUPON Report</Title>
         <Flex gap="sm">
-          <OutletTypeFilter />
           <DateFilter />
           <StatusFilter />
           <DownloadReport />
@@ -133,7 +132,7 @@ export function TransactionList() {
         columns={columns}
         isLoading={isLoading}
         columnPinning={{
-          right: ["user.phoneNumber", "createdAt",  "expiredAt", "status",],
+          right: ["user.phoneNumber", "createdAt", "status"],
         }}
         total={data?.totalCount}
       />

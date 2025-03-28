@@ -10,9 +10,9 @@ import {
   Select,
   Stack,
 } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
 import { IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
-import { notifications } from "@mantine/notifications";
 
 interface ImageUploadButtonProps {
   opened: boolean;
@@ -100,8 +100,7 @@ export function ImageUploadButton({
             {files.map((file) => (
               <Card key={file.id} shadow="md" withBorder p="xs">
                 <ActionIcon
-                  variant="filled"
-                  color="red"
+                  variant="light"
                   size="sm"
                   radius="sm"
                   style={{ position: "absolute", bottom: 6, right: 5 }}
@@ -122,13 +121,7 @@ export function ImageUploadButton({
           </Flex>
         )}
 
-        <Button
-          onClick={() => {
-            handleUpload();
-          }}
-        >
-          Submit
-        </Button>
+        <Button onClick={handleUpload}>Submit</Button>
       </Stack>
     </Modal>
   );

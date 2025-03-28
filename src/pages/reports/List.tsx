@@ -77,7 +77,7 @@ const columns: MRT_ColumnDef<GngReport>[] = [
 ];
 
 export function ReportList() {
-  const { data, isLoading } = useGngReports();
+  const { data, isFetching } = useGngReports();
 
   const { getParam } = useParamsHelper();
 
@@ -95,7 +95,7 @@ export function ReportList() {
       <DataTable<GngReport>
         data={data ?? []}
         columns={columns}
-        isLoading={isLoading}
+        isLoading={isFetching}
       />
     </Stack>
   );

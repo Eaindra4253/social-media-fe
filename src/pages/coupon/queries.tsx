@@ -1,6 +1,11 @@
 import { couponKeys } from "@/configs/queryKeys";
 import { useParamsHelper } from "@/hooks/useParamHelper";
-import { createCoupon, getCoupons, updateCoupon } from "@/services/coupon.service";
+import {
+  createCoupon,
+  getCoupons,
+  updateCoupon,
+} from "@/services/coupon.service";
+import { useAuthStore } from "@/stores/auth.store";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -30,9 +35,10 @@ export function useCreateCoupon() {
 
 export function useGetCoupons() {
   const { getParam } = useParamsHelper();
+  const user = useAuthStore((state) => state.user);
 
   const params = {
-    outletType: getParam("outletType") ?? undefined,
+    outletType: user?.outletType ?? undefined,
     couponType: getParam("couponType") ?? undefined,
     isActive: getParam("isActive") ?? undefined,
     page: getParam("page") ?? 1,

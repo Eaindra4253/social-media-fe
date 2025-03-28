@@ -1,3 +1,4 @@
+import { CouponStatusFilter, CouponTypeFilter } from "@/components/Filter";
 import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
@@ -6,7 +7,6 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { CouponCreateForm, CouponDisableForm, CouponUpdateForm } from "./Form";
 import { useGetCoupons } from "./queries";
-import { CouponStatusFilter, CouponTypeFilter, OutletTypeFilter } from "@/components/Filter";
 
 const columns: MRT_ColumnDef<Coupon>[] = [
   {
@@ -95,30 +95,28 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     accessorKey: "description",
     header: "Description",
     size: 200,
-    Cell: ({ row }) => <Text lineClamp={2}>{row.original.description}</Text>,
+    Cell: ({ row }) => (
+      <Text lineClamp={2} fz="xs" style={{ lineHeight: "1.9" }}>
+        {row.original.description}
+      </Text>
+    ),
   },
   {
     accessorKey: "remark",
     header: "Remark",
-    size: 150,
+    size: 200,
     Cell: ({ row }) => {
-      return <Text lineClamp={2}>{row.original.remark ?? "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    size: 150,
-    Cell: ({ row }) => {
-      return row.original.createdAt !== "-"
-        ? formatDateTimeZone(row.original.createdAt)
-        : "-";
+      return (
+        <Text lineClamp={2} fz="xs" style={{ lineHeight: "1.9" }}>
+          {row.original.remark ?? "-"}
+        </Text>
+      );
     },
   },
   {
     accessorKey: "updatedAt",
     header: "Updated At",
-    size: 150,
+    size: 200,
     Cell: ({ row }) => {
       return row.original.updatedAt !== "-"
         ? formatDateTimeZone(row.original.updatedAt)
@@ -165,7 +163,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
 ];
 
 export function CouponList() {
-  const { data, isLoading } = useGetCoupons();
+  const { data, isFetching } = useGetCoupons();
 
   return (
     <Stack>
@@ -173,7 +171,7 @@ export function CouponList() {
         <Title order={3}>COUPON LIST</Title>
         <Flex gap="sm">
           <CouponTypeFilter />
-          <OutletTypeFilter />
+          {/* <OutletTypeFilter /> */}
           <CouponStatusFilter />
           <CouponCreateForm />
         </Flex>
@@ -181,7 +179,7 @@ export function CouponList() {
       <DataTable<Coupon>
         data={data?.data ?? []}
         columns={columns}
-        isLoading={isLoading}
+        isLoading={isFetching}
         columnPinning={{
           right: ["isActive", "_id"],
         }}
