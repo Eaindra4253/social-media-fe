@@ -32,6 +32,7 @@ export function ImageUploadButton({
 }: ImageUploadButtonProps) {
   const [files, setFiles] = useState<FileUpload[]>([]);
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [fileButtonKey, setFileButtonKey] = useState(Math.random());
 
   const handleFileChange = (newFiles: File[]) => {
     const tempFiles = newFiles.map((file) => ({
@@ -40,10 +41,12 @@ export function ImageUploadButton({
     }));
 
     setFiles((old) => [...old, ...tempFiles]);
+
+    setFileButtonKey(Math.random());
   };
 
   const removeFile = (fileToRemove: FileUpload) => {
-    setFiles(files.filter((file) => file.id !== fileToRemove.id));
+    setFiles((files) => files.filter((file) => file.id !== fileToRemove.id));
   };
 
   const handleUpload = () => {
@@ -59,7 +62,7 @@ export function ImageUploadButton({
     if (files.length === 0) {
       notifications.show({
         title: "Error",
-        message: "Please select image",
+        message: "Please select an image",
         color: "red",
       });
       return;
@@ -88,6 +91,7 @@ export function ImageUploadButton({
         />
 
         <FileButton
+          key={fileButtonKey}
           onChange={handleFileChange}
           accept="image/png,image/jpeg,image/jpg"
           multiple
@@ -122,13 +126,7 @@ export function ImageUploadButton({
           </Flex>
         )}
 
-        <Button
-          onClick={() => {
-            handleUpload();
-          }}
-        >
-          Submit
-        </Button>
+        <Button onClick={handleUpload}>Submit</Button>
       </Stack>
     </Modal>
   );
