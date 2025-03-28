@@ -115,7 +115,7 @@ declare global {
     logo: string;
     category: string;
     couponType: string;
-    outletType: string;
+    outletType?: string;
     validDays: number;
   }
 

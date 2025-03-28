@@ -39,11 +39,6 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     size: 100,
   },
   {
-    accessorKey: "coupon.outletType",
-    header: "Outlet Type",
-    size: 100,
-  },
-  {
     accessorKey: "user.phoneNumber",
     header: "User Phone Number",
     size: 120,

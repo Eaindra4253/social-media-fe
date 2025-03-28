@@ -1,6 +1,7 @@
 import { PhotoSelect } from "@/components/selects/PhotoSelect";
 import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
 import { createCouponSchema } from "@/configs/schema";
+import { useAuthStore } from "@/stores/auth.store";
 import {
   ActionIcon,
   Button,
@@ -133,6 +134,8 @@ export function CouponForm({
   initialValues,
   handleSubmit,
 }: CouponFormProps) {
+  const user = useAuthStore((state) => state.user);
+
   const form = useForm<CreateCouponRequest>({
     initialValues: initialValues ?? {
       code: "",
@@ -146,7 +149,7 @@ export function CouponForm({
       remark: "",
       category: "E-TICKET",
       couponType: "EMONEY",
-      outletType: "PREMIER",
+      outletType: user?.outletType,
     },
     validate: zodResolver(createCouponSchema),
   });
@@ -213,6 +216,19 @@ export function CouponForm({
           placeholder="Enter Category"
           {...form.getInputProps("category")}
         />
+
+        {!user?.outletType ? (
+          <Select
+            label="Outlet Type"
+            placeholder="Pick one"
+            data={[
+              { value: "PREMIER", label: "PREMIER" },
+              { value: "GNG", label: "GNG" },
+              { value: "CAPITAL", label: "CAPITAL" },
+            ]}
+            {...form.getInputProps("outletType")}
+          />
+        ) : null}
         <Select
           label="Coupon Type"
           placeholder="Pick one"
@@ -222,17 +238,6 @@ export function CouponForm({
           ]}
           {...form.getInputProps("couponType")}
         />
-        <Select
-          label="Outlet Type"
-          placeholder="Pick one"
-          data={[
-            { value: "PREMIER", label: "PREMIER" },
-            { value: "GNG", label: "GNG" },
-            { value: "CAPITAL", label: "CAPITAL" },
-          ]}
-          {...form.getInputProps("outletType")}
-        />
-
         <Group justify="flex-end">
           <Button
             loading={isPending}
