@@ -1,13 +1,11 @@
 import { useAuthStore } from "@/stores/auth.store";
 import {
-  Anchor,
   Button,
   Center,
   Flex,
   Paper,
   PasswordInput,
   Stack,
-  Text,
   TextInput,
   Title,
 } from "@mantine/core";
