@@ -25,7 +25,7 @@ const columns: MRT_ColumnDef<User, unknown>[] = [
   {
     accessorKey: "email",
     header: "Email",
-    size: 150,
+    size: 200,
   },
   {
     accessorKey: "outletType",
@@ -35,7 +35,7 @@ const columns: MRT_ColumnDef<User, unknown>[] = [
   {
     accessorKey: "createdAt",
     header: "Created At",
-    size: 150,
+    size: 200,
     Cell: ({ row }) => {
       return row.original.createdAt !== "-"
         ? formatDateTimeZone(row.original.createdAt)
