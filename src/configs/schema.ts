@@ -32,5 +32,5 @@ export const updateUserSchema = z.object({
     .email()
     .refine((value) => value.length, { message: "Email is required" }),
   outletType: z.string(),
-  role: z.enum(["MODERATOR", "ADMIN"], { message: "Role is required" }),
+  role: z.enum(["SCANNER", "ADMIN"], { message: "Role is required" }),
 });
