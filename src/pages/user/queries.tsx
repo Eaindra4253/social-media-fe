@@ -34,8 +34,6 @@ export function useGetUsers() {
   const params = {
     page: getParam("page") ?? 1,
     limit: getParam("limit") ?? 10,
-    search: getParam("search") ?? undefined,
-    outletType: getParam("outletType") ?? undefined,
   };
 
   return useQuery({

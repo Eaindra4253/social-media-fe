@@ -7,8 +7,10 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 export function useGetPhotos() {
   const { getParam } = useParamsHelper();
-
+  
   const params = {
+    page: getParam("page") ?? 1,
+    limit: getParam("limit") ?? 10,
     type: getParam("type") ?? undefined,
   };
 

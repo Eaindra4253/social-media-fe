@@ -1,4 +1,3 @@
-import { CouponStatusFilter, OutletTypeFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
 import { Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
@@ -98,13 +97,11 @@ export function UserList() {
       <Group justify="space-between" align="center">
         <Title order={3}>USER LIST</Title>
         <Flex gap="sm">
-          <OutletTypeFilter />
-          <CouponStatusFilter />
           <UserCreateForm />
         </Flex>
       </Group>
       <DataTable<User>
-        data={data ?? []}
+        data={data?.data ?? []}
         columns={columns}
         isLoading={isFetching}
         columnPinning={{

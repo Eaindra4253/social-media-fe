@@ -192,10 +192,10 @@ export function UserForm({
       password: "",
       email: "",
       outletType: "GNG",
-      role: "SCANNER",
+      role: "ADMIN",
       isActive: true,
     },
-    validate: zodResolver(initialValues ? createUserSchema : updateUserSchema),
+    validate: zodResolver(initialValues ? updateUserSchema : createUserSchema),
   });
 
   return (
@@ -237,14 +237,6 @@ export function UserForm({
             {
               label: "Scanner",
               value: "SCANNER",
-            },
-            {
-              label: "PremierScanner",
-              value: "PREMIERSCANNER",
-            },
-            {
-              label: "PremierAdmin",
-              value: "PREMIERADMIN",
             },
           ]}
           {...form.getInputProps("role")}

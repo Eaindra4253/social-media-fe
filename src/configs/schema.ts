@@ -16,7 +16,7 @@ export const createCouponSchema = z.object({
 
 export const createUserSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
-  password: z.string().min(1, { message: "Password is required" }),
+  password: z.string().refine((val) => val.length > 0, "Password is required"),
   email: z.string().email({ message: "Invalid email address" }),
   outletType: z.string(),
   role: z.string().min(1, { message: "Role is required" }),
