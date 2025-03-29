@@ -130,13 +130,4 @@ declare global {
     createdAt: string;
     updatedAt: string;
   }
-
-  interface CreateUserRequest {
-    username: string;
-    password: string;
-    email: string;
-    outletType: "GNG" | "CAPITAL" | "PREMIER";
-    role: "SCANNER" | "ADMIN";
-    isActive: boolean;
-  }
 }

@@ -21,6 +21,7 @@ import {
 import { useCreateUser, useUpdateUser } from "./queries";
 import { ERROR_COLOR, SUCCESS_COLOR, WARNING_COLOR } from "@/configs/constants";
 import { modals } from "@mantine/modals";
+import { z } from "zod";
 
 export function UserCreateForm() {
   const [opened, { close, open }] = useDisclosure();
@@ -35,7 +36,7 @@ export function UserCreateForm() {
         <UserForm
           isPending={isPending}
           handleSubmit={(values) =>
-            mutateAsync(values as unknown as Record<string, unknown>).then(
+            mutateAsync(values).then(
               close
             )
           }
@@ -68,9 +69,11 @@ export function UserUpdateForm({ data }: { data: User }) {
             role: data.role,
             password: data.password,
             outletType: data.outletType,
-            isActive: true, // Add the missing isActive property
+            isActive: true, 
           }}
-          handleSubmit={(values) => mutateAsync(values).then(close)}
+          handleSubmit={(values) =>
+            mutateAsync(values).then(close)
+          }
         />
       </Modal>
     </>
@@ -177,8 +180,8 @@ export function UserDisableForm({ data }: { data: User }) {
 
 type UserFormProps = {
   isPending: boolean;
-  initialValues?: CreateUserRequest;
-  handleSubmit: (values: CreateUserRequest) => Promise<void>;
+  initialValues?: z.infer<typeof createUserSchema>
+  handleSubmit: (values: z.infer<typeof createUserSchema>) => Promise<void>;
 };
 
 export function UserForm({
@@ -186,7 +189,7 @@ export function UserForm({
   initialValues,
   handleSubmit,
 }: UserFormProps) {
-  const form = useForm<CreateUserRequest>({
+  const form = useForm<z.infer<typeof createUserSchema>>({
     initialValues: initialValues ?? {
       username: "",
       password: "",

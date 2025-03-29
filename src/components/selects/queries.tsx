@@ -11,6 +11,6 @@ export function useGetPhotos(type?: "LOGO" | "THUMBNAIL" | "IMAGE_URL") {
     queryKey: photoKeys.list(JSON.stringify(params)),
     queryFn: () => getPhotos(params),
     select: (data) =>
-      data.data.map((item) => ({ label: item.filename, value: item.url })),
+      data.data.data.map((item) => ({ label: item.filename, value: item.url })),
   });
 }
