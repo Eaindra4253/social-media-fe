@@ -184,8 +184,8 @@ export function CouponForm({
           {...form.getInputProps("remark")}
         />
         <NumberInput
-          label="Point Amount"
-          placeholder="Enter Point Amount"
+          label="Amount"
+          placeholder="Enter Amount"
           {...form.getInputProps("amount")}
         />
         <PhotoSelect

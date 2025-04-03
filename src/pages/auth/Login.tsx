@@ -1,13 +1,11 @@
 import { useAuthStore } from "@/stores/auth.store";
 import {
-  Anchor,
   Button,
   Center,
   Flex,
   Paper,
   PasswordInput,
   Stack,
-  Text,
   TextInput,
   Title,
 } from "@mantine/core";
@@ -67,14 +65,6 @@ export default function Login() {
               placeholder="Password"
               {...form.getInputProps("password")}
             />
-            <Flex align="center" gap={4} mb="xs">
-              <Text size="xs" c="dimmed">
-                Don't have an account?
-              </Text>
-              <Anchor size="xs" fw={500}>
-                Request Now
-              </Anchor>
-            </Flex>
             <Button type="submit" loading={isPending}>
               Login
             </Button>

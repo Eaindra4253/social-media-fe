@@ -9,6 +9,7 @@ import { QrScanner } from "@/pages/qr-scanner/QrScanner";
 import { ScanErrorPage } from "@/pages/qr-scanner/ScanErrorPage";
 import { SuccessPage } from "@/pages/qr-scanner/SuccessPage";
 import { TransactionList } from "@/pages/transactions/List";
+import { UserList } from "@/pages/user/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
 
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "photos",
         element: <PhotoList />,
+      },
+      {
+        path: "users",
+        element: <UserList />,
       },
     ],
   },

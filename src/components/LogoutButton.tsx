@@ -1,5 +1,5 @@
 import { useAuthStore } from "@/stores/auth.store";
-import { ActionIcon } from "@mantine/core";
+import { Menu } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { IconPower } from "@tabler/icons-react";
 
@@ -19,8 +19,12 @@ export function LogoutButton() {
   };
 
   return (
-    <ActionIcon variant="outline" onClick={handleLogout}>
-      <IconPower size={18} />
-    </ActionIcon>
+    <Menu.Item
+    leftSection={<IconPower size={20}  />}
+    onClick={handleLogout}
+    c="red.6"
+  >
+    Logout
+  </Menu.Item>
   );
 }

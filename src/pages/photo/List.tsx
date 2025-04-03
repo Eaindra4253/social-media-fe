@@ -89,9 +89,10 @@ export function PhotoList() {
         </Group>
       </Group>
       <DataTable<Image>
-        data={data ?? []}
+        data={data?.data ?? []}
         columns={columns}
         isLoading={isFetching}
+        total={data?.totalCount ?? 0}
       />
     </Stack>
   );

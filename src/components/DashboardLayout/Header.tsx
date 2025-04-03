@@ -1,7 +1,7 @@
 import { ThemeButton } from "@/components/ThemeButton";
 import { AppShell, Box, Burger, Flex, Group } from "@mantine/core";
-import { LogoutButton } from "../LogoutButton";
 import { useLayoutStore } from "./layout.store";
+import { UserDropdownMenu } from "../UserDropdownMenu";
 
 export function Header({ title }: { title?: React.ReactNode }) {
   const { opened, toggleSidebar } = useLayoutStore();
@@ -18,7 +18,7 @@ export function Header({ title }: { title?: React.ReactNode }) {
           <Box>{title}</Box>
           <Group>
             <ThemeButton />
-            <LogoutButton />
+            <UserDropdownMenu />
           </Group>
         </Flex>
       </Flex>

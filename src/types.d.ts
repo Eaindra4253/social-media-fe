@@ -21,13 +21,16 @@ declare global {
   };
 
   type User = {
-    id: string;
+    id: number;
     username: string;
+    email: string;
+    password: string;
     phoneNumber: string;
+    role: "ADMIN" | "SCANNER";
+    outletType: "GNG" | "CAPITAL" | "PREMIER";
     createdAt: string;
     updatedAt: string;
-    outletType: string;
-    role: "ADMIN" | "SCANNER";
+    isActive: boolean;
   };
 
   type QrScanResponse = {
