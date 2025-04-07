@@ -42,6 +42,7 @@ declare global {
   };
 
   type DecryptedQrScan = {
+    name: string;
     purchaseId: string;
     amount: number;
     outletType: string;
