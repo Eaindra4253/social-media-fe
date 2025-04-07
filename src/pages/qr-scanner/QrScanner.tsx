@@ -101,6 +101,17 @@ export function QrScanner() {
             <Grid gutter="sm">
               <Grid.Col span={12}>
                 <Group justify="space-between">
+                  <Text size="sm">Total Used:</Text>
+                  <Text size="sm">
+                    {decryptedData.totalUsed ? decryptedData.totalUsed : "-"}
+                  </Text>
+                </Group>
+              </Grid.Col>
+            </Grid>
+
+            <Grid gutter="sm">
+              <Grid.Col span={12}>
+                <Group justify="space-between">
                   <Text size="sm">Name:</Text>
                   <Text size="sm">
                     {decryptedData.name ? decryptedData.name : "-"}

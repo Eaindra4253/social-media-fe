@@ -47,6 +47,7 @@ declare global {
     amount: number;
     outletType: string;
     apiKey: string;
+    totalUsed: number;
   };
 
   interface PurchaseReport {
