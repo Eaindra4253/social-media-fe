@@ -26,7 +26,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "coupon.name",
     header: "Coupon Name",
-    size: 200,
+    size: 150,
   },
   {
     accessorKey: "coupon.amount",
@@ -90,6 +90,38 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     size: 300,
     Cell: ({ row }) => {
       return row.original.transactions?.id ?? "-";
+    },
+  },
+  {
+    accessorKey: "axTransactionId",
+    header: "AX Transaction Id",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.transactions?.axTransactionId ?? "-";
+    },
+  },
+  {
+    accessorKey: "receiptNo",
+    header: "Receipt No",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.transactions?.receiptNo ?? "-";
+    },
+  },
+  {
+    accessorKey: "receiptAmount",
+    header: "Receipt Amount",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.transactions?.receiptAmount ?? "-";
+    },
+  },
+  {
+    accessorKey: "usedCouponAmount",
+    header: "Used Coupon Amount",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.transactions?.couponAmount ?? "-";
     },
   },
   {

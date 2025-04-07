@@ -70,6 +70,12 @@ declare global {
     status: string;
     createdAt: string;
     updatedAt: string;
+    axTransactionId?: string;
+    staffId?: string;
+    storeId?: string;
+    receiptNo?: string;
+    receiptAmount?: number;
+    couponAmount?: number;
     purchaseId: number;
   }
 
