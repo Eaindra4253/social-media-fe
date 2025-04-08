@@ -81,10 +81,8 @@ export function QrScanner() {
           onScan={handleScan}
           styles={{
             container: {
-              width: "100%",
-              height: "100%",
-              maxHeight: "400px",
-              maxWidth: "400px",
+              height: "400px",
+              width: "400px",
             },
           }}
         />
