@@ -1,19 +1,19 @@
 import { decrypt } from "@/utils/crypto";
 import {
+  Button,
   Center,
   Container,
+  Drawer,
+  Grid,
+  Group,
   Loader,
   Stack,
   Text,
   Title,
-  Button,
-  Group,
-  Drawer,
-  Grid,
 } from "@mantine/core";
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner";
+import { useState } from "react";
 import { useScanQrCode } from "./quries";
-import { useState, useEffect } from "react";
 
 export function QrScanner() {
   const { mutate, status } = useScanQrCode();
@@ -22,13 +22,6 @@ export function QrScanner() {
   const [decryptedData, setDecryptedData] = useState<DecryptedQrScan | null>(
     null
   );
-  const [cameraError, setCameraError] = useState(false);
-
-  useEffect(() => {
-    if (cameraError) {
-      setScannedData(null);
-    }
-  }, [cameraError]);
 
   const handleScan = (data: IDetectedBarcode[]) => {
     const scannedValue = data[0].rawValue;
@@ -82,32 +75,19 @@ export function QrScanner() {
             <Loader color="blue" size="md" />
           </Center>
         ) : null}
-        {cameraError ? (
-          <Stack align="center" justify="center" gap="sm">
-            <Text c="red" size="sm" ta="center">
-              Camera access is not allowed or permission is denied.
-            </Text>
-            <Text c="red" size="sm" ta="center">
-              Please check your camera settings and try again.
-            </Text>
-          </Stack>
-        ) : (
-          <Scanner
-            key={opened ? "scanner-open" : "scanner-closed"}
-            onScan={handleScan}
-            onError={() => {
-              setCameraError(true);
-            }}
-            styles={{
-              container: {
-                width: "100%",
-                height: "100%",
-                maxHeight: "400px",
-                maxWidth: "400px",
-              },
-            }}
-          />
-        )}
+
+        <Scanner
+          key={opened ? "scanner-open" : "scanner-closed"}
+          onScan={handleScan}
+          styles={{
+            container: {
+              width: "100%",
+              height: "100%",
+              maxHeight: "400px",
+              maxWidth: "400px",
+            },
+          }}
+        />
       </Stack>
       <Drawer
         opened={opened}
