@@ -1,6 +1,5 @@
 import { decrypt } from "@/utils/crypto";
 import {
-  Card,
   Center,
   Container,
   Loader,
@@ -14,7 +13,7 @@ import {
 } from "@mantine/core";
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner";
 import { useScanQrCode } from "./quries";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function QrScanner() {
   const { mutate, status } = useScanQrCode();
@@ -23,6 +22,13 @@ export function QrScanner() {
   const [decryptedData, setDecryptedData] = useState<DecryptedQrScan | null>(
     null
   );
+  const [cameraError, setCameraError] = useState(false);
+
+  useEffect(() => {
+    if (cameraError) {
+      setScannedData(null);
+    }
+  }, [cameraError]);
 
   const handleScan = (data: IDetectedBarcode[]) => {
     const scannedValue = data[0].rawValue;
@@ -71,22 +77,37 @@ export function QrScanner() {
         Align the QR code within the frame to scan.
       </Text>
       <Stack align="center" justify="center" gap="lg">
-        <Card
-          shadow="lg"
-          withBorder
-          w={{ base: "100%", sm: "90%", md: "60%", lg: "40%" }}
-        >
-          {status === "pending" ? (
-            <Center maw="100%" h={100}>
-              <Loader color="blue" size="md" />
-            </Center>
-          ) : (
-            <Scanner
-              key={opened ? "scanner-open" : "scanner-closed"}
-              onScan={handleScan}
-            />
-          )}
-        </Card>
+        {status === "pending" ? (
+          <Center maw="100%" h={100}>
+            <Loader color="blue" size="md" />
+          </Center>
+        ) : null}
+        {cameraError ? (
+          <Stack align="center" justify="center" gap="sm">
+            <Text c="red" size="sm" ta="center">
+              Camera access is not allowed or permission is denied.
+            </Text>
+            <Text c="red" size="sm" ta="center">
+              Please check your camera settings and try again.
+            </Text>
+          </Stack>
+        ) : (
+          <Scanner
+            key={opened ? "scanner-open" : "scanner-closed"}
+            onScan={handleScan}
+            onError={() => {
+              setCameraError(true);
+            }}
+            styles={{
+              container: {
+                width: "100%",
+                height: "100%",
+                maxHeight: "400px",
+                maxWidth: "400px",
+              },
+            }}
+          />
+        )}
       </Stack>
       <Drawer
         opened={opened}
@@ -142,7 +163,7 @@ export function QrScanner() {
               </Grid.Col>
             </Grid>
 
-            <Group justify="center" mt={80}>
+            <Group justify="center" mt={60}>
               <Button variant="outline" color="gray" onClick={handleCancel}>
                 Cancel
               </Button>
