@@ -97,6 +97,7 @@ declare global {
     updatedAt: string;
     validDays: number;
     isActive: boolean;
+    purchases: [];
   }
 
   interface GngReport {

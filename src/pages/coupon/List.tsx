@@ -15,6 +15,13 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     size: 240,
   },
   {
+    accessorKey: "purchases",
+    header: "Total Purchase",
+    Cell: ({ row }) => {
+      return row.original.purchases.length;
+    },
+  },
+  {
     accessorKey: "amount",
     header: "Amount",
     size: 100,
