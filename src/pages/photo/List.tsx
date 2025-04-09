@@ -8,6 +8,7 @@ import { IconUpload } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { ImageUploadButton } from "./ImageUploadButton";
 import { useGetPhotos, useUploadPhoto } from "./queries";
+import { PhotoDeleteForm } from "./Form";
 
 export function PhotoList() {
   const { data, isFetching } = useGetPhotos();
@@ -53,18 +54,18 @@ export function PhotoList() {
           : "-";
       },
     },
-    // {
-    //   accessorKey: "_id",
-    //   header: "Actions",
-    //   size: 100,
-    //   Cell: ({ row }) => {
-    //     return (
-    //       <Flex gap="xs">
-    //         <PhotoDeleteForm id={row.original.id} />
-    //       </Flex>
-    //     );
-    //   },
-    // },
+    {
+      accessorKey: "_id",
+      header: "Actions",
+      size: 100,
+      Cell: ({ row }) => {
+        return (
+          <Flex gap="xs">
+            <PhotoDeleteForm id={row.original.id} />
+          </Flex>
+        );
+      },
+    },
   ];
 
   return (
