@@ -18,7 +18,11 @@ export const createUserSchema = z.object({
   username: z.string().min(1, { message: "Username is required" }),
   password: z.string().refine((val) => val.length > 0, "Password is required"),
   email: z.string().email({ message: "Invalid email address" }),
-  outletType: z.string(),
+  outletType: z
+    .string()
+    .nullable()
+    .transform((val) => val ?? "")
+    .refine((val) => val.length > 0, { message: "Outlet Type is required" }),
   role: z.string().min(1, { message: "Role is required" }),
   isActive: z.boolean(),
 });
@@ -31,6 +35,10 @@ export const updateUserSchema = z.object({
     .string()
     .email()
     .refine((value) => value.length, { message: "Email is required" }),
-  outletType: z.string(),
+  outletType: z
+    .string()
+    .nullable()
+    .transform((val) => val ?? "")
+    .refine((val) => val.length > 0, { message: "Outlet Type is required" }),
   role: z.enum(["SCANNER", "ADMIN"], { message: "Role is required" }),
 });

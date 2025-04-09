@@ -34,12 +34,9 @@ export function UserCreateForm() {
       </Button>
       <Modal opened={opened} onClose={close} title="Add User" size="lg">
         <UserForm
+          mode="create"
           isPending={isPending}
-          handleSubmit={(values) =>
-            mutateAsync(values).then(
-              close
-            )
-          }
+          handleSubmit={(values) => mutateAsync(values).then(close)}
         />
       </Modal>
     </>
@@ -67,13 +64,10 @@ export function UserUpdateForm({ data }: { data: User }) {
             email: data.email,
             username: data.username,
             role: data.role,
-            password: data.password,
             outletType: data.outletType,
-            isActive: true, 
           }}
-          handleSubmit={(values) =>
-            mutateAsync(values).then(close)
-          }
+          handleSubmit={(values) => mutateAsync(values).then(close)}
+          mode="update"
         />
       </Modal>
     </>
@@ -178,32 +172,43 @@ export function UserDisableForm({ data }: { data: User }) {
   );
 }
 
-type UserFormProps = {
-  isPending: boolean;
-  initialValues?: z.infer<typeof createUserSchema>
-  handleSubmit: (values: z.infer<typeof createUserSchema>) => Promise<void>;
-};
+type UserFormProps =
+  | {
+      mode: "create";
+      isPending: boolean;
+      initialValues?: z.infer<typeof createUserSchema>;
+      handleSubmit: (values: z.infer<typeof createUserSchema>) => Promise<void>;
+    }
+  | {
+      mode: "update";
+      isPending: boolean;
+      initialValues: z.infer<typeof updateUserSchema>;
+      handleSubmit: (values: z.infer<typeof updateUserSchema>) => Promise<void>;
+    };
 
 export function UserForm({
   isPending,
   initialValues,
   handleSubmit,
+  mode,
 }: UserFormProps) {
-  const form = useForm<z.infer<typeof createUserSchema>>({
+  const schema = mode === "create" ? createUserSchema : updateUserSchema;
+
+  const form = useForm<z.infer<typeof schema>>({
     initialValues: initialValues ?? {
       username: "",
       password: "",
       email: "",
-      outletType: "GNG",
-      role: "ADMIN",
+      outletType: "",
+      role: "",
       isActive: true,
     },
-    validate: zodResolver(initialValues ? updateUserSchema : createUserSchema),
+    validate: zodResolver(schema),
   });
 
   return (
     <form
-      onSubmit={form.onSubmit((values) =>
+      onSubmit={form.onSubmit((values: any) =>
         handleSubmit(values).then(() => form.reset())
       )}
     >
@@ -213,7 +218,7 @@ export function UserForm({
           placeholder="Enter Username"
           {...form.getInputProps("username")}
         />
-        {!initialValues && (
+        {mode === "create" && (
           <PasswordInput
             autoComplete="new-password"
             label="Password"
@@ -269,10 +274,10 @@ export function UserForm({
           <Button
             loading={isPending}
             disabled={isPending}
-            leftSection={initialValues ? <IconEdit /> : <IconPlus />}
+            leftSection={mode === "create" ? <IconPlus /> : <IconEdit />}
             type="submit"
           >
-            {initialValues ? "Update" : "Add"}
+            {mode === "create" ? "Add" : "Update"}
           </Button>
         </Group>
       </Stack>
