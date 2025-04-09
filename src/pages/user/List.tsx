@@ -90,7 +90,7 @@ const columns: MRT_ColumnDef<User, unknown>[] = [
 ];
 
 export function UserList() {
-  const { data, isFetching } = useGetUsers();
+  const { data, isLoading } = useGetUsers();
 
   return (
     <Stack>
@@ -103,7 +103,7 @@ export function UserList() {
       <DataTable<User>
         data={data?.data ?? []}
         columns={columns}
-        isLoading={isFetching}
+        isLoading={isLoading}
         columnPinning={{
           right: ["_id"],
         }}

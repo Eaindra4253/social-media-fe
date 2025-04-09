@@ -170,7 +170,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
 ];
 
 export function CouponList() {
-  const { data, isFetching } = useGetCoupons();
+  const { data, isLoading } = useGetCoupons();
 
   return (
     <Stack>
@@ -186,7 +186,7 @@ export function CouponList() {
       <DataTable<Coupon>
         data={data?.data ?? []}
         columns={columns}
-        isLoading={isFetching}
+        isLoading={isLoading}
         columnPinning={{
           right: ["isActive", "_id"],
         }}

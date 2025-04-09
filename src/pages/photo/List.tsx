@@ -11,7 +11,7 @@ import { useGetPhotos, useUploadPhoto } from "./queries";
 import { PhotoDeleteForm } from "./Form";
 
 export function PhotoList() {
-  const { data, isFetching } = useGetPhotos();
+  const { data, isLoading } = useGetPhotos();
   const { mutate: uploadPhoto } = useUploadPhoto();
   const [opened, { open, close }] = useDisclosure(false);
 
@@ -92,7 +92,7 @@ export function PhotoList() {
       <DataTable<Image>
         data={data?.data ?? []}
         columns={columns}
-        isLoading={isFetching}
+        isLoading={isLoading}
         total={data?.totalCount ?? 0}
       />
     </Stack>
