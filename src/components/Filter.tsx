@@ -102,6 +102,10 @@ export function ImageTypeFilter() {
           value: "THUMBNAIL",
         },
         {
+          label: "BANNER",
+          value: "BANNER",
+        },
+        {
           label: "IMAGE_URL",
           value: "IMAGE_URL",
         },
@@ -111,7 +115,7 @@ export function ImageTypeFilter() {
         },
       ]}
     />
-  )
+  );
 }
 
 export function OutletTypeFilter(props: OutletTypeSelectProps) {

@@ -84,6 +84,7 @@ export function ImageUploadButton({
           data={[
             { value: "THUMBNAIL", label: "THUMBNAIL" },
             { value: "IMAGE_URL", label: "IMAGE_URL" },
+            { value: "BANNER", label: "BANNER" },
             { value: "LOGO", label: "LOGO" },
           ]}
           value={selectedType}
