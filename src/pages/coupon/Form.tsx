@@ -171,6 +171,11 @@ export function CouponForm({
           placeholder="Enter Name"
           {...form.getInputProps("name")}
         />
+        <TextInput
+          label="Category"
+          placeholder="Enter Category"
+          {...form.getInputProps("category")}
+        />
         <Textarea
           label="Description"
           placeholder="Enter Description"
@@ -187,6 +192,15 @@ export function CouponForm({
           label="Amount"
           placeholder="Enter Amount"
           {...form.getInputProps("amount")}
+        />
+        <Select
+          label="Coupon Type"
+          placeholder="Pick one"
+          data={[
+            { value: "EMONEY", label: "EMONEY" },
+            { value: "POINT", label: "POINT" },
+          ]}
+          {...form.getInputProps("couponType")}
         />
         <PhotoSelect
           type="THUMBNAIL"
@@ -211,12 +225,6 @@ export function CouponForm({
           placeholder="Enter Valid Days"
           {...form.getInputProps("validDays")}
         />
-        <TextInput
-          label="Category"
-          placeholder="Enter Category"
-          {...form.getInputProps("category")}
-        />
-
         {!user?.outletType ? (
           <Select
             label="Outlet Type"
@@ -229,15 +237,7 @@ export function CouponForm({
             {...form.getInputProps("outletType")}
           />
         ) : null}
-        <Select
-          label="Coupon Type"
-          placeholder="Pick one"
-          data={[
-            { value: "EMONEY", label: "EMONEY" },
-            { value: "POINT", label: "POINT" },
-          ]}
-          {...form.getInputProps("couponType")}
-        />
+
         <Group justify="flex-end">
           <Button
             loading={isPending}
