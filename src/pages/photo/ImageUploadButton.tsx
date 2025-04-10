@@ -72,6 +72,7 @@ export function ImageUploadButton({
     files.forEach((file) => formData.append("files", file.file));
     formData.append("type", selectedType as string);
     uploadPhoto(formData);
+    setFiles([]); 
     onClose();
   };
 
