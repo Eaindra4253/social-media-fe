@@ -64,7 +64,7 @@ export function QrScanner() {
   return (
     <Container size="100%" p="md">
       <Title order={2} size="h2" ta="center" mb="sm">
-        Coupon Scan
+      CTZPay Coupon Scan
       </Title>
       <Text c="dimmed" size="sm" ta="center" mb="lg">
         Align the QR code within the frame to scan.
