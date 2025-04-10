@@ -21,13 +21,16 @@ declare global {
   };
 
   type User = {
-    id: string;
+    id: number;
     username: string;
+    email: string;
+    password: string;
     phoneNumber: string;
+    role: "ADMIN" | "SCANNER";
+    outletType: "GNG" | "CAPITAL" | "PREMIER";
     createdAt: string;
     updatedAt: string;
-    outletType: string;
-    role: "ADMIN" | "SCANNER";
+    isActive: boolean;
   };
 
   type QrScanResponse = {
@@ -39,10 +42,12 @@ declare global {
   };
 
   type DecryptedQrScan = {
+    name: string;
     purchaseId: string;
     amount: number;
     outletType: string;
     apiKey: string;
+    totalUsed: number;
   };
 
   interface PurchaseReport {
@@ -66,6 +71,12 @@ declare global {
     status: string;
     createdAt: string;
     updatedAt: string;
+    axTransactionId?: string;
+    staffId?: string;
+    storeId?: string;
+    receiptNo?: string;
+    receiptAmount?: number;
+    couponAmount?: number;
     purchaseId: number;
   }
 
@@ -86,6 +97,7 @@ declare global {
     updatedAt: string;
     validDays: number;
     isActive: boolean;
+    purchases: [];
   }
 
   interface GngReport {
@@ -115,7 +127,7 @@ declare global {
     logo: string;
     category: string;
     couponType: string;
-    outletType: string;
+    outletType?: string;
     validDays: number;
   }
 
@@ -124,5 +136,7 @@ declare global {
     url: string;
     filename: string;
     type: string;
+    createdAt: string;
+    updatedAt: string;
   }
 }

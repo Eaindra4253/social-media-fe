@@ -14,16 +14,6 @@ import { usePurchaseReports } from "./quries";
 
 const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
-    accessorKey: "usedDate",
-    header: "Used Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.usedDate
-        ? formatDateTimeZone(row.original.usedDate)
-        : "-";
-    },
-  },
-  {
     accessorKey: "createdAt",
     header: "Purchase Date",
     size: 200,
@@ -34,14 +24,9 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     },
   },
   {
-    accessorKey: "expiredAt",
-    header: "Expire Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.expiredAt
-        ? formatDateTimeZone(row.original.expiredAt)
-        : "-";
-    },
+    accessorKey: "coupon.name",
+    header: "Coupon Name",
+    size: 150,
   },
   {
     accessorKey: "coupon.amount",
@@ -56,11 +41,6 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "coupon.couponType",
     header: "Coupon Type",
-    size: 100,
-  },
-  {
-    accessorKey: "coupon.outletType",
-    header: "Outlet Type",
     size: 100,
   },
   {
@@ -112,6 +92,58 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
       return row.original.transactions?.id ?? "-";
     },
   },
+  {
+    accessorKey: "axTransactionId",
+    header: "AX Transaction Id",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.transactions?.axTransactionId ?? "-";
+    },
+  },
+  {
+    accessorKey: "receiptNo",
+    header: "Receipt No",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.transactions?.receiptNo ?? "-";
+    },
+  },
+  {
+    accessorKey: "receiptAmount",
+    header: "Receipt Amount",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.transactions?.receiptAmount ?? "-";
+    },
+  },
+  {
+    accessorKey: "usedCouponAmount",
+    header: "Used Coupon Amount",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.transactions?.couponAmount ?? "-";
+    },
+  },
+  {
+    accessorKey: "usedDate",
+    header: "Used Date",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.usedDate
+        ? formatDateTimeZone(row.original.usedDate)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "expiredAt",
+    header: "Expire Date",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.expiredAt
+        ? formatDateTimeZone(row.original.expiredAt)
+        : "-";
+    },
+  },
 ];
 
 export function TransactionList() {
@@ -132,7 +164,7 @@ export function TransactionList() {
         columns={columns}
         isLoading={isLoading}
         columnPinning={{
-          right: ["user.phoneNumber", "createdAt",  "expiredAt", "status",],
+          right: ["user.phoneNumber", "createdAt", "status"],
         }}
         total={data?.totalCount}
       />

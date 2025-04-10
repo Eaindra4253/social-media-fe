@@ -1,61 +1,100 @@
-import {
-  Box,
-  Button,
-  Card,
-  FileButton,
-  Flex,
-  Image,
-  Stack,
-  Title,
-} from "@mantine/core";
-import { useState } from "react";
-import { useGetPhotos } from "./queries";
+import { ImageTypeFilter } from "@/components/Filter";
+import { ImagePreviewButton } from "@/components/ImagePreviewButton";
+import { DataTable } from "@/components/table/DataTable";
+import { formatDateTimeZone } from "@/utils/date";
+import { Button, Flex, Group, Stack, Title } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+import { IconUpload } from "@tabler/icons-react";
+import { MRT_ColumnDef } from "mantine-react-table";
+import { ImageUploadButton } from "./ImageUploadButton";
+import { useGetPhotos, useUploadPhoto } from "./queries";
+import { PhotoDeleteForm } from "./Form";
 
 export function PhotoList() {
   const { data, isLoading } = useGetPhotos();
-  const [files, setFiles] = useState<File[]>([]);
+  const { mutate: uploadPhoto } = useUploadPhoto();
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const columns: MRT_ColumnDef<Image>[] = [
+    {
+      accessorKey: "url",
+      header: "Image",
+      size: 100,
+      Cell: ({ row }) =>
+        row.original.url ? (
+          <Flex align="center" justify="flex-start" gap="xs">
+            <ImagePreviewButton
+              imageUrl={`${import.meta.env.VITE_API_URL}/${row.original.url}`}
+              label={row.original.url}
+            />
+          </Flex>
+        ) : (
+          "-"
+        ),
+    },
+    { accessorKey: "type", header: "Type", size: 100 },
+    { accessorKey: "filename", header: "Filename", size: 100 },
+    {
+      accessorKey: "createdAt",
+      header: "Created At",
+      size: 150,
+      Cell: ({ row }) => {
+        return row.original.createdAt !== "-"
+          ? formatDateTimeZone(row.original.createdAt)
+          : "-";
+      },
+    },
+    {
+      accessorKey: "updatedAt",
+      header: "Updated At",
+      size: 150,
+      Cell: ({ row }) => {
+        return row.original.updatedAt !== "-"
+          ? formatDateTimeZone(row.original.updatedAt)
+          : "-";
+      },
+    },
+    {
+      accessorKey: "_id",
+      header: "Actions",
+      size: 100,
+      Cell: ({ row }) => {
+        return (
+          <Flex gap="xs">
+            <PhotoDeleteForm id={row.original.id} />
+          </Flex>
+        );
+      },
+    },
+  ];
 
   return (
     <Stack>
-      <Flex justify="space-between">
-        <Title order={3}>Photo List</Title>
-        <FileButton onChange={setFiles} accept="image/png,image/jpeg" multiple>
-          {(props) => <Button {...props}>Upload image</Button>}
-        </FileButton>
-      </Flex>
-      <Title order={3}>New Files</Title>
-      <Flex gap={10}>
-        {files.map((file) => (
-          <Card key={file.name} shadow="md" withBorder p="xs">
-            <Flex gap={10} align="center" justify="space-between">
-              <Image src={URL.createObjectURL(file)} alt={file.name} />
-            </Flex>
-          </Card>
-        ))}
-      </Flex>
-      <Title order={3}>Uploaded Files</Title>
-      {isLoading ? (
-        <div>Loading...</div>
-      ) : (
-        <Stack>
-          {data?.map((photo) => (
-            <Card key={photo.id} shadow="md" withBorder p="xs">
-              <Flex gap={10} align="center" justify="space-between">
-                <img
-                  width="100px"
-                  height="auto"
-                  src={`${import.meta.env.VITE_API_URL}/${photo.url}`}
-                  alt={photo.filename}
-                  key={photo.id}
-                />
-                <Box miw={200}>{photo.type}</Box>
-                <Box miw={200}>{photo.filename}</Box>
-                <Box miw={200}>{photo.url}</Box>
-              </Flex>
-            </Card>
-          ))}
-        </Stack>
-      )}
+      <Group justify="space-between">
+        <Title order={3}>PHOTO LIST</Title>
+        <ImageUploadButton
+          opened={opened}
+          onClose={close}
+          uploadPhoto={uploadPhoto}
+        />
+        <Group>
+          <ImageTypeFilter />
+          <Button
+            onClick={open}
+            leftSection={<IconUpload size={16} />}
+            radius="md"
+            size="xs"
+          >
+            Upload Image
+          </Button>
+        </Group>
+      </Group>
+      <DataTable<Image>
+        data={data?.data ?? []}
+        columns={columns}
+        isLoading={isLoading}
+        total={data?.totalCount ?? 0}
+      />
     </Stack>
   );
 }

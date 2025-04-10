@@ -1,42 +1,64 @@
 import { decrypt } from "@/utils/crypto";
 import {
-  Card,
+  Button,
   Center,
   Container,
+  Drawer,
+  Grid,
+  Group,
   Loader,
   Stack,
   Text,
   Title,
 } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
-import { IconAlertTriangle } from "@tabler/icons-react";
 import { IDetectedBarcode, Scanner } from "@yudiel/react-qr-scanner";
+import { useState } from "react";
 import { useScanQrCode } from "./quries";
 
 export function QrScanner() {
   const { mutate, status } = useScanQrCode();
+  const [opened, setOpened] = useState(false);
+  const [scannedData, setScannedData] = useState<string | null>(null);
+  const [decryptedData, setDecryptedData] = useState<DecryptedQrScan | null>(
+    null
+  );
 
   const handleScan = (data: IDetectedBarcode[]) => {
-    const scannedData = data[0].rawValue;
+    const scannedValue = data[0].rawValue;
+    setScannedData(scannedValue);
 
     const decrypted: DecryptedQrScan = decrypt(
-      scannedData,
+      scannedValue,
       import.meta.env.VITE_ENC_CODE
     );
 
-    mutate({
-      purchaseId: decrypted.purchaseId,
-      apiKey: decrypted.apiKey,
-    });
+    setDecryptedData(decrypted);
+
+    const { purchaseId, apiKey } = decrypted;
+
+    if (purchaseId && apiKey) {
+      setOpened(true);
+    }
   };
 
-  const handleError = () => {
-    notifications.show({
-      color: "red",
-      title: "Error",
-      icon: <IconAlertTriangle size={16} />,
-      message: "Scanning Failed",
-    });
+  const handleConfirm = () => {
+    if (scannedData) {
+      const decrypted: DecryptedQrScan = decrypt(
+        scannedData,
+        import.meta.env.VITE_ENC_CODE
+      );
+
+      const { purchaseId, apiKey } = decrypted;
+      mutate({
+        purchaseId: purchaseId,
+        apiKey: apiKey,
+      });
+    }
+    setOpened(false);
+  };
+
+  const handleCancel = () => {
+    setOpened(false);
   };
 
   return (
@@ -48,20 +70,75 @@ export function QrScanner() {
         Align the QR code within the frame to scan.
       </Text>
       <Stack align="center" justify="center" gap="lg">
-        <Card
-          shadow="lg"
-          withBorder
-          w={{ base: "100%", sm: "90%", md: "60%", lg: "40%" }}
-        >
-          {status === "pending" ? (
-            <Center maw="100%" h={100}>
-              <Loader color="blue" size="md" />
-            </Center>
-          ) : (
-            <Scanner onScan={handleScan} onError={handleError} />
-          )}
-        </Card>
+        {status === "pending" ? (
+          <Center maw="100%" h={100}>
+            <Loader color="blue" size="md" />
+          </Center>
+        ) : null}
+
+        <Scanner
+          key={opened ? "scanner-open" : "scanner-closed"}
+          onScan={handleScan}
+          styles={{
+            container: {
+              height: "400px",
+              width: "400px",
+            },
+          }}
+        />
       </Stack>
+      <Drawer
+        opened={opened}
+        onClose={handleCancel}
+        title="Are you sure want to submit?"
+        position="bottom"
+        size="xs"
+        closeButtonProps={{ style: { display: "none" } }}
+      >
+        {scannedData && decryptedData ? (
+          <Stack>
+            <Grid gutter="sm">
+              <Grid.Col span={12}>
+                <Group justify="space-between">
+                  <Text size="md">Total Used:</Text>
+                  <Text size="lg">
+                    {decryptedData.totalUsed ? decryptedData.totalUsed : "-"}
+                  </Text>
+                </Group>
+              </Grid.Col>
+            </Grid>
+
+            <Grid gutter="sm">
+              <Grid.Col span={12}>
+                <Group justify="space-between">
+                  <Text size="mg">Name:</Text>
+                  <Text size="lg">
+                    {decryptedData.name ? decryptedData.name : "-"}
+                  </Text>
+                </Group>
+              </Grid.Col>
+            </Grid>
+
+            <Grid gutter="sm">
+              <Grid.Col span={12}>
+                <Group justify="space-between">
+                  <Text size="md">Outlet Type:</Text>
+                  <Text size="lg">
+                    {decryptedData.outletType ? decryptedData.outletType : "-"}
+                  </Text>
+                </Group>
+              </Grid.Col>
+            </Grid>
+
+            <Group justify="center" mt={60}>
+              <Button variant="outline" color="gray" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button onClick={handleConfirm}>Confirm</Button>
+            </Group>
+          </Stack>
+        ) : null}
+      </Drawer>
     </Container>
   );
 }

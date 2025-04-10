@@ -1,3 +1,4 @@
+import { CouponStatusFilter, CouponTypeFilter } from "@/components/Filter";
 import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
@@ -12,6 +13,13 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     accessorKey: "name",
     header: "Name",
     size: 240,
+  },
+  {
+    accessorKey: "purchases",
+    header: "Total Purchase",
+    Cell: ({ row }) => {
+      return row.original.purchases.length;
+    },
   },
   {
     accessorKey: "amount",
@@ -94,30 +102,28 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     accessorKey: "description",
     header: "Description",
     size: 200,
-    Cell: ({ row }) => <Text lineClamp={2}>{row.original.description}</Text>,
+    Cell: ({ row }) => (
+      <Text lineClamp={2} fz="xs" style={{ lineHeight: "1.9" }}>
+        {row.original.description}
+      </Text>
+    ),
   },
   {
     accessorKey: "remark",
     header: "Remark",
-    size: 150,
+    size: 200,
     Cell: ({ row }) => {
-      return <Text lineClamp={2}>{row.original.remark ?? "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    size: 150,
-    Cell: ({ row }) => {
-      return row.original.createdAt !== "-"
-        ? formatDateTimeZone(row.original.createdAt)
-        : "-";
+      return (
+        <Text lineClamp={2} fz="xs" style={{ lineHeight: "1.9" }}>
+          {row.original.remark ?? "-"}
+        </Text>
+      );
     },
   },
   {
     accessorKey: "updatedAt",
     header: "Updated At",
-    size: 150,
+    size: 200,
     Cell: ({ row }) => {
       return row.original.updatedAt !== "-"
         ? formatDateTimeZone(row.original.updatedAt)
@@ -135,8 +141,8 @@ const columns: MRT_ColumnDef<Coupon>[] = [
     header: "Is Active",
     size: 100,
     Cell: ({ row }) => {
-      const c = row.original.isActive === true ? "#00cc88" : "#ff3366";
-      const status = row.original.isActive === true ? "Active" : "Inactive";
+      const c = row.original.isActive ? "#00cc88" : "#ff3366";
+      const status = row.original.isActive ? "Active" : "Inactive";
 
       return (
         <Flex align="center" justify="flex-start" gap="xs">
@@ -171,6 +177,9 @@ export function CouponList() {
       <Group justify="space-between" align="center">
         <Title order={3}>COUPON LIST</Title>
         <Flex gap="sm">
+          <CouponTypeFilter />
+          {/* <OutletTypeFilter /> */}
+          <CouponStatusFilter />
           <CouponCreateForm />
         </Flex>
       </Group>

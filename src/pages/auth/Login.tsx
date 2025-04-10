@@ -1,22 +1,25 @@
 import { useAuthStore } from "@/stores/auth.store";
 import {
-  Anchor,
   Button,
   Center,
   Flex,
+  Image,
   Paper,
   PasswordInput,
   Stack,
-  Text,
   TextInput,
   Title,
+  useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Navigate } from "react-router";
 import { useLogin } from "./queries";
+import Logo from "@/assets/icon.png";
+import { IconEye, IconEyeOff} from "@tabler/icons-react";
 
 export default function Login() {
   const { user, login } = useAuthStore((state) => state);
+  const theme = useMantineTheme();
 
   const { isPending, mutateAsync } = useLogin();
 
@@ -45,42 +48,53 @@ export default function Login() {
   if (user?.role === "SCANNER") return <Navigate to="/qr-scanner" />;
 
   return (
-    <Center w="100vw" h="100vh">
-      <Paper p="xl" w={340} radius="xl">
-        <form onSubmit={form.onSubmit(onSubmit)}>
-          <Stack>
-            <Flex align="baseline" justify="center">
-              <Title c="primary">R</Title>
-              <Title order={3} ta="center">
-                eward&nbsp;
+    <Center w="100vw" h="100vh" bg="gray.0">
+      <Stack gap="xs" align="center">
+        <Image src={Logo} alt="CTZPay Logo" w={80} h={80} mx="auto" />
+        <Flex align="baseline" justify="center">
+          <Title c="primary">R</Title>
+          <Title order={4} ta="center">
+            eward&nbsp;
+          </Title>
+          <Title c="primary">S</Title>
+          <Title order={4} ta="center">
+            ystem
+          </Title>
+        </Flex>
+
+        <Paper p="xl" w={340} radius="md" shadow="md">
+          <form onSubmit={form.onSubmit(onSubmit)}>
+            <Stack gap="md">
+              <Title order={4} ta="left" c="primary">
+                Log in
               </Title>
-              <Title c="primary">S</Title>
-              <Title order={3} ta="center">
-                ystem
-              </Title>
-            </Flex>
-            <TextInput
-              placeholder="Username or Email"
-              {...form.getInputProps("username")}
-            />
-            <PasswordInput
-              placeholder="Password"
-              {...form.getInputProps("password")}
-            />
-            <Flex align="center" gap={4} mb="xs">
-              <Text size="xs" c="dimmed">
-                Don't have an account?
-              </Text>
-              <Anchor size="xs" fw={500}>
-                Request Now
-              </Anchor>
-            </Flex>
-            <Button type="submit" loading={isPending}>
-              Login
-            </Button>
-          </Stack>
-        </form>
-      </Paper>
+
+              <TextInput
+                label="Email or mobile number"
+                placeholder="Please enter username"
+                {...form.getInputProps("username")}
+              />
+
+              <PasswordInput
+                label="Password"
+                placeholder="Please enter PIN"
+                visibilityToggleIcon={({ reveal }) =>
+                  reveal ? (
+                    <IconEye color={theme.colors.primary[6]} />
+                  ) : (
+                    <IconEyeOff color={theme.colors.primary[6]} />
+                  )
+                }
+                {...form.getInputProps("password")}
+              />
+
+              <Button type="submit" fullWidth loading={isPending} mt={10}>
+                Log in
+              </Button>
+            </Stack>
+          </form>
+        </Paper>
+      </Stack>
     </Center>
   );
 }

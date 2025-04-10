@@ -51,29 +51,6 @@ const columns: MRT_ColumnDef<GngReport>[] = [
     accessorKey: "terminal",
     header: "Terminal",
   },
-  {
-    accessorKey: "usedDate",
-    header: "Used Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.usedDate !== "-"
-        ? formatDateTimeZone(row.original.usedDate)
-        : "-";
-    },
-  },
-  {
-    accessorKey: "ccnCouponAmount",
-    header: "CCN Coupon Amount",
-    size: 100,
-  },
-  {
-    accessorKey: "userPhone",
-    header: "User Phone",
-    size: 120,
-    Cell: ({ row }) => {
-      return row.original.userPhone?.replace("959", "09") ?? "-";
-    },
-  },
 ];
 
 export function ReportList() {

@@ -4,13 +4,16 @@ import {
   getPurchasedReports,
   getPurchasedReportsDownload,
 } from "@/services/report.service";
+import { useAuthStore } from "@/stores/auth.store";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function usePurchaseReports() {
   const { getParam } = useParamsHelper();
+  const user = useAuthStore((state) => state.user);
 
   const query = {
+    outletType: user?.outletType ?? undefined,
     page: getParam("page") ?? undefined,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,

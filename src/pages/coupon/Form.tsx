@@ -1,6 +1,7 @@
 import { PhotoSelect } from "@/components/selects/PhotoSelect";
 import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
 import { createCouponSchema } from "@/configs/schema";
+import { useAuthStore } from "@/stores/auth.store";
 import {
   ActionIcon,
   Button,
@@ -66,8 +67,8 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
 export function CouponDisableForm({ data }: { data: Coupon }) {
   const { mutateAsync } = useUpdateCoupon(data.id);
 
-  const isActive = data.isActive === true ? false : true;
-  const statusField = data.isActive === true ? "Inactive" : "Active";
+  const isActive = data.isActive ? false : true;
+  const statusField = data.isActive ? "Inactive" : "Active";
 
   const confirmDialog = () => {
     modals.openConfirmModal({
@@ -133,6 +134,8 @@ export function CouponForm({
   initialValues,
   handleSubmit,
 }: CouponFormProps) {
+  const user = useAuthStore((state) => state.user);
+
   const form = useForm<CreateCouponRequest>({
     initialValues: initialValues ?? {
       code: "",
@@ -144,9 +147,9 @@ export function CouponForm({
       logo: "",
       validDays: 1,
       remark: "",
-      category: "E-TICKET",
-      couponType: "EMONEY",
-      outletType: "PREMIER",
+      category: "",
+      couponType: "",
+      outletType: user?.outletType,
     },
     validate: zodResolver(createCouponSchema),
   });
@@ -168,6 +171,11 @@ export function CouponForm({
           placeholder="Enter Name"
           {...form.getInputProps("name")}
         />
+        <TextInput
+          label="Category"
+          placeholder="Enter Category"
+          {...form.getInputProps("category")}
+        />
         <Textarea
           label="Description"
           placeholder="Enter Description"
@@ -181,18 +189,27 @@ export function CouponForm({
           {...form.getInputProps("remark")}
         />
         <NumberInput
-          label="Point Amount"
-          placeholder="Enter Point Amount"
+          label="Amount"
+          placeholder="Enter Amount"
           {...form.getInputProps("amount")}
         />
+        <Select
+          label="Coupon Type"
+          placeholder="Pick one"
+          data={[
+            { value: "EMONEY", label: "EMONEY" },
+            { value: "POINT", label: "POINT" },
+          ]}
+          {...form.getInputProps("couponType")}
+        />
         <PhotoSelect
-          type="BANNER"
+          type="THUMBNAIL"
           label="Thumbnail URL"
           placeholder="Enter Thumbnail URL"
           {...form.getInputProps("thumbnail")}
         />
         <PhotoSelect
-          type="CAROUSEL"
+          type="IMAGE_URL"
           label="Image URL"
           placeholder="Enter Image URL"
           {...form.getInputProps("imageUrl")}
@@ -208,30 +225,18 @@ export function CouponForm({
           placeholder="Enter Valid Days"
           {...form.getInputProps("validDays")}
         />
-        <TextInput
-          label="Category"
-          placeholder="Enter Category"
-          {...form.getInputProps("category")}
-        />
-        <Select
-          label="Coupon Type"
-          placeholder="Pick one"
-          data={[
-            { value: "EMONEY", label: "EMONEY" },
-            { value: "E", label: "E" },
-          ]}
-          {...form.getInputProps("couponType")}
-        />
-        <Select
-          label="Outlet Type"
-          placeholder="Pick one"
-          data={[
-            { value: "PREMIER", label: "PREMIER" },
-            { value: "GNG", label: "GNG" },
-            { value: "CAPITAL", label: "CAPITAL" },
-          ]}
-          {...form.getInputProps("outletType")}
-        />
+        {!user?.outletType ? (
+          <Select
+            label="Outlet Type"
+            placeholder="Pick one"
+            data={[
+              { value: "PREMIER", label: "PREMIER" },
+              { value: "GNG", label: "GNG" },
+              { value: "CAPITAL", label: "CAPITAL" },
+            ]}
+            {...form.getInputProps("outletType")}
+          />
+        ) : null}
 
         <Group justify="flex-end">
           <Button

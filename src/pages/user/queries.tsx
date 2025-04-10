@@ -1,26 +1,21 @@
-import { couponKeys } from "@/configs/queryKeys";
+import { userKeys } from "@/configs/queryKeys";
 import { useParamsHelper } from "@/hooks/useParamHelper";
-import {
-  createCoupon,
-  getCoupons,
-  updateCoupon,
-} from "@/services/coupon.service";
-import { useAuthStore } from "@/stores/auth.store";
+import { createUser, getUsers, updateUser } from "@/services/user.service";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-export function useCreateCoupon() {
+export function useCreateUser() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: CreateCouponRequest) => createCoupon(data),
+    mutationFn: async (data: Record<string, unknown>) => createUser(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: couponKeys.all });
+      queryClient.invalidateQueries({ queryKey: userKeys.all });
       notifications.show({
         color: "green",
         title: "Success",
         icon: <IconCheck />,
-        message: "Coupon Created Successfully",
+        message: "User Created Successfully",
       });
     },
     onError: () =>
@@ -28,41 +23,37 @@ export function useCreateCoupon() {
         color: "red",
         title: "Error",
         icon: <IconCheck />,
-        message: "Coupon Creation Failed",
+        message: "User Creation Failed",
       }),
   });
 }
 
-export function useGetCoupons() {
+export function useGetUsers() {
   const { getParam } = useParamsHelper();
-  const user = useAuthStore((state) => state.user);
 
   const params = {
-    outletType: user?.outletType ?? undefined,
-    couponType: getParam("couponType") ?? undefined,
-    isActive: getParam("isActive") ?? undefined,
     page: getParam("page") ?? 1,
     limit: getParam("limit") ?? 10,
   };
 
   return useQuery({
-    queryKey: couponKeys.list(JSON.stringify(params)),
-    queryFn: () => getCoupons(params),
+    queryKey: userKeys.list(JSON.stringify(params)),
+    queryFn: () => getUsers(params),
     select: (data) => data.data,
   });
 }
 
-export function useUpdateCoupon(id: number) {
+export function useUpdateUser(id: number) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Record<string, unknown>) => updateCoupon(id, data),
+    mutationFn: async (data: Record<string, unknown>) => updateUser(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: couponKeys.all });
+      queryClient.invalidateQueries({ queryKey: userKeys.all });
       notifications.show({
         color: "green",
         title: "Success",
         icon: <IconCheck />,
-        message: "Coupon Updated Successfully",
+        message: "User Updated Successfully",
       });
     },
     onError: () =>
@@ -70,7 +61,7 @@ export function useUpdateCoupon(id: number) {
         color: "red",
         title: "Error",
         icon: <IconCheck />,
-        message: "Coupon Update Failed",
+        message: "User Update Failed",
       }),
   });
 }
