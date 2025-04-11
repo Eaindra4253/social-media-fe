@@ -97,6 +97,7 @@ declare global {
     updatedAt: string;
     validDays: number;
     isActive: boolean;
+    productId: string;
     purchases: [];
   }
 
@@ -129,6 +130,7 @@ declare global {
     couponType: string;
     outletType?: string;
     validDays: number;
+    productId: string;
   }
 
   interface Image {

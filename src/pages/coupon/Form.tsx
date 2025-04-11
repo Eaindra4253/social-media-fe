@@ -54,6 +54,7 @@ export function CouponUpdateForm({ data }: { data: Coupon }) {
             category: data.category,
             couponType: data.couponType,
             outletType: data.outletType,
+            productId: data.productId,
           }}
           handleSubmit={(values: Partial<CreateCouponRequest>) =>
             mutateAsync(values).then(close)
@@ -150,6 +151,7 @@ export function CouponForm({
       category: "",
       couponType: "",
       outletType: user?.outletType,
+      productId: "", 
     },
     validate: zodResolver(createCouponSchema),
   });
@@ -237,6 +239,17 @@ export function CouponForm({
             {...form.getInputProps("outletType")}
           />
         ) : null}
+
+        <Select
+          label="Product ID"
+          placeholder="Select a Product ID"
+          data={[
+            { value: "PREMIER_COUPON", label: "PREMIER COUPON" },
+            { value: "COUPON_MARKETPLACE_PRODUCT", label: "COUPON MARKETPLACE PRODUCT" },
+            { value: "MERCHANDISE_COUPON", label: "MERCHANDISE COUPON" },
+          ]}
+          {...form.getInputProps("productId")}
+        />
 
         <Group justify="flex-end">
           <Button
