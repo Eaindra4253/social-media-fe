@@ -138,6 +138,7 @@ declare global {
     url: string;
     filename: string;
     type: string;
+    outletType: string;
     createdAt: string;
     updatedAt: string;
   }
