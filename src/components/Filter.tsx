@@ -1,4 +1,5 @@
 import { useParamsHelper } from "@/hooks/useParamHelper";
+import { useAuthStore } from "@/stores/auth.store";
 import { formatDateFilter } from "@/utils/date";
 import { Select, SelectProps } from "@mantine/core";
 import { DateInput, DateInputProps } from "@mantine/dates";
@@ -120,6 +121,9 @@ export function ImageTypeFilter() {
 
 export function OutletTypeFilter(props: OutletTypeSelectProps) {
   const { setParam } = useParamsHelper();
+  const user = useAuthStore((state) => state.user);
+
+  if (user?.outletType) return null;
 
   return (
     <Select
