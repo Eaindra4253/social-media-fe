@@ -1,4 +1,8 @@
-import { CouponStatusFilter, CouponTypeFilter } from "@/components/Filter";
+import {
+  CouponStatusFilter,
+  CouponTypeFilter,
+  OutletTypeFilter,
+} from "@/components/Filter";
 import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
@@ -12,11 +16,12 @@ const columns: MRT_ColumnDef<Coupon>[] = [
   {
     accessorKey: "name",
     header: "Name",
-    size: 240,
+    size: 200,
   },
   {
     accessorKey: "purchases",
     header: "Total Purchase",
+    size: 100,
     Cell: ({ row }) => {
       return row.original.purchases.length;
     },
@@ -81,7 +86,7 @@ const columns: MRT_ColumnDef<Coupon>[] = [
   {
     accessorKey: "code",
     header: "Code",
-    size: 100,
+    size: 130,
   },
   {
     accessorKey: "category",
@@ -178,7 +183,7 @@ export function CouponList() {
         <Title order={3}>COUPON LIST</Title>
         <Flex gap="sm">
           <CouponTypeFilter />
-          {/* <OutletTypeFilter /> */}
+          <OutletTypeFilter />
           <CouponStatusFilter />
           <CouponCreateForm />
         </Flex>

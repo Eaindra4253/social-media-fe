@@ -1,3 +1,4 @@
+import Logo from "@/assets/icon.png";
 import { useAuthStore } from "@/stores/auth.store";
 import {
   Button,
@@ -12,10 +13,9 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { Navigate } from "react-router";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { Navigate } from "react-router-dom";
 import { useLogin } from "./queries";
-import Logo from "@/assets/icon.png";
-import { IconEye, IconEyeOff} from "@tabler/icons-react";
 
 export default function Login() {
   const { user, login } = useAuthStore((state) => state);
@@ -43,9 +43,11 @@ export default function Login() {
     });
   };
 
-  if (user?.role === "ADMIN") return <Navigate to="/" />;
+  if (user) {
+    if (user.role !== "SCANNER") return <Navigate to="/" />;
 
-  if (user?.role === "SCANNER") return <Navigate to="/qr-scanner" />;
+    return <Navigate to="/qr-scanner" />;
+  }
 
   return (
     <Center w="100vw" h="100vh" bg="gray.0">

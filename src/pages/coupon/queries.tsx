@@ -38,7 +38,7 @@ export function useGetCoupons() {
   const user = useAuthStore((state) => state.user);
 
   const params = {
-    outletType: user?.outletType ?? undefined,
+    outletType: user?.outletType ?? getParam("outletType") ?? undefined,
     couponType: getParam("couponType") ?? undefined,
     isActive: getParam("isActive") ?? undefined,
     page: getParam("page") ?? 1,

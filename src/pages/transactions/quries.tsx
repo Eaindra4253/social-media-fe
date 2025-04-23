@@ -13,7 +13,9 @@ export function usePurchaseReports() {
   const user = useAuthStore((state) => state.user);
 
   const query = {
-    outletType: user?.outletType ?? undefined,
+    outletType: user?.outletType
+      ? user?.outletType
+      : getParam("outletType") ?? undefined,
     page: getParam("page") ?? undefined,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,

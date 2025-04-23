@@ -6,9 +6,9 @@ import { Button, Flex, Group, Stack, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconUpload } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
+import { PhotoDeleteForm } from "./Form";
 import { ImageUploadButton } from "./ImageUploadButton";
 import { useGetPhotos, useUploadPhoto } from "./queries";
-import { PhotoDeleteForm } from "./Form";
 
 export function PhotoList() {
   const { data, isLoading } = useGetPhotos();
@@ -37,20 +37,9 @@ export function PhotoList() {
     {
       accessorKey: "createdAt",
       header: "Created At",
-      size: 150,
       Cell: ({ row }) => {
         return row.original.createdAt !== "-"
           ? formatDateTimeZone(row.original.createdAt)
-          : "-";
-      },
-    },
-    {
-      accessorKey: "updatedAt",
-      header: "Updated At",
-      size: 150,
-      Cell: ({ row }) => {
-        return row.original.updatedAt !== "-"
-          ? formatDateTimeZone(row.original.updatedAt)
           : "-";
       },
     },

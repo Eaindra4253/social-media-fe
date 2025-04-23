@@ -245,14 +245,13 @@ export function CouponForm({
         <Select
           label="Product ID"
           placeholder="Select a Product ID"
-          description="GNG(COUPON MARKETPLACE PRODUCT), PREMIER(PREMIER COUPON), CAPITAL(MERCHANDISE COUPON)"
           data={[
             { value: "PREMIER_COUPON", label: "PREMIER COUPON" },
             {
               value: "COUPON_MARKETPLACE_PRODUCT",
-              label: "COUPON MARKETPLACE PRODUCT",
+              label: "GNG COUPON",
             },
-            { value: "MERCHANDISE_COUPON", label: "MERCHANDISE COUPON" },
+            { value: "MERCHANDISE_COUPON", label: "CAPITAL COUPON" },
           ]}
           {...form.getInputProps("productId")}
         />

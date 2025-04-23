@@ -1,3 +1,4 @@
+import { ERROR_COLOR, SUCCESS_COLOR, WARNING_COLOR } from "@/configs/constants";
 import { createUserSchema, updateUserSchema } from "@/configs/schema";
 import {
   ActionIcon,
@@ -11,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
 import {
   IconCircleCheck,
   IconCircleX,
@@ -18,10 +20,8 @@ import {
   IconLock,
   IconPlus,
 } from "@tabler/icons-react";
-import { useCreateUser, useUpdateUser } from "./queries";
-import { ERROR_COLOR, SUCCESS_COLOR, WARNING_COLOR } from "@/configs/constants";
-import { modals } from "@mantine/modals";
 import { z } from "zod";
+import { useCreateUser, useUpdateUser } from "./queries";
 
 export function UserCreateForm() {
   const [opened, { close, open }] = useDisclosure();
@@ -34,7 +34,6 @@ export function UserCreateForm() {
       </Button>
       <Modal opened={opened} onClose={close} title="Add User" size="lg">
         <UserForm
-          mode="create"
           isPending={isPending}
           handleSubmit={(values) => mutateAsync(values).then(close)}
         />
@@ -67,7 +66,6 @@ export function UserUpdateForm({ data }: { data: User }) {
             outletType: data.outletType,
           }}
           handleSubmit={(values) => mutateAsync(values).then(close)}
-          mode="update"
         />
       </Modal>
     </>
@@ -172,35 +170,28 @@ export function UserDisableForm({ data }: { data: User }) {
   );
 }
 
-type UserFormProps =
-  | {
-      mode: "create";
-      isPending: boolean;
-      initialValues?: z.infer<typeof createUserSchema>;
-      handleSubmit: (values: z.infer<typeof createUserSchema>) => Promise<void>;
-    }
-  | {
-      mode: "update";
-      isPending: boolean;
-      initialValues: z.infer<typeof updateUserSchema>;
-      handleSubmit: (values: z.infer<typeof updateUserSchema>) => Promise<void>;
-    };
+type UserFormProps = {
+  isPending: boolean;
+  initialValues?: z.infer<typeof updateUserSchema>;
+  handleSubmit: (
+    values: z.infer<typeof createUserSchema> | z.infer<typeof updateUserSchema>
+  ) => Promise<void>;
+};
 
 export function UserForm({
   isPending,
   initialValues,
   handleSubmit,
-  mode,
 }: UserFormProps) {
-  const schema = mode === "create" ? createUserSchema : updateUserSchema;
+  const schema = initialValues ? updateUserSchema : createUserSchema;
 
-  const form = useForm<z.infer<typeof schema>>({
+  const form = useForm({
     initialValues: initialValues ?? {
       username: "",
       password: "",
       email: "",
-      outletType: "",
-      role: "",
+      outletType: undefined,
+      role: null,
       isActive: true,
     },
     validate: zodResolver(schema),
@@ -208,7 +199,7 @@ export function UserForm({
 
   return (
     <form
-      onSubmit={form.onSubmit((values: any) =>
+      onSubmit={form.onSubmit((values) =>
         handleSubmit(values).then(() => form.reset())
       )}
     >
@@ -218,7 +209,7 @@ export function UserForm({
           placeholder="Enter Username"
           {...form.getInputProps("username")}
         />
-        {mode === "create" && (
+        {!initialValues && (
           <PasswordInput
             autoComplete="new-password"
             label="Password"
@@ -238,6 +229,10 @@ export function UserForm({
           placeholder="Select Role"
           clearable
           data={[
+            {
+              label: "Super Admin",
+              value: "SUPER_ADMIN",
+            },
             {
               label: "Admin",
               value: "ADMIN",
@@ -274,10 +269,10 @@ export function UserForm({
           <Button
             loading={isPending}
             disabled={isPending}
-            leftSection={mode === "create" ? <IconPlus /> : <IconEdit />}
+            leftSection={initialValues ? <IconPlus /> : <IconEdit />}
             type="submit"
           >
-            {mode === "create" ? "Add" : "Update"}
+            {!initialValues ? "Add" : "Update"}
           </Button>
         </Group>
       </Stack>
