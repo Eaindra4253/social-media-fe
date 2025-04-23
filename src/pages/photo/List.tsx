@@ -6,6 +6,7 @@ import { Button, Flex, Group, Stack, Title } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconUpload } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
+import { useAuthStore } from "@/stores/auth.store";
 import { PhotoDeleteForm } from "./Form";
 import { ImageUploadButton } from "./ImageUploadButton";
 import { useGetPhotos, useUploadPhoto } from "./queries";
@@ -14,6 +15,7 @@ export function PhotoList() {
   const { data, isLoading } = useGetPhotos();
   const { mutate: uploadPhoto } = useUploadPhoto();
   const [opened, { open, close }] = useDisclosure(false);
+  const user = useAuthStore((state) => state.user); 
 
   const columns: MRT_ColumnDef<Image>[] = [
     {
@@ -34,7 +36,15 @@ export function PhotoList() {
     },
     { accessorKey: "type", header: "Type", size: 100 },
     { accessorKey: "filename", header: "Filename", size: 100 },
-    { accessorKey: "outletType", header: "Outlet Type", size: 100 },
+    ...(!user?.outletType
+      ? [
+          {
+            accessorKey: "outletType",
+            header: "Outlet Type",
+            size: 100,
+          },
+        ]
+      : []),
     {
       accessorKey: "createdAt",
       header: "Created At",
