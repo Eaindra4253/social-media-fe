@@ -1,4 +1,4 @@
-import { ImageTypeFilter } from "@/components/Filter";
+import { ImageTypeFilter, OutletTypeFilter } from "@/components/Filter";
 import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
@@ -34,6 +34,7 @@ export function PhotoList() {
     },
     { accessorKey: "type", header: "Type", size: 100 },
     { accessorKey: "filename", header: "Filename", size: 100 },
+    { accessorKey: "outletType", header: "Outlet Type", size: 100 },
     {
       accessorKey: "createdAt",
       header: "Created At",
@@ -67,6 +68,7 @@ export function PhotoList() {
           uploadPhoto={uploadPhoto}
         />
         <Group>
+          <OutletTypeFilter />
           <ImageTypeFilter />
           <Button
             onClick={open}
