@@ -151,7 +151,7 @@ export function CouponForm({
       category: "",
       couponType: "",
       outletType: user?.outletType,
-      productId: "", 
+      productId: "",
     },
     validate: zodResolver(createCouponSchema),
   });
@@ -190,11 +190,13 @@ export function CouponForm({
           rows={4}
           {...form.getInputProps("remark")}
         />
-        <NumberInput
-          label="Amount"
-          placeholder="Enter Amount"
-          {...form.getInputProps("amount")}
-        />
+        {!initialValues && (
+          <NumberInput
+            label="Amount"
+            placeholder="Enter Amount"
+            {...form.getInputProps("amount")}
+          />
+        )}
         <Select
           label="Coupon Type"
           placeholder="Pick one"
@@ -243,9 +245,13 @@ export function CouponForm({
         <Select
           label="Product ID"
           placeholder="Select a Product ID"
+          description="GNG(COUPON MARKETPLACE PRODUCT), PREMIER(PREMIER COUPON), CAPITAL(MERCHANDISE COUPON)"
           data={[
             { value: "PREMIER_COUPON", label: "PREMIER COUPON" },
-            { value: "COUPON_MARKETPLACE_PRODUCT", label: "COUPON MARKETPLACE PRODUCT" },
+            {
+              value: "COUPON_MARKETPLACE_PRODUCT",
+              label: "COUPON MARKETPLACE PRODUCT",
+            },
             { value: "MERCHANDISE_COUPON", label: "MERCHANDISE COUPON" },
           ]}
           {...form.getInputProps("productId")}
