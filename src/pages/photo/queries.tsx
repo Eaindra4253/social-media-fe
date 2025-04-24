@@ -15,6 +15,7 @@ export function useGetPhotos() {
     outletType: user?.outletType ?? getParam("outletType") ?? undefined,
     limit: getParam("limit") ?? 10,
     type: getParam("type") ?? undefined,
+    outletType: getParam("outletType") ?? undefined,
   };
 
   return useQuery({

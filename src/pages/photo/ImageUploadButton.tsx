@@ -1,3 +1,5 @@
+import { OutletTypeFilter } from "@/components/Filter";
+import { useAuthStore } from "@/stores/auth.store";
 import {
   ActionIcon,
   Box,
@@ -32,7 +34,9 @@ export function ImageUploadButton({
 }: ImageUploadButtonProps) {
   const [files, setFiles] = useState<FileUpload[]>([]);
   const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [outletType, setOutletType] = useState<string | null>(null);
   const [fileButtonKey, setFileButtonKey] = useState(Math.random());
+  const user = useAuthStore((state) => state.user); 
 
   const handleFileChange = (newFiles: File[]) => {
     const tempFiles = newFiles.map((file) => ({
@@ -71,8 +75,9 @@ export function ImageUploadButton({
     const formData = new FormData();
     files.forEach((file) => formData.append("files", file.file));
     formData.append("type", selectedType as string);
+    formData.append("outletType", user?.outletType ?? (outletType as string));
     uploadPhoto(formData);
-    setFiles([]); 
+    setFiles([]);
     onClose();
   };
 
@@ -80,7 +85,7 @@ export function ImageUploadButton({
     <Modal size="xl" opened={opened} onClose={onClose} title="Upload Images">
       <Stack>
         <Select
-          label="Type"
+          label="Image Type"
           placeholder="Pick an image type"
           data={[
             { value: "THUMBNAIL", label: "THUMBNAIL" },
@@ -91,6 +96,8 @@ export function ImageUploadButton({
           value={selectedType}
           onChange={setSelectedType}
         />
+
+        <OutletTypeFilter label="Outlet Type" placeholder="Choose a outlet type"   value={outletType} onChange={setOutletType}/>
 
         <FileButton
           key={fileButtonKey}
