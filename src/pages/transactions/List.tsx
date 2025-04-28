@@ -97,6 +97,22 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     },
   },
   {
+    accessorKey: "staffId",
+    header: "Staff ID",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.transactions?.staffId ?? "-";
+    },
+  },
+  {
+    accessorKey: "storeId",
+    header: "Store ID",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.transactions?.storeId ?? "-";
+    },
+  },
+  {
     accessorKey: "axTransactionId",
     header: "AX Transaction Id",
     size: 150,
