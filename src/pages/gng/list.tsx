@@ -21,36 +21,91 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   {
     accessorKey: "gngTransactionId",
     header: "GNG Transaction Id",
+    Cell: ({ row }) => {
+      return row.original.gngTransactionId ?? "-";
+    }
   },
   {
     accessorKey: "ccnTransactionId",
     header: "CCN Transaction Id",
     size: 300,
+    Cell: ({ row }) => {
+      return row.original.ccnTransactionId ?? "-";
+    }
   },
   {
     accessorKey: "storeCode",
     header: "Store Code",
+    Cell: ({ row }) => {
+      return row.original.storeCode ?? "-";
+    }
   },
   {
     accessorKey: "staffId",
     header: "Staff Id",
+    Cell: ({ row }) => {
+      return row.original.staffId ?? "-";
+    }
   },
   {
     accessorKey: "gngCouponAmount",
     header: "GNG Coupon Amount",
+    Cell: ({ row }) => {
+      return row.original.gngCouponAmount ?? "-";
+    }
   },
   {
     accessorKey: "paySlipAmount",
     header: "Pay Slip Amount",
+    Cell: ({ row }) => {
+      return row.original.paySlipAmount ?? "-";
+    }
   },
   {
     accessorKey: "paySlipId",
     header: "PaySlip Id",
+    Cell: ({ row }) => {
+      return row.original.paySlipId ?? "-";
+    }
   },
   {
     accessorKey: "terminal",
     header: "Terminal",
+    Cell: ({ row }) => {
+      return row.original.terminal ?? "-";
+    }
   },
+  {
+    accessorKey: "userPhoneNumber",
+    header: "User Phone Number",
+    Cell: ({ row }) => {
+      return row.original.userPhoneNumber ?? "-";
+    }
+  },
+  {
+    accessorKey: "usedDate",
+    header: "UsedDate",
+    size: 200,
+    Cell: ({ row }) => {
+      return row.original.usedDate
+        ? formatDateTimeZone(row.original.usedDate)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "couponCode",
+    header: "Coupon Code",
+    Cell: ({ row }) => {
+      return row.original.couponCode ?? "-";
+    },
+  },
+  {
+    accessorKey: "ccnCouponAmount",
+    header: "CCN Coupon Amount",
+    Cell: ({ row }) => {
+      return row.original.ccnCouponAmount ?? "-";
+    }
+  }
 ];
 
 export function ReportList() {

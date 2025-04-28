@@ -114,7 +114,7 @@ declare global {
     usedDate: string;
     couponCode: string;
     ccnCouponAmount: number;
-    userPhone: string;
+    userPhoneNumber: string;
   }
 
   interface CreateCouponRequest {
