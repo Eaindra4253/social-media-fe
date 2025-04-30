@@ -46,3 +46,11 @@ export const userKeys = {
   details: () => [...userKeys.all, "detail"] as const,
   detail: (id: number) => [...userKeys.details(), id] as const,
 };
+
+export const settingKeys = {
+  all: ["settings"] as const,
+  lists: () => [...settingKeys.all, "list"] as const,
+  list: (filters: string) => [...settingKeys.lists(), { filters }] as const,
+  details: () => [...settingKeys.all, "detail"] as const,
+  detail: (id: number) => [...settingKeys.details(), id] as const,
+};

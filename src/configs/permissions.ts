@@ -4,7 +4,14 @@ export const permissions: Record<
 > = {
   SCANNER: [],
   ADMIN: ["/", "/gng-reports", "/coupons", "/photos"],
-  SUPER_ADMIN: ["/", "/gng-reports", "/coupons", "/photos", "/users"],
+  SUPER_ADMIN: [
+    "/",
+    "/gng-reports",
+    "/coupons",
+    "/photos",
+    "/users",
+    "/settings",
+  ],
 };
 
 export const blockedMenusByOutletType = {

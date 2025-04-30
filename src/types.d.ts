@@ -142,4 +142,10 @@ declare global {
     createdAt: string;
     updatedAt: string;
   }
+
+  interface Settings {
+    id: number;
+    enableWhiteList: boolean;
+    whiteList: string;
+  }
 }
