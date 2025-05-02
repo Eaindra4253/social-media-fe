@@ -114,7 +114,7 @@ declare global {
     usedDate: string;
     couponCode: string;
     ccnCouponAmount: number;
-    userPhone: string;
+    userPhoneNumber: string;
   }
 
   interface CreateCouponRequest {
@@ -141,5 +141,11 @@ declare global {
     outletType: string;
     createdAt: string;
     updatedAt: string;
+  }
+
+  interface Settings {
+    id: number;
+    enableWhiteList: boolean;
+    whiteList: string;
   }
 }

@@ -8,6 +8,7 @@ import { ScannerLayout } from "@/pages/qr-scanner";
 import { QrScanner } from "@/pages/qr-scanner/QrScanner";
 import { ScanErrorPage } from "@/pages/qr-scanner/ScanErrorPage";
 import { SuccessPage } from "@/pages/qr-scanner/SuccessPage";
+import { Settings } from "@/pages/settings/Settings";
 import { TransactionList } from "@/pages/transactions/List";
 import { UserList } from "@/pages/user/List";
 import { createBrowserRouter } from "react-router-dom";
@@ -38,6 +39,14 @@ export const router = createBrowserRouter([
       {
         path: "users",
         element: <UserList />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
+      },
+      {
+        path: "*",
+        element: <>Page Not Found</>,
       },
     ],
   },

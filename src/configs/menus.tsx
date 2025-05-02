@@ -3,6 +3,7 @@ import {
   IconPhoto,
   IconReceipt,
   IconReportAnalytics,
+  IconSettings,
   IconUsers,
 } from "@tabler/icons-react";
 
@@ -31,5 +32,10 @@ export const menus: SidebarMenuType[] = [
     label: "Users",
     path: "/users",
     icon: <IconUsers size={16} />,
-  }
+  },
+  {
+    label: "Settings",
+    path: "/settings",
+    icon: <IconSettings size={16} />,
+  },
 ];
