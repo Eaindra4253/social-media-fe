@@ -25,7 +25,7 @@ export function Settings() {
   useEffect(() => {
     if (data) {
       setIsEnableWhiteList(data.enableWhiteList);
-      setWhitelist(data.whiteList.split(",", -1));
+      if (data.whiteList) setWhitelist(data.whiteList.split(",", -1));
     }
   }, [data]);
 
