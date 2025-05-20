@@ -1,21 +1,17 @@
-import { useCheckActions } from "@/hooks/useAuth";
+import { permissions } from "@/configs/permissions";
+import { useAuthStore } from "@/stores/auth.store";
+import { PropsWithChildren } from "react";
+import { Navigate } from "react-router-dom";
 
-export function Can({
+export const Can = ({
   children,
-  userRole,
-  condition = true,
-  notAllowComponent,
-}: {
-  children: React.ReactNode;
-  userRole: "ADMIN" | "SCANNER";
-  condition?: boolean;
-  notAllowComponent?: React.ReactNode;
-}) {
-  const isAllowed = useCheckActions(userRole);
+  roles,
+}: PropsWithChildren & { roles: string[] }) => {
+  const user = useAuthStore((state) => state.user);
 
-  if (isAllowed && condition) return <>{children}</>;
+  if (roles.includes(user!.role)) {
+    return children;
+  }
 
-  if (notAllowComponent) return notAllowComponent;
-
-  return null;
-}
+  return <Navigate to={permissions[user!.role][0]} />;
+};
