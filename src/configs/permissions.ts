@@ -1,8 +1,8 @@
 export const permissions: Record<
-  "ADMIN" | "SUPER_ADMIN" | "SCANNER",
+  "ADMIN" | "SUPER_ADMIN" | "SCANNER" | "FINANCE",
   string[]
 > = {
-  SCANNER: [],
+  SCANNER: ["/qr-scanner"],
   ADMIN: ["/", "/gng-reports", "/coupons", "/photos"],
   SUPER_ADMIN: [
     "/",
@@ -12,6 +12,7 @@ export const permissions: Record<
     "/users",
     "/settings",
   ],
+  FINANCE: ["/gng-reports"],
 };
 
 export const blockedMenusByOutletType = {

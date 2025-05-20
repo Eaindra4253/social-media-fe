@@ -9,7 +9,7 @@ import {
 
 export const menus: SidebarMenuType[] = [
   {
-    label: "CCN Coupon Report",
+    label: "Coupon Report",
     path: "/",
     icon: <IconReportAnalytics size={16} />,
   },

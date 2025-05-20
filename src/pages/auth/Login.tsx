@@ -16,6 +16,7 @@ import { useForm } from "@mantine/form";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { Navigate } from "react-router-dom";
 import { useLogin } from "./queries";
+import { permissions } from "@/configs/permissions";
 
 export default function Login() {
   const { user, login } = useAuthStore((state) => state);
@@ -44,9 +45,7 @@ export default function Login() {
   };
 
   if (user) {
-    if (user.role !== "SCANNER") return <Navigate to="/" />;
-
-    return <Navigate to="/qr-scanner" />;
+    return <Navigate to={permissions[user.role]?.[0] ?? "/"} />;
   }
 
   return (

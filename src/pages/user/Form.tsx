@@ -241,6 +241,10 @@ export function UserForm({
               label: "Scanner",
               value: "SCANNER",
             },
+            {
+              label: "Finance",
+              value: "FINANCE",
+            }
           ]}
           {...form.getInputProps("role")}
         />

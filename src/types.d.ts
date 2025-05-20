@@ -26,7 +26,7 @@ declare global {
     email: string;
     password: string;
     phoneNumber: string;
-    role: "ADMIN" | "SCANNER" | "SUPER_ADMIN";
+    role: "ADMIN" | "SCANNER" | "SUPER_ADMIN" | "FINANCE";
     outletType: "GNG" | "CAPITAL" | "PREMIER";
     createdAt: string;
     updatedAt: string;
