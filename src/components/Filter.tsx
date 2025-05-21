@@ -1,9 +1,10 @@
 import { useParamsHelper } from "@/hooks/useParamHelper";
 import { useAuthStore } from "@/stores/auth.store";
 import { formatDateFilter } from "@/utils/date";
-import { Select, SelectProps } from "@mantine/core";
+import { Flex, Select, SelectProps } from "@mantine/core";
 import { DateInput, DateInputProps } from "@mantine/dates";
 import { IconCalendar } from "@tabler/icons-react";
+import { useState } from "react";
 
 type OutletTypeSelectProps = Omit<SelectProps, "data">;
 
@@ -23,6 +24,45 @@ export function DateFilter(props: DateInputProps) {
       }}
       {...props}
     />
+  );
+}
+
+export function DateRangeFilter() {
+  const { setParam } = useParamsHelper();
+  const [fromDate, setFromDate] = useState<Date | null>(null);
+  const [toDate, setToDate] = useState<Date | null>(null);
+
+  return (
+    <Flex gap={10}>
+      <DateInput
+        clearable
+        value={fromDate}
+        onChange={(date) => {
+          setFromDate(date);
+          setParam("fromDate", formatDateFilter(date));
+        }}
+        maxDate={toDate ?? new Date()}
+        size="xs"
+        placeholder="From Date"
+        leftSection={<IconCalendar size={16} />}
+        valueFormat="YYYY-MM-DD"
+      />
+
+      <DateInput
+        clearable
+        value={toDate}
+        onChange={(date) => {
+          setToDate(date);
+          setParam("toDate", formatDateFilter(date));
+        }}
+        minDate={fromDate ?? undefined}
+        maxDate={new Date()}
+        size="xs"
+        placeholder="To Date"
+        leftSection={<IconCalendar size={16} />}
+        valueFormat="YYYY-MM-DD"
+      />
+    </Flex>
   );
 }
 
