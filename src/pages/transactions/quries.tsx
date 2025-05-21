@@ -19,7 +19,8 @@ export function usePurchaseReports() {
     page: getParam("page") ?? undefined,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,
-    date: getParam("date") ?? undefined,
+    fromDate: getParam("fromDate") ?? undefined,
+    toDate: getParam("toDate") ?? undefined,
     status: getParam("status") ?? undefined,
   };
 

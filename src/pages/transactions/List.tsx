@@ -1,5 +1,5 @@
 import {
-  DateFilter,
+  DateRangeFilter,
   OutletTypeFilter,
   StatusFilter,
 } from "@/components/Filter";
@@ -174,7 +174,7 @@ export function TransactionList() {
       <Group justify="space-between" align="center">
         <Title order={3}>CCN COUPON Report</Title>
         <Flex gap="sm">
-          <DateFilter />
+          <DateRangeFilter />
           <OutletTypeFilter />
           <StatusFilter />
           <DownloadReport />
