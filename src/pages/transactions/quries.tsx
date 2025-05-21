@@ -32,10 +32,15 @@ export function usePurchaseReports() {
 }
 
 export function usePurchaseDownloadReports() {
-  const { searchParams } = useParamsHelper();
+  const { searchParams, getParam } = useParamsHelper();
+  const user = useAuthStore((state) => state.user);
 
   const params = {
     ...Object.fromEntries([...searchParams]),
+
+    outletType: user?.outletType
+      ? user?.outletType
+      : getParam("outletType") ?? undefined,
   };
 
   return useMutation({
