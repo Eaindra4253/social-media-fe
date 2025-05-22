@@ -19,7 +19,8 @@ export function usePurchaseReports() {
     page: getParam("page") ?? undefined,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,
-    date: getParam("date") ?? undefined,
+    fromDate: getParam("fromDate") ?? undefined,
+    toDate: getParam("toDate") ?? undefined,
     status: getParam("status") ?? undefined,
   };
 
@@ -31,10 +32,15 @@ export function usePurchaseReports() {
 }
 
 export function usePurchaseDownloadReports() {
-  const { searchParams } = useParamsHelper();
+  const { searchParams, getParam } = useParamsHelper();
+  const user = useAuthStore((state) => state.user);
 
   const params = {
     ...Object.fromEntries([...searchParams]),
+
+    outletType: user?.outletType
+      ? user?.outletType
+      : getParam("outletType") ?? undefined,
   };
 
   return useMutation({
