@@ -1,0 +1,8 @@
+.sidebar-menu-item:hover {
+  margin-left: 5px;
+  transition: margin-left 0.2s ease-in-out;
+}
+
+.sidebar-menu-item[data-active="true"] {
+  margin-left: 5px;
+}
