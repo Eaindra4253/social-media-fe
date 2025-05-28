@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
 import { usePurchaseDownloadReports } from "./quries";
 
@@ -6,12 +6,12 @@ export function DownloadReport() {
   const { mutate } = usePurchaseDownloadReports();
 
   return (
-    <Button
+    <ActionIcon
       onClick={() => mutate()}
-      size="xs"
-      leftSection={<IconDownload size={16} />}
+      variant="transparent"
+      title="Download Report"
     >
-      Download Excel
-    </Button>
+      <IconDownload size={16} />
+    </ActionIcon>
   );
 }

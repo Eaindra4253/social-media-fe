@@ -25,8 +25,8 @@ export function getTableOption<T extends Record<string, any>>() {
       c: "gray",
     },
     mantineTableBodyCellProps: {
-      fz: "sm",
-      py: "8px",
+      fz: "xs",
+      py: "xs",
       fw: 400,
     },
     mantineTableContainerProps: {

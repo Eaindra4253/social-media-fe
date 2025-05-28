@@ -1,6 +1,8 @@
+import { Can } from "@/components/Can";
 import {
   DateRangeFilter,
   OutletTypeFilter,
+  SearchInput,
   StatusFilter,
 } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
@@ -15,7 +17,6 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { DownloadReport } from "./DownloadReport";
 import { usePurchaseReports } from "./quries";
-import { Can } from "@/components/Can";
 
 const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
@@ -44,14 +45,19 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     size: 100,
   },
   {
+    accessorKey: "coupon.outletType",
+    header: "Outlet Type",
+    size: 100,
+  },
+  {
     accessorKey: "coupon.couponType",
     header: "Coupon Type",
     size: 100,
   },
   {
     accessorKey: "user.phoneNumber",
-    header: "User Phone Number",
-    size: 120,
+    header: "Phone",
+    size: 110,
     Cell: ({ row }) => {
       return row.original.user?.phoneNumber?.replace("959", "09") ?? "-";
     },
@@ -63,7 +69,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    size: 120,
+    size: 150,
     Cell: ({ row }) => {
       let c: string = SUCCESS_COLOR;
       const expiredAt = new Date(row.original.expiredAt);
@@ -172,26 +178,27 @@ export function TransactionList() {
 
   return (
     <Can roles={["ADMIN", "SUPER_ADMIN"]}>
-    <Stack>
-      <Group justify="space-between" align="center">
-        <Title order={3}>CCN COUPON Report</Title>
-        <Flex gap="sm">
-          <DateRangeFilter />
-          <OutletTypeFilter />
-          <StatusFilter />
-          <DownloadReport />
-        </Flex>
-      </Group>
-      <DataTable<PurchaseReport>
-        data={data?.data ?? []}
-        columns={columns}
-        isLoading={isLoading}
-        columnPinning={{
-          right: ["user.phoneNumber", "createdAt", "status"],
-        }}
-        total={data?.totalCount}
-      />
-    </Stack>
+      <Stack>
+        <Group justify="space-between" align="center">
+          <Title order={3}>CCN COUPON Report</Title>
+          <Flex gap="sm">
+            <SearchInput />
+            <DateRangeFilter />
+            <OutletTypeFilter />
+            <StatusFilter />
+            <DownloadReport />
+          </Flex>
+        </Group>
+        <DataTable<PurchaseReport>
+          data={data?.data ?? []}
+          columns={columns}
+          isLoading={isLoading}
+          columnPinning={{
+            right: ["user.phoneNumber", "createdAt", "status"],
+          }}
+          total={data?.totalCount}
+        />
+      </Stack>
     </Can>
   );
 }

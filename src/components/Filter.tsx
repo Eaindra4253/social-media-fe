@@ -1,12 +1,37 @@
 import { useParamsHelper } from "@/hooks/useParamHelper";
 import { useAuthStore } from "@/stores/auth.store";
 import { formatDateFilter } from "@/utils/date";
-import { Flex, Select, SelectProps } from "@mantine/core";
+import { Flex, Select, SelectProps, TextInput } from "@mantine/core";
 import { DateInput, DateInputProps } from "@mantine/dates";
-import { IconCalendar } from "@tabler/icons-react";
-import { useState } from "react";
+import { useDebouncedValue } from "@mantine/hooks";
+import { IconCalendar, IconSearch } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 
 type OutletTypeSelectProps = Omit<SelectProps, "data">;
+
+export function SearchInput() {
+  const { setParam } = useParamsHelper();
+
+  const [search, setSearch] = useState("");
+
+  const [value] = useDebouncedValue(search, 500);
+
+  useEffect(() => {
+    setParam("search", value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  return (
+    <TextInput
+      size="xs"
+      placeholder="Search"
+      leftSection={<IconSearch size={16} />}
+      onChange={(e) => {
+        setSearch(e.target.value);
+      }}
+    />
+  );
+}
 
 export function DateFilter(props: DateInputProps) {
   const { setParam } = useParamsHelper();
@@ -36,6 +61,7 @@ export function DateRangeFilter() {
     <Flex gap={10}>
       <DateInput
         clearable
+        maw={120}
         value={fromDate}
         onChange={(date) => {
           setFromDate(date);
@@ -50,6 +76,7 @@ export function DateRangeFilter() {
 
       <DateInput
         clearable
+        maw={120}
         value={toDate}
         onChange={(date) => {
           setToDate(date);
@@ -71,6 +98,7 @@ export function StatusFilter() {
 
   return (
     <Select
+      maw={120}
       clearable
       data={[
         {
@@ -167,10 +195,11 @@ export function OutletTypeFilter(props: OutletTypeSelectProps) {
 
   return (
     <Select
+      maw={120}
       searchable={false}
       size="xs"
       clearable
-      placeholder="Filter Outlet Type"
+      placeholder="Outlet Type"
       onChange={(value) => setParam("outletType", value)}
       data={[
         { value: "PREMIER", label: "PREMIER" },
