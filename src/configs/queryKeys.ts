@@ -54,3 +54,11 @@ export const settingKeys = {
   details: () => [...settingKeys.all, "detail"] as const,
   detail: (id: number) => [...settingKeys.details(), id] as const,
 };
+
+export const cardCouponKeys = {
+  all: ["cardCouponKeys"] as const,
+  lists: () => [...cardCouponKeys.all, "list"] as const,
+  list: (filters: string) => [...cardCouponKeys.lists(), { filters }] as const,
+  details: () => [...cardCouponKeys.all, "detail"] as const,
+  detail: (id: number) => [...cardCouponKeys.details(), id] as const,
+};

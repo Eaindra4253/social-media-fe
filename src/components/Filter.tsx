@@ -237,3 +237,62 @@ export function CouponStatusFilter() {
     />
   );
 }
+
+export function PaymentStatusFilter() {
+  const { setParam } = useParamsHelper();
+
+  return (
+    <Select
+      clearable
+      data={[
+        {
+          label: "SUCCESS",
+          value: "SUCCESS",
+        },
+        {
+          label: "PENDING",
+          value: "PENDING",
+        },
+        {
+          label: "FAILED",
+          value: "FAILED",
+        },
+      ]}
+      checkIconPosition="right"
+      size="xs"
+      placeholder="Payment Status Filter"
+      value={useParamsHelper().getParam("paymentStatus")}
+      onChange={(e) => {
+        setParam("paymentStatus", e);
+      }}
+    />
+  );
+}
+
+export function CardCouponStatusFilter() {
+  const { setParam } = useParamsHelper();
+
+  return (
+    <Select
+      maw={120}
+      clearable
+      data={[
+        {
+          label: "Active",
+          value: "ACTIVE",
+        },
+        {
+          label: "Used",
+          value: "USED",
+        },
+      ]}
+      checkIconPosition="right"
+      size="xs"
+      placeholder="Status Filter"
+      value={useParamsHelper().getParam("status")}
+      onChange={(e) => {
+        setParam("status", e);
+      }}
+    />
+  );
+}

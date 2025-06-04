@@ -19,6 +19,11 @@ export const menus: SidebarMenuType[] = [
     icon: <IconReportAnalytics size={16} />,
   },
   {
+    label: "Card Coupon Report",
+    path: "/card-coupon",
+    icon: <IconReportAnalytics size={16} />,
+  },
+  {
     label: "Coupon List",
     path: "/coupons",
     icon: <IconReceipt size={16} />,

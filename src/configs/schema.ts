@@ -37,3 +37,7 @@ export const updateUserSchema = z.object({
     })
     .nullable(),
 });
+
+export const makePaymentSchema = z.object({
+  remark: z.string().min(1, { message: "Remark is required" }),
+});

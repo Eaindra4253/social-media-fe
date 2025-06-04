@@ -13,6 +13,7 @@ import { TransactionList } from "@/pages/transactions/List";
 import { UserList } from "@/pages/user/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
+import { CardCouponList } from "@/pages/card-coupon/List";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "coupons",
         element: <CouponList />,
+      },
+      {
+        path: "card-coupon",
+        element: <CardCouponList />,
       },
       {
         path: "photos",

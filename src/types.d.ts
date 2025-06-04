@@ -23,6 +23,10 @@ declare global {
   type User = {
     id: number;
     username: string;
+    fullName: string;
+    uniqueId: string;
+    retryCount: number;
+    lastBlockedDatetime: string;
     email: string;
     password: string;
     phoneNumber: string;
@@ -147,5 +151,37 @@ declare global {
     id: number;
     enableWhiteList: boolean;
     whiteList: string;
+  }
+
+  interface CardCoupon {
+    id: number;
+    serialNo: string;
+    coupon: string;
+    optimizer: string;
+    priceCode: string;
+    price: number;
+    batchCode: string;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+    CardCouponTransaction: CardCouponTransaction;
+  }
+
+  interface CardCouponTransaction {
+    id: string;
+    cardCouponId: string;
+    claimById: number;
+    referenceId: number;
+    createdAt: string;
+    updatedAt: string;
+    paymentDate: string;
+    paymentStatus: string;
+    remark: string;
+    claimBy: User;
+  }
+
+  interface Payment {
+    remark: string;
+    transactionId: string;
   }
 }

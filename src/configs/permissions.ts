@@ -3,7 +3,7 @@ export const permissions: Record<
   string[]
 > = {
   SCANNER: ["/qr-scanner"],
-  ADMIN: ["/", "/gng-reports", "/coupons", "/photos"],
+  ADMIN: ["/", "/gng-reports", "/coupons", "/photos", "card-coupon"],
   SUPER_ADMIN: [
     "/",
     "/gng-reports",
@@ -11,6 +11,7 @@ export const permissions: Record<
     "/photos",
     "/users",
     "/settings",
+    "/card-coupon",
   ],
   FINANCE: ["/gng-reports"],
 };
