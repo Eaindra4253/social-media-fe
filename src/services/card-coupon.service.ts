@@ -9,3 +9,9 @@ export function getCardCouponReports(params?: Record<string, unknown>) {
 export function makePayment(data: Payment) {
   return api.post<ApiResponse<CardCoupon>>("/card-coupon/make-payment", data);
 }
+
+export function uploadExcel(data: FormData) {
+  return api.post<CardCoupon>("/card-coupon", data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+}

@@ -4,6 +4,7 @@ import {
   getGngReports,
   getGngReportsDownload,
 } from "@/services/report.service";
+import { formatDateTimeZone } from "@/utils/date";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -27,6 +28,8 @@ export function useGngReports() {
 export function useGngDownloadReports() {
   const { searchParams } = useParamsHelper();
 
+  const formatted = formatDateTimeZone(new Date());
+
   const params = {
     ...Object.fromEntries([...searchParams]),
   };
@@ -39,7 +42,7 @@ export function useGngDownloadReports() {
       const a = document.createElement("a");
       a.href = url;
       a.target = "_blank";
-      a.download = "GNG Coupon Report.xlsx";
+      a.download = `GNG Coupon Report - ${formatted}.xlsx`;
       document.body.appendChild(a);
       a.click();
       a.remove();

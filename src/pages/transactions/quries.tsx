@@ -5,6 +5,7 @@ import {
   getPurchasedReportsDownload,
 } from "@/services/report.service";
 import { useAuthStore } from "@/stores/auth.store";
+import { formatDateTimeZone } from "@/utils/date";
 import { notifications } from "@mantine/notifications";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -35,6 +36,8 @@ export function usePurchaseDownloadReports() {
   const { searchParams, getParam } = useParamsHelper();
   const user = useAuthStore((state) => state.user);
 
+  const formatted = formatDateTimeZone(new Date());
+  
   const params = {
     ...Object.fromEntries([...searchParams]),
 
@@ -51,7 +54,7 @@ export function usePurchaseDownloadReports() {
       const a = document.createElement("a");
       a.href = url;
       a.target = "_blank";
-      a.download = "CCN Coupon Report.xlsx";
+      a.download = `CCN Coupon Report - ${formatted}.xlsx`;
       document.body.appendChild(a);
       a.click();
       a.remove();
