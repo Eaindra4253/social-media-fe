@@ -11,6 +11,7 @@ import { MRT_ColumnDef } from "mantine-react-table";
 import { useCardCouponReports } from "./quries";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { CardCouponForm } from "./Form";
+import { CopyText } from "@/components/CopyText";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
@@ -23,41 +24,18 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     },
   },
   {
-    accessorKey: "CardCouponTransaction.cardCouponId",
-    header: "Card Coupon ID",
+    accessorKey: "CardCouponTransaction.referenceId",
+    header: "Reference ID",
     size: 150,
     Cell: ({ row }) => {
-      return <Text>{row.original.CardCouponTransaction.cardCouponId || "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "priceCode",
-    header: "Price Code",
-    size: 100,
-    Cell: ({ row }) => {
-      return <Text>{row.original.priceCode || "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "price",
-    header: "Price",
-    size: 100,
-    Cell: ({ row }) => {
-      return <Text>{row.original.price || "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "batchCode",
-    header: "Batch Code",
-    size: 100,
-    Cell: ({ row }) => {
-      return <Text>{row.original.batchCode || "-"}</Text>;
+      const referenceId = row.original.CardCouponTransaction?.referenceId;
+      return referenceId ? <CopyText>{String(referenceId)}</CopyText> : "-";
     },
   },
   {
     accessorKey: "CardCouponTransaction.claimBy.fullName",
     header: "Claimed By",
-    size: 100,
+    size: 150,
     Cell: ({ row }) => {
       return (
         <Text>
@@ -69,7 +47,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
     accessorKey: "CardCouponTransaction.claimBy.phoneNumber",
     header: "Claimed By Phone",
-    size: 100,
+    size: 150,
     Cell: ({ row }) => {
       return (
         <Text>
@@ -79,9 +57,33 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     },
   },
   {
+    accessorKey: "price",
+    header: "Price",
+    size: 150,
+    Cell: ({ row }) => {
+      return <Text>{row.original.price || "-"}</Text>;
+    },
+  },
+  {
+    accessorKey: "priceCode",
+    header: "Price Code",
+    size: 150,
+    Cell: ({ row }) => {
+      return <Text>{row.original.priceCode || "-"}</Text>;
+    },
+  },
+  {
+    accessorKey: "batchCode",
+    header: "Batch Code",
+    size: 150,
+    Cell: ({ row }) => {
+      return <Text>{row.original.batchCode || "-"}</Text>;
+    },
+  },
+  {
     accessorKey: "CardCouponTransaction.remark",
     header: "Remark",
-    size: 100,
+    size: 400,
     Cell: ({ row }) => {
       return <Text>{row.original.CardCouponTransaction?.remark || "-"}</Text>;
     },
@@ -106,7 +108,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
         : "-";
     },
   },
-    {
+  {
     accessorKey: "CardCouponTransaction.paymentDate",
     header: "Payment Date",
     size: 200,
@@ -114,6 +116,22 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
       return row.original.CardCouponTransaction?.paymentDate
         ? formatDateTimeZone(row.original.CardCouponTransaction.paymentDate)
         : "-";
+    },
+  },
+  {
+    accessorKey: "CardCouponTransaction.claimBy.retryCount",
+    header: "Retry Count",
+    size: 200,
+    Cell: ({ row }) => {
+      return <Text>{row.original.CardCouponTransaction?.claimBy?.retryCount || "-"}</Text>;
+    },
+  },
+  {
+    accessorKey: "CardCouponTransaction.claimBy.lastBlockedDatetime",
+    header: "lastBlockedDatetime",
+    size: 200,
+    Cell: ({ row }) => {
+      return <Text>{row.original.CardCouponTransaction?.claimBy?.lastBlockedDatetime || "-"}</Text>;
     },
   },
   {
@@ -173,9 +191,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     Cell: ({ row }) => {
       const paymentStatus = row.original.CardCouponTransaction?.paymentStatus;
       const showPaymentButton =
-        paymentStatus === "PENDING" ||
-        paymentStatus === "FAILED" ||
-        !paymentStatus;
+        paymentStatus === "PENDING" || paymentStatus === "FAILED";
 
       return (
         <Flex gap="xs">
@@ -212,7 +228,7 @@ export function CardCouponList() {
           columns={columns}
           isLoading={isLoading}
           columnPinning={{
-            right: ["createdAt", "CardCouponTransaction.paymentStatus", "_id"],
+            right: ["CardCouponTransaction.paymentStatus", "_id"],
           }}
           total={data?.totalCount}
         />
