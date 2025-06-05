@@ -1,16 +1,22 @@
-import { Modal, Button, Stack, Textarea, Group } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { useForm, zodResolver } from "@mantine/form";
-import { useMakePayment} from "./quries";
 import { makePaymentSchema } from "@/configs/schema";
+import { Button, Group, Modal, Stack, Textarea } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
+import { useMakePayment } from "./quries";
 
-export function CardCouponForm({ data }: { data: Payment }) {
+export function CardCouponForm({
+  data,
+  enable = false,
+}: {
+  data: Payment;
+  enable?: boolean;
+}) {
   const [opened, { open, close }] = useDisclosure(false);
   const { isPending, mutateAsync } = useMakePayment(data.transactionId);
 
   return (
     <>
-      <Button onClick={open} radius="md" size="xs">
+      <Button onClick={open} radius="md" size="xs" disabled={!enable}>
         Payment
       </Button>
       <Modal opened={opened} onClose={close} title="Payment" size="lg">
@@ -55,11 +61,7 @@ export function PaymentForm({
           {...form.getInputProps("remark")}
         />
         <Group justify="flex-end">
-          <Button
-            loading={isPending}
-            disabled={isPending}
-            type="submit"
-          >
+          <Button loading={isPending} disabled={isPending} type="submit">
             Submit
           </Button>
         </Group>

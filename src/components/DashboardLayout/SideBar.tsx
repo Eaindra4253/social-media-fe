@@ -19,7 +19,6 @@ import {
   Text,
 } from "@mantine/core";
 import { Link, useLocation } from "react-router";
-import "./Sidebar.css";
 import { SidebarMenuItemType, SidebarMenuType } from "./types";
 
 const SideBarMenuItem = ({
@@ -105,9 +104,6 @@ const SideBarMenuItem = ({
   return (
     <>
       <NavLink
-        classNames={{
-          root: "sidebar-menu-item",
-        }}
         variant="subtle"
         visibleFrom="sm"
         active={active}

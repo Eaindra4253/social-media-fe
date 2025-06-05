@@ -1,4 +1,5 @@
 import { Can } from "@/components/Can";
+import { CopyText } from "@/components/CopyText";
 import {
   CardCouponStatusFilter,
   PaymentStatusFilter,
@@ -7,178 +8,182 @@ import {
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Text, Title } from "@mantine/core";
-import { MRT_ColumnDef } from "mantine-react-table";
-import { useCardCouponReports } from "./quries";
 import { IconCircleFilled } from "@tabler/icons-react";
+import { MRT_ColumnDef } from "mantine-react-table";
 import { CardCouponForm } from "./Form";
-import { CopyText } from "@/components/CopyText";
+import { useCardCouponReports } from "./quries";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
-    accessorKey: "serialNo",
-    header: "Serial Number",
-    size: 150,
-
-    Cell: ({ row }) => {
-      return <Text>{row.original.serialNo || "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "CardCouponTransaction.referenceId",
-    header: "Reference ID",
-    size: 150,
-    Cell: ({ row }) => {
-      const referenceId = row.original.CardCouponTransaction?.referenceId;
-      return referenceId ? <CopyText>{String(referenceId)}</CopyText> : "-";
-    },
-  },
-  {
-    accessorKey: "CardCouponTransaction.claimBy.fullName",
-    header: "Claimed By",
-    size: 150,
-    Cell: ({ row }) => {
-      return (
-        <Text>
-          {row.original.CardCouponTransaction?.claimBy?.fullName || "-"}
-        </Text>
-      );
-    },
-  },
-  {
-    accessorKey: "CardCouponTransaction.claimBy.phoneNumber",
-    header: "Claimed By Phone",
-    size: 150,
-    Cell: ({ row }) => {
-      return (
-        <Text>
-          {row.original.CardCouponTransaction?.claimBy?.phoneNumber || "-"}
-        </Text>
-      );
-    },
-  },
-  {
-    accessorKey: "price",
-    header: "Price",
-    size: 150,
-    Cell: ({ row }) => {
-      return <Text>{row.original.price || "-"}</Text>;
-    },
+    accessorKey: "batchCode",
+    header: "Batch Code",
+    size: 100,
   },
   {
     accessorKey: "priceCode",
     header: "Price Code",
-    size: 150,
+    size: 100,
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+    size: 100,
     Cell: ({ row }) => {
-      return <Text>{row.original.priceCode || "-"}</Text>;
+      return (
+        row.original.price || (
+          <Text size="xs" c="gray.5">
+            UNCLAIMED
+          </Text>
+        )
+      );
     },
   },
   {
-    accessorKey: "batchCode",
-    header: "Batch Code",
+    accessorKey: "referenceId",
+    header: "Reference ID",
     size: 150,
     Cell: ({ row }) => {
-      return <Text>{row.original.batchCode || "-"}</Text>;
+      const trans = row.original.CardCouponTransaction;
+
+      if (!trans)
+        return (
+          <Text size="xs" c="gray.5">
+            UNCLAIMED
+          </Text>
+        );
+
+      return trans.referenceId ? (
+        <CopyText>{String(trans.referenceId)}</CopyText>
+      ) : (
+        <Text size="xs" c="orange.5" fw="bold">
+          UNPAID
+        </Text>
+      );
     },
   },
   {
-    accessorKey: "CardCouponTransaction.remark",
+    accessorKey: "claimBy",
+    header: "Claimed By",
+    size: 150,
+    Cell: ({ row }) =>
+      row.original.CardCouponTransaction?.claimBy?.fullName || (
+        <Text size="xs" c="gray.5">
+          UNCLAIMED
+        </Text>
+      ),
+  },
+  {
+    accessorKey: "phoneNumber",
+    header: "Claimed By Phone",
+    size: 150,
+    Cell: ({ row }) => {
+      const phoneNumber =
+        row.original.CardCouponTransaction?.claimBy?.phoneNumber;
+
+      if (!phoneNumber)
+        return (
+          <Text size="xs" c="gray.5">
+            UNCLAIMED
+          </Text>
+        );
+
+      return <CopyText>{phoneNumber}</CopyText>;
+    },
+  },
+  {
+    accessorKey: "remark",
     header: "Remark",
-    size: 400,
-    Cell: ({ row }) => {
-      return <Text>{row.original.CardCouponTransaction?.remark || "-"}</Text>;
-    },
+    size: 250,
+    Cell: ({ row }) => row.original.CardCouponTransaction?.remark || "-",
   },
   {
-    accessorKey: "createdAt",
-    header: "Created Date",
+    accessorKey: "transactionDate",
+    header: "Transaction Date",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.createdAt
-        ? formatDateTimeZone(row.original.createdAt)
-        : "-";
+      const trans = row.original.CardCouponTransaction;
+
+      if (!trans)
+        return (
+          <Text size="xs" c="gray.5">
+            UNCLAIMED
+          </Text>
+        );
+
+      return trans?.createdAt ? (
+        formatDateTimeZone(trans?.createdAt)
+      ) : (
+        <Text size="xs" c="orange.5" fw="bold">
+          UNPAID
+        </Text>
+      );
     },
   },
   {
-    accessorKey: "updatedAt",
-    header: "Updated Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.updatedAt
-        ? formatDateTimeZone(row.original.updatedAt)
-        : "-";
-    },
-  },
-  {
-    accessorKey: "CardCouponTransaction.paymentDate",
+    accessorKey: "paymentDate",
     header: "Payment Date",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.CardCouponTransaction?.paymentDate
-        ? formatDateTimeZone(row.original.CardCouponTransaction.paymentDate)
-        : "-";
+      const trans = row.original.CardCouponTransaction;
+
+      if (!trans)
+        return (
+          <Text size="xs" c="gray.5">
+            UNCLAIMED
+          </Text>
+        );
+
+      return trans?.paymentDate ? (
+        formatDateTimeZone(trans?.paymentDate)
+      ) : (
+        <Text size="xs" c="orange.5" fw="bold">
+          UNPAID
+        </Text>
+      );
     },
   },
+
   {
-    accessorKey: "CardCouponTransaction.claimBy.retryCount",
-    header: "Retry Count",
-    size: 200,
+    accessorKey: "paymentStatus",
+    header: "Payment Status",
+    size: 80,
     Cell: ({ row }) => {
-      return <Text>{row.original.CardCouponTransaction?.claimBy?.retryCount || "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "CardCouponTransaction.claimBy.lastBlockedDatetime",
-    header: "lastBlockedDatetime",
-    size: 200,
-    Cell: ({ row }) => {
-      return <Text>{row.original.CardCouponTransaction?.claimBy?.lastBlockedDatetime || "-"}</Text>;
-    },
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    size: 100,
-    Cell: ({ row }) => {
-      const status = row.original.status;
+      const status = row.original.CardCouponTransaction?.paymentStatus;
+
+      if (!status)
+        return (
+          <Text size="xs" c="gray.5">
+            UNCLAIMED
+          </Text>
+        );
       return (
         <Flex gap="xs" align="center">
           <IconCircleFilled
             size={12}
-            color={
-              status === "ACTIVE"
-                ? "#00A300"
-                : status === "USED"
-                ? "#FFB800"
-                : "#FF0000"
-            }
+            color={status === "SUCCESS" ? "#00A300" : "#FFB800"}
           />
           <Text fw="bold" fz="xs" c="gray" tt="capitalize">
-            {status?.toLocaleLowerCase() ?? "-"}
+            {status?.toLocaleLowerCase()}
           </Text>
         </Flex>
       );
     },
   },
   {
-    accessorKey: "CardCouponTransaction.paymentStatus",
-    header: "Payment Status",
-    size: 200,
+    accessorKey: "status",
+    header: "Status",
+    size: 80,
     Cell: ({ row }) => {
-      const status = row.original.CardCouponTransaction?.paymentStatus;
+      const status = row.original.status;
+
       return (
         <Flex gap="xs" align="center">
           <IconCircleFilled
             size={12}
-            color={
-              status === "SUCCESS"
-                ? "#00A300"
-                : status === "PENDING"
-                ? "#FFB800"
-                : "#FF0000"
-            }
+            color={status === "ACTIVE" ? "#00A300" : "#FFB800"}
           />
           <Text fw="bold" fz="xs" c="gray" tt="capitalize">
-            {status?.toLocaleLowerCase() ?? "-"}
+            {status?.toLocaleLowerCase()}
           </Text>
         </Flex>
       );
@@ -190,19 +195,16 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     size: 100,
     Cell: ({ row }) => {
       const paymentStatus = row.original.CardCouponTransaction?.paymentStatus;
-      const showPaymentButton =
-        paymentStatus === "PENDING" || paymentStatus === "FAILED";
 
       return (
         <Flex gap="xs">
-          {showPaymentButton && (
-            <CardCouponForm
-              data={{
-                transactionId: row.original.CardCouponTransaction?.id ?? "",
-                remark: "",
-              }}
-            />
-          )}
+          <CardCouponForm
+            enable={paymentStatus === "PENDING" || paymentStatus === "FAILED"}
+            data={{
+              transactionId: row.original.CardCouponTransaction?.id ?? "",
+              remark: "",
+            }}
+          />
         </Flex>
       );
     },
@@ -228,7 +230,7 @@ export function CardCouponList() {
           columns={columns}
           isLoading={isLoading}
           columnPinning={{
-            right: ["CardCouponTransaction.paymentStatus", "_id"],
+            right: ["paymentStatus", "status", "_id"],
           }}
           total={data?.totalCount}
         />

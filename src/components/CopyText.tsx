@@ -18,7 +18,7 @@ export function CopyText({ children }: { children: string }) {
               )}
             </ActionIcon>
           </Tooltip>
-          <Text fw="bolder" c="primary" fz="sm">
+          <Text fw="bolder" c="primary" fz="xs">
             {children}
           </Text>
         </Flex>
