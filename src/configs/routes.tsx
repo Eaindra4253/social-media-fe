@@ -14,6 +14,7 @@ import { UserList } from "@/pages/user/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
 import { CardCouponList } from "@/pages/card-coupon/List";
+import { ChangePasswordPage } from "@/pages/user/ChangePassword";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ export const router = createBrowserRouter([
       {
         path: "users",
         element: <UserList />,
+      },
+      {
+        path: "change-password",
+        element: <ChangePasswordPage />,
       },
       {
         path: "settings",

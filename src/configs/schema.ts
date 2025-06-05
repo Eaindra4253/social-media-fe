@@ -41,3 +41,22 @@ export const updateUserSchema = z.object({
 export const makePaymentSchema = z.object({
   remark: z.string().min(1, { message: "Remark is required" }),
 });
+
+export const userChangePasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .refine((value) => value.length, { message: "New Password is required" }),
+    confirmPassword: z.string().refine((value) => value.length, {
+      message: "Confirm Password is required",
+    }),
+  })
+  .superRefine(({ confirmPassword, password }, ctx) => {
+    if (password !== confirmPassword) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["confirmPassword"],
+        message: "Passwords do not match",
+      });
+    }
+  });
