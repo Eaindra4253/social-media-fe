@@ -1,6 +1,6 @@
 import { cardCouponKeys } from "@/configs/queryKeys";
 import { useParamsHelper } from "@/hooks/useParamHelper";
-import { getCardCouponReports, makePayment } from "@/services/card-coupon.service";
+import { getCardCouponReports, makePayment, uploadExcel } from "@/services/card-coupon.service";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -43,5 +43,25 @@ export function useMakePayment(transactionId: string) {
         icon: <IconCheck />,
         message: "Make Payment Failed",
       }),
+  });
+}
+
+export function useUploadExcel() {
+  return useMutation({
+    mutationFn: (data: FormData) => uploadExcel(data),
+    onSuccess: () => {
+      notifications.show({
+        title: "Success",
+        message: "Excel file uploaded successfully",
+        color: "green",
+      });
+    },
+    onError: () => {
+      notifications.show({
+        title: "Error",
+        message: "Failed to upload Excel file",
+        color: "red",
+      });
+    },
   });
 }
