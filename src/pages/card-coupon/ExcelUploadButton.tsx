@@ -1,19 +1,15 @@
 import { Button, Modal, Stack, FileButton, Box, Text } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { useState } from "react";
+import { useDisclosure } from "@mantine/hooks";
+import { useUploadExcel } from "./quries";
+import { IconUpload } from "@tabler/icons-react";
 
-interface ExcelUploadButtonProps {
-  opened: boolean;
-  onClose: () => void;
-  uploadExcel: (formData: FormData) => void;
-}
-
-export function ExcelUploadButton({
-  opened,
-  onClose,
-  uploadExcel,
-}: ExcelUploadButtonProps) {
+export function ExcelUploadButton() {
+  const [opened, { open, close }] = useDisclosure(false);
+  const { mutate: uploadExcel, status } = useUploadExcel();
   const [file, setFile] = useState<File | null>(null);
+  const isLoading = status === "pending";
 
   const handleUpload = () => {
     if (!file) {
@@ -27,31 +23,43 @@ export function ExcelUploadButton({
 
     const formData = new FormData();
     formData.append("file", file);
-    uploadExcel(formData);
-    setFile(null);
-    onClose();
+    uploadExcel(formData, {
+      onSettled: () => {
+        setFile(null);
+        close();
+      },
+    });
   };
 
   return (
-    <Modal
-      opened={opened}
-      onClose={onClose}
-      title="Upload Excel File"
-      size="md"
-    >
-      <Stack>
-        <FileButton onChange={(file) => setFile(file)} accept=".xlsx,.xls">
-          {(props) => <Button {...props}>Select Excel File</Button>}
-        </FileButton>
+    <>
+      <Button
+        onClick={open}
+        leftSection={<IconUpload size={16} />}
+        size="xs"
+      >
+        Upload Excel
+      </Button>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Upload Excel File"
+        size="md"
+      >
+        <Stack>
+          <FileButton onChange={setFile} accept=".xlsx,.xls">
+            {(props) => <Button {...props}>Select Excel File</Button>}
+          </FileButton>
 
-        {file && (
-          <Box>
-            <Text size="sm">{file.name}</Text>
-          </Box>
-        )}
+          {file && (
+            <Box>
+              <Text size="sm">{file.name}</Text>
+            </Box>
+          )}
 
-        <Button onClick={handleUpload}>Submit</Button>
-      </Stack>
-    </Modal>
+          <Button onClick={handleUpload} loading={isLoading} disabled={isLoading}>Submit</Button>
+        </Stack>
+      </Modal>
+    </>
   );
 }
