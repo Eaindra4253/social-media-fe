@@ -62,3 +62,11 @@ export const cardCouponKeys = {
   details: () => [...cardCouponKeys.all, "detail"] as const,
   detail: (id: number) => [...cardCouponKeys.details(), id] as const,
 };
+
+export const dashboardKeys = {
+  all: ["dashboardKeys"] as const,
+  lists: () => [...dashboardKeys.all, "list"] as const,
+  list: (filters: string) => [...dashboardKeys.lists(), { filters }] as const,
+  details: () => [...dashboardKeys.all, "detail"] as const,
+  detail: (id: number) => [...dashboardKeys.details(), id] as const,
+};

@@ -30,3 +30,9 @@ export function getGngReportsDownload(params?: Record<string, unknown>) {
     responseType: "blob",
   });
 }
+
+export function getDashboardReports(params?: Record<string, unknown>) {
+  return api.get<DashboardData>("/admin/dashboard-report", {
+    params,
+  });
+}

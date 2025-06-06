@@ -1,7 +1,9 @@
 import DashboardLayout from "@/components/DashboardLayout";
 import { ErrorPage } from "@/components/pages/ErrorPage";
 import Login from "@/pages/auth/Login";
+import { CardCouponList } from "@/pages/card-coupon/List";
 import { CouponList } from "@/pages/coupon/List";
+import { DashboardPage } from "@/pages/dashboard";
 import { ReportList } from "@/pages/gng/list";
 import { PhotoList } from "@/pages/photo/List";
 import { ScannerLayout } from "@/pages/qr-scanner";
@@ -10,11 +12,10 @@ import { ScanErrorPage } from "@/pages/qr-scanner/ScanErrorPage";
 import { SuccessPage } from "@/pages/qr-scanner/SuccessPage";
 import { Settings } from "@/pages/settings/Settings";
 import { TransactionList } from "@/pages/transactions/List";
+import { ChangePasswordPage } from "@/pages/user/ChangePassword";
 import { UserList } from "@/pages/user/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
-import { CardCouponList } from "@/pages/card-coupon/List";
-import { ChangePasswordPage } from "@/pages/user/ChangePassword";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <DashboardPage />,
+      },
+      {
+        path: "ccn-reports",
         element: <TransactionList />,
       },
       {

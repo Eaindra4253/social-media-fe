@@ -1,5 +1,6 @@
 import { SidebarMenuType } from "@/components/DashboardLayout/types";
 import {
+  IconDashboard,
   IconPhoto,
   IconReceipt,
   IconReportAnalytics,
@@ -9,12 +10,17 @@ import {
 
 export const menus: SidebarMenuType[] = [
   {
-    label: "Coupon Report",
+    label: "Dashboard",
     path: "/",
+    icon: <IconDashboard size={16} />,
+  },
+  {
+    label: "CCN Report",
+    path: "/ccn-reports",
     icon: <IconReportAnalytics size={16} />,
   },
   {
-    label: "GNG Coupon Report",
+    label: "GNG Report",
     path: "/gng-reports",
     icon: <IconReportAnalytics size={16} />,
   },

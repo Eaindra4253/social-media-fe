@@ -3,9 +3,17 @@ export const permissions: Record<
   string[]
 > = {
   SCANNER: ["/qr-scanner"],
-  ADMIN: ["/", "/gng-reports", "/coupons", "/photos", "/card-coupon"],
+  ADMIN: [
+    "/",
+    "/ccn-reports",
+    "/gng-reports",
+    "/coupons",
+    "/photos",
+    "/card-coupon",
+  ],
   SUPER_ADMIN: [
     "/",
+    "/ccn-reports",
     "/gng-reports",
     "/coupons",
     "/photos",
@@ -13,7 +21,7 @@ export const permissions: Record<
     "/settings",
     "/card-coupon",
   ],
-  FINANCE: ["/gng-reports"],
+  FINANCE: ["/", "/gng-reports"],
 };
 
 export const blockedMenusByOutletType = {

@@ -184,4 +184,14 @@ declare global {
     remark: string;
     transactionId: string;
   }
+
+  type DashboardData = {
+    active: number;
+    activeCount: number;
+    used: number;
+    usedCount: number;
+    expired: number;
+    expiredCount: number;
+    count: number;
+  };
 }
