@@ -185,13 +185,21 @@ declare global {
     transactionId: string;
   }
 
-  type DashboardData = {
-    active: number;
-    activeCount: number;
-    used: number;
-    usedCount: number;
-    expired: number;
-    expiredCount: number;
+  type DashboardItem = {
+    amount: number;
     count: number;
+  };
+
+  type DashboardData = {
+    rewardCoupon: {
+      active: DashboardItem;
+      expired: DashboardItem;
+      used: DashboardItem;
+    };
+    premierLuckyDraw: {
+      active: DashboardItem;
+      credited: DashboardItem;
+      unPaid: DashboardItem;
+    };
   };
 }

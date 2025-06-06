@@ -195,7 +195,6 @@ export function OutletTypeFilter(props: OutletTypeSelectProps) {
 
   return (
     <Select
-      maw={120}
       searchable={false}
       size="xs"
       clearable

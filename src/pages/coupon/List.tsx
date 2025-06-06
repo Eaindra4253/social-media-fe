@@ -183,7 +183,7 @@ export function CouponList() {
         <Title order={3}>COUPON LIST</Title>
         <Flex gap="sm">
           <CouponTypeFilter />
-          <OutletTypeFilter />
+          <OutletTypeFilter maw={120} />
           <CouponStatusFilter />
           <CouponCreateForm />
         </Flex>

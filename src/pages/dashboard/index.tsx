@@ -1,13 +1,12 @@
 import { DateRangeFilter } from "@/components/Filter";
 import {
-  Center,
   DefaultMantineColor,
   Divider,
   Flex,
   Grid,
   Group,
-  Loader,
   Paper,
+  Skeleton,
   Stack,
   StyleProp,
   Text,
@@ -15,31 +14,47 @@ import {
 } from "@mantine/core";
 import { useDashboardReports } from "./queries";
 
-export function ReportCard({
-  title,
-  total,
-  count,
-  bg,
-}: {
+type ReportCardProps = {
   title: string;
   total?: number;
   count?: number;
   bg?: StyleProp<DefaultMantineColor>;
-}) {
+};
+
+function SkeletonLoader() {
+  return (
+    <>
+      <Skeleton height={20} />
+      <Skeleton height={20} />
+      <Skeleton height={20} />
+      <Skeleton height={20} />
+    </>
+  );
+}
+
+function ReportCard({ title, total, count, bg }: ReportCardProps) {
   return (
     <Paper withBorder radius="md" shadow="md" p="md" bg={bg} h="100%">
       <Stack c="white" gap="xs">
-        <Title order={3}>{title}</Title>
+        <Title order={4}>{title}</Title>
         <Divider />
         <Flex gap="xs">
           <Stack flex={2}>
             <Flex justify="space-between">
-              <Text fw="bold">AMOUNT</Text>
-              <Text fw="bold">{total ?? 0}</Text>
+              <Text fw="bold" fz="sm">
+                Total Amount
+              </Text>
+              <Text fw="bold" fz="sm">
+                {total ?? 0}
+              </Text>
             </Flex>
             <Flex justify="space-between">
-              <Text fw="bold">COUNT</Text>
-              <Text fw="bold">{count ?? 0}</Text>
+              <Text fw="bold" fz="sm">
+                Total Count
+              </Text>
+              <Text fw="bold" fz="sm">
+                {count ?? 0}
+              </Text>
             </Flex>
           </Stack>
         </Flex>
@@ -53,41 +68,74 @@ export function DashboardPage() {
 
   return (
     <Stack>
-      <Group justify="right">
-        <DateRangeFilter />
-      </Group>
-      {isLoading ? (
-        <Center h="40vh">
-          <Loader />
-        </Center>
-      ) : (
-        <Grid grow>
-          <Grid.Col span={4}>
-            <ReportCard
-              title="Active"
-              total={data?.activeCount}
-              count={data?.active}
-              bg="green"
-            />
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <ReportCard
-              title="Used"
-              total={data?.usedCount}
-              count={data?.used}
-              bg="orange"
-            />
-          </Grid.Col>
-          <Grid.Col span={4}>
-            <ReportCard
-              title="Expired"
-              total={data?.expiredCount}
-              count={data?.expired}
-              bg="primary"
-            />
-          </Grid.Col>
-        </Grid>
-      )}
+      <Stack>
+        <Group justify="space-between">
+          <Title order={3}>Reward Coupon</Title>
+          <DateRangeFilter />
+        </Group>
+        {isLoading ? (
+          <SkeletonLoader />
+        ) : (
+          <Grid grow>
+            <Grid.Col span={{ md: 4 }}>
+              <ReportCard
+                title="Active"
+                total={data?.rewardCoupon?.active?.amount}
+                count={data?.rewardCoupon?.active?.count}
+                bg="green"
+              />
+            </Grid.Col>
+            <Grid.Col span={{ md: 4 }}>
+              <ReportCard
+                title="Used"
+                total={data?.rewardCoupon?.used?.amount}
+                count={data?.rewardCoupon?.used?.count}
+                bg="orange"
+              />
+            </Grid.Col>
+            <Grid.Col span={{ md: 4 }}>
+              <ReportCard
+                title="Expired"
+                total={data?.rewardCoupon?.expired?.amount}
+                count={data?.rewardCoupon?.expired?.count}
+                bg="primary"
+              />
+            </Grid.Col>
+          </Grid>
+        )}
+        <Divider />
+        <Title order={3}>Premier Lucky Draw</Title>
+        {isLoading ? (
+          <SkeletonLoader />
+        ) : (
+          <Grid grow>
+            <Grid.Col span={{ md: 4 }}>
+              <ReportCard
+                title="Active"
+                total={data?.premierLuckyDraw?.active?.amount}
+                count={data?.premierLuckyDraw?.active?.count}
+                bg="green"
+              />
+            </Grid.Col>
+            <Grid.Col span={{ md: 4 }}>
+              <ReportCard
+                title="Pending Payment"
+                total={data?.premierLuckyDraw?.unPaid?.amount}
+                count={data?.premierLuckyDraw?.unPaid?.count}
+                bg="orange"
+              />
+            </Grid.Col>
+            <Grid.Col span={{ md: 4 }}>
+              <ReportCard
+                title="Credited"
+                total={data?.premierLuckyDraw?.credited?.amount}
+                count={data?.premierLuckyDraw?.credited?.count}
+                bg="blue"
+              />
+            </Grid.Col>
+          </Grid>
+        )}
+      </Stack>
     </Stack>
   );
 }
