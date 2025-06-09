@@ -7,13 +7,12 @@ import {
 } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
-import { Button, Flex, Group, Stack, Text, Title } from "@mantine/core";
-import { IconCircleFilled, IconUpload } from "@tabler/icons-react";
+import { Flex, Group, Stack, Text, Title } from "@mantine/core";
+import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { CardCouponForm } from "./Form";
-import { useCardCouponReports, useUploadExcel } from "./quries";
+import { useCardCouponReports } from "./quries";
 import { ExcelUploadButton } from "./ExcelUploadButton";
-import { useDisclosure } from "@mantine/hooks";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
@@ -215,9 +214,6 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
 
 export function CardCouponList() {
   const { data, isLoading } = useCardCouponReports();
-  const [excelModalOpened, { open: openExcel, close: closeExcel }] =
-    useDisclosure(false);
-  const { mutate: uploadExcel } = useUploadExcel();
 
   return (
     <Can roles={["ADMIN", "SUPER_ADMIN"]}>
@@ -228,19 +224,7 @@ export function CardCouponList() {
             <SearchInput />
             <PaymentStatusFilter />
             <CardCouponStatusFilter />
-            <ExcelUploadButton
-              opened={excelModalOpened}
-              onClose={closeExcel}
-              uploadExcel={uploadExcel}
-            />
-            <Button
-              onClick={openExcel}
-              leftSection={<IconUpload size={16} />}
-              radius="md"
-              size="xs"
-            >
-              Upload Excel
-            </Button>
+            <ExcelUploadButton />
           </Flex>
         </Group>
         <DataTable<CardCoupon>
@@ -250,7 +234,7 @@ export function CardCouponList() {
           columnPinning={{
             right: ["paymentStatus", "status", "_id"],
           }}
-          total={data?.totalCount}
+          total={data?.totalCount ?? 0}
         />
       </Stack>
     </Can>

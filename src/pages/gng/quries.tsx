@@ -15,7 +15,8 @@ export function useGngReports() {
     page: getParam("page") ?? undefined,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,
-    date: getParam("date") ?? undefined,
+    fromDate: getParam("fromDate") ?? undefined,
+    toDate: getParam("toDate") ?? undefined,
   };
 
   return useQuery({

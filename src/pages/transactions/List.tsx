@@ -196,7 +196,7 @@ export function TransactionList() {
           columnPinning={{
             right: ["user.phoneNumber", "createdAt", "status"],
           }}
-          total={data?.totalCount}
+          total={data?.totalCount ?? 0}
         />
       </Stack>
     </Can>

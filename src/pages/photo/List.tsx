@@ -2,20 +2,16 @@ import { ImageTypeFilter, OutletTypeFilter } from "@/components/Filter";
 import { ImagePreviewButton } from "@/components/ImagePreviewButton";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
-import { Button, Flex, Group, Stack, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { IconUpload } from "@tabler/icons-react";
+import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { useAuthStore } from "@/stores/auth.store";
 import { PhotoDeleteForm } from "./Form";
 import { ImageUploadButton } from "./ImageUploadButton";
-import { useGetPhotos, useUploadPhoto } from "./queries";
+import { useGetPhotos } from "./queries";
 
 export function PhotoList() {
   const { data, isLoading } = useGetPhotos();
-  const { mutate: uploadPhoto } = useUploadPhoto();
-  const [opened, { open, close }] = useDisclosure(false);
-  const user = useAuthStore((state) => state.user); 
+  const user = useAuthStore((state) => state.user);
 
   const columns: MRT_ColumnDef<Image>[] = [
     {
@@ -72,22 +68,10 @@ export function PhotoList() {
     <Stack>
       <Group justify="space-between">
         <Title order={3}>PHOTO LIST</Title>
-        <ImageUploadButton
-          opened={opened}
-          onClose={close}
-          uploadPhoto={uploadPhoto}
-        />
         <Group>
           <OutletTypeFilter />
           <ImageTypeFilter />
-          <Button
-            onClick={open}
-            leftSection={<IconUpload size={16} />}
-            radius="md"
-            size="xs"
-          >
-            Upload Image
-          </Button>
+          <ImageUploadButton />
         </Group>
       </Group>
       <DataTable<Image>
