@@ -202,4 +202,24 @@ declare global {
       unPaid: DashboardItem;
     };
   };
+
+  type Permission = {
+    id: number;
+    name: string;
+    code: string;
+    isActive: boolean;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+  type Role = {
+    id: number;
+    name: string;
+    description: string;
+    permissions: Permission[];
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
 }
