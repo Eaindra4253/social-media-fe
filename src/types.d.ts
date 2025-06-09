@@ -32,6 +32,7 @@ declare global {
     phoneNumber: string;
     role: "ADMIN" | "SCANNER" | "SUPER_ADMIN" | "FINANCE";
     outletType: "GNG" | "CAPITAL" | "PREMIER";
+    permissions: string[];
     createdAt: string;
     updatedAt: string;
     isActive: boolean;
@@ -201,5 +202,25 @@ declare global {
       credited: DashboardItem;
       unPaid: DashboardItem;
     };
+  };
+
+  type Permission = {
+    id: number;
+    name: string;
+    code: string;
+    isActive: boolean;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+  type Role = {
+    id: number;
+    name: string;
+    description: string;
+    permissions: string;
+    isActive: boolean;
+    createdAt: string;
+    updatedAt: string;
   };
 }

@@ -16,6 +16,8 @@ import { ChangePasswordPage } from "@/pages/user/ChangePassword";
 import { UserList } from "@/pages/user/List";
 import { createBrowserRouter } from "react-router-dom";
 import { menus } from "./menus";
+import { PermissionsList } from "@/pages/permissions/List";
+import { RolesList } from "@/pages/roles/List";
 
 export const router = createBrowserRouter([
   {
@@ -58,6 +60,14 @@ export const router = createBrowserRouter([
       {
         path: "settings",
         element: <Settings />,
+      },
+      {
+        path: "permissions",
+        element: <PermissionsList/>,
+      },
+      {
+        path: "roles",
+        element: <RolesList />,
       },
       {
         path: "*",

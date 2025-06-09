@@ -1,4 +1,3 @@
-import { Can } from "@/components/Can";
 import { CopyText } from "@/components/CopyText";
 import {
   CardCouponStatusFilter,
@@ -10,9 +9,10 @@ import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
+import { ExcelUploadButton } from "./ExcelUploadButton";
 import { CardCouponForm } from "./Form";
 import { useCardCouponReports } from "./quries";
-import { ExcelUploadButton } from "./ExcelUploadButton";
+import { AuthorizedPage } from "@/components/Can";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
@@ -216,7 +216,7 @@ export function CardCouponList() {
   const { data, isLoading } = useCardCouponReports();
 
   return (
-    <Can roles={["ADMIN", "SUPER_ADMIN"]}>
+    <AuthorizedPage permission="PREMIER_LUCKY_DRAW">
       <Stack>
         <Group justify="space-between" align="center">
           <Title order={3}>Card Coupon Reports</Title>
@@ -237,6 +237,6 @@ export function CardCouponList() {
           total={data?.totalCount ?? 0}
         />
       </Stack>
-    </Can>
+    </AuthorizedPage>
   );
 }

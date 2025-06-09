@@ -8,6 +8,7 @@ export type SidebarMenuItemType = {
   path?: string;
   children?: SidebarMenuItemType[];
   isRoot?: boolean;
+  permission?: string;
 };
 
 export type SidebarMenuType = Omit<SidebarMenuItemType, "isRoot">;

@@ -1,4 +1,3 @@
-import { Can } from "@/components/Can";
 import {
   DateRangeFilter,
   OutletTypeFilter,
@@ -17,6 +16,7 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { DownloadReport } from "./DownloadReport";
 import { usePurchaseReports } from "./quries";
+import { AuthorizedPage } from "@/components/Can";
 
 const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
@@ -177,7 +177,7 @@ export function TransactionList() {
   const { data, isLoading } = usePurchaseReports();
 
   return (
-    <Can roles={["ADMIN", "SUPER_ADMIN"]}>
+    <AuthorizedPage permission="COUPON_PURCHASE_LIST">
       <Stack>
         <Group justify="space-between" align="center">
           <Title order={3}>CCN COUPON Report</Title>
@@ -199,6 +199,6 @@ export function TransactionList() {
           total={data?.totalCount ?? 0}
         />
       </Stack>
-    </Can>
+    </AuthorizedPage>
   );
 }

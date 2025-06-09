@@ -1,3 +1,4 @@
+import { AuthorizedPage } from "@/components/Can";
 import { DateRangeFilter } from "@/components/Filter";
 import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
@@ -111,20 +112,22 @@ export function ReportList() {
   const { data, isLoading } = useGngReports();
 
   return (
-    <Stack>
-      <Group justify="space-between" align="center">
-        <Title order={3}>GNG COUPON Report</Title>
-        <Flex gap="sm">
-          <DateRangeFilter />
-          <DownloadReport />
-        </Flex>
-      </Group>
-      <DataTable<GngReport>
-        data={data?.data ?? []}
-        columns={columns}
-        isLoading={isLoading}          
-        total={data?.totalCount ?? 0}
-      />
-    </Stack>
+    <AuthorizedPage permission="AX_TRANSACTION_LIST">
+      <Stack>
+        <Group justify="space-between" align="center">
+          <Title order={3}>GNG COUPON Report</Title>
+          <Flex gap="sm">
+            <DateRangeFilter />
+            <DownloadReport />
+          </Flex>
+        </Group>
+        <DataTable<GngReport>
+          data={data?.data ?? []}
+          columns={columns}
+          isLoading={isLoading}
+          total={data?.totalCount ?? 0}
+        />
+      </Stack>
+    </AuthorizedPage>
   );
 }

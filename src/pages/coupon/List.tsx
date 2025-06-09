@@ -1,3 +1,4 @@
+import { AuthorizedPage } from "@/components/Can";
 import {
   CouponStatusFilter,
   CouponTypeFilter,
@@ -178,25 +179,27 @@ export function CouponList() {
   const { data, isLoading } = useGetCoupons();
 
   return (
-    <Stack>
-      <Group justify="space-between" align="center">
-        <Title order={3}>COUPON LIST</Title>
-        <Flex gap="sm">
-          <CouponTypeFilter />
-          <OutletTypeFilter maw={120} />
-          <CouponStatusFilter maw={120} />
-          <CouponCreateForm />
-        </Flex>
-      </Group>
-      <DataTable<Coupon>
-        data={data?.data ?? []}
-        columns={columns}
-        isLoading={isLoading}
-        columnPinning={{
-          right: ["isActive", "_id"],
-        }}
-        total={data?.totalCount ?? 0}
-      />
-    </Stack>
+    <AuthorizedPage permission="COUPON_LIST">
+      <Stack>
+        <Group justify="space-between" align="center">
+          <Title order={3}>COUPON LIST</Title>
+          <Flex gap="sm">
+            <CouponTypeFilter />
+            <OutletTypeFilter maw={120} />
+            <CouponStatusFilter />
+            <CouponCreateForm />
+          </Flex>
+        </Group>
+        <DataTable<Coupon>
+          data={data?.data ?? []}
+          columns={columns}
+          isLoading={isLoading}
+          columnPinning={{
+            right: ["isActive", "_id"],
+          }}
+          total={data?.totalCount ?? 0}
+        />
+      </Stack>
+    </AuthorizedPage>
   );
 }

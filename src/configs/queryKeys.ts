@@ -70,3 +70,19 @@ export const dashboardKeys = {
   details: () => [...dashboardKeys.all, "detail"] as const,
   detail: (id: number) => [...dashboardKeys.details(), id] as const,
 };
+
+export const permissionKeys = {
+  all: ["permission"] as const,
+  lists: () => [...permissionKeys.all, "list"] as const,
+  list: (filters: string) => [...permissionKeys.lists(), { filters }] as const,
+  details: () => [...permissionKeys.all, "detail"] as const,
+  detail: (id: number) => [...permissionKeys.details(), id] as const,
+};
+
+export const roleKeys = {
+  all: ["role"] as const,
+  lists: () => [...roleKeys.all, "list"] as const,
+  list: (filters: string) => [...roleKeys.lists(), { filters }] as const,
+  details: () => [...roleKeys.all, "detail"] as const,
+  detail: (id: number) => [...roleKeys.details(), id] as const,
+};

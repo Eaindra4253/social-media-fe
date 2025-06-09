@@ -1,8 +1,6 @@
 import Logo from "@/assets/logo.png";
 import { useLayoutStore } from "@/components/DashboardLayout/layout.store";
 import { HEADER_HEIGHT } from "@/configs/constants";
-import { permissions } from "@/configs/permissions";
-import { useAuthStore } from "@/stores/auth.store";
 import {
   ActionIcon,
   AppShell,
@@ -19,6 +17,7 @@ import {
   Text,
 } from "@mantine/core";
 import { Link, useLocation } from "react-router";
+import { Can } from "../Can";
 import { SidebarMenuItemType, SidebarMenuType } from "./types";
 
 const SideBarMenuItem = ({
@@ -133,8 +132,6 @@ const SideBarMenuItem = ({
 
 export function SideBar({ menus }: { menus: SidebarMenuType[] }) {
   const { opened, toggleSidebar } = useLayoutStore();
-  const user = useAuthStore((state) => state.user);
-  const allowedMenus = permissions[user?.role ?? "ADMIN"];
 
   return (
     <AppShell.Navbar>
@@ -157,11 +154,16 @@ export function SideBar({ menus }: { menus: SidebarMenuType[] }) {
       </AppShell.Section>
       <AppShell.Section grow my="xs" px="xs" component={ScrollArea}>
         <Stack gap={2}>
-          {menus
-            .filter((x) => x.path && allowedMenus.includes(x.path))
-            .map((item) => (
-              <SideBarMenuItem isRoot key={item.label} {...item} />
-            ))}
+          {menus.map((item) => {
+            if (!item.permission) {
+              return <SideBarMenuItem isRoot key={item.label} {...item} />;
+            }
+            return (
+              <Can permission={item.permission}>
+                <SideBarMenuItem isRoot key={item.label} {...item} />
+              </Can>
+            );
+          })}
         </Stack>
       </AppShell.Section>
     </AppShell.Navbar>

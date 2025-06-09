@@ -60,3 +60,35 @@ export const userChangePasswordSchema = z
       });
     }
   });
+
+export const createPermissionSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  code: z.string().refine((val) => val.length > 0, "Code is required"),
+  description: z.string().optional(),
+});
+
+export const updatePermissionSchema = z.object({
+  name: z
+    .string()
+    .refine((value) => value.length, { message: "Name is required" }),
+  code: z.string().refine((val) => val.length > 0, "Code is required"),
+  description: z.string().optional(),
+});
+
+export const createRoleSchema = z.object({
+  name: z.string().min(1, { message: "Name is required" }),
+  description: z.string().optional(),
+  permissions: z
+    .array(z.string())
+    .min(1, { message: "At least one permission is required" }),
+});
+
+export const updateRoleSchema = z.object({
+  name: z
+    .string()
+    .refine((value) => value.length, { message: "Name is required" }),
+  description: z.string().optional(),
+  permissions: z
+    .array(z.string())
+    .min(1, { message: "At least one permission is required" }),
+});
