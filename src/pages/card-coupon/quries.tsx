@@ -47,9 +47,11 @@ export function useMakePayment(transactionId: string) {
 }
 
 export function useUploadExcel() {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (data: FormData) => uploadExcel(data),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: cardCouponKeys.all });
       notifications.show({
         title: "Success",
         message: "Excel file uploaded successfully",
