@@ -15,7 +15,7 @@ export function getPurchasedReportsDownload(params?: Record<string, unknown>) {
 }
 
 export function getGngReports(params?: Record<string, unknown>) {
-  return api.get<GngReport[]>("/admin/gng-reports", {
+  return api.get<ApiResponseList<GngReport>>("/admin/gng-reports", {
     params: {
       date: params?.date ?? getCurrentDateReport(),
     },

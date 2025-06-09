@@ -234,7 +234,7 @@ export function CardCouponList() {
           columnPinning={{
             right: ["paymentStatus", "status", "_id"],
           }}
-          total={data?.totalCount}
+          total={data?.totalCount ?? 0}
         />
       </Stack>
     </Can>
