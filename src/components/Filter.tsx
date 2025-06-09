@@ -210,11 +210,12 @@ export function OutletTypeFilter(props: OutletTypeSelectProps) {
   );
 }
 
-export function CouponStatusFilter() {
+export function CouponStatusFilter(props: SelectProps) {
   const { setParam } = useParamsHelper();
 
   return (
     <Select
+      {...props}
       clearable
       data={[
         {

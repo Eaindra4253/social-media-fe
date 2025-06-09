@@ -32,7 +32,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "coupon.name",
     header: "Coupon Name",
-    size: 150,
+    size: 230,
   },
   {
     accessorKey: "coupon.amount",
@@ -184,7 +184,7 @@ export function TransactionList() {
           <Flex gap="sm">
             <SearchInput />
             <DateRangeFilter />
-            <OutletTypeFilter />
+            <OutletTypeFilter maw={120} />
             <StatusFilter />
             <DownloadReport />
           </Flex>

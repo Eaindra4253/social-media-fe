@@ -184,7 +184,7 @@ export function CouponList() {
         <Flex gap="sm">
           <CouponTypeFilter />
           <OutletTypeFilter maw={120} />
-          <CouponStatusFilter />
+          <CouponStatusFilter maw={120} />
           <CouponCreateForm />
         </Flex>
       </Group>

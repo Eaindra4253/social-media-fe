@@ -14,9 +14,8 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
-import { Navigate } from "react-router-dom";
 import { useLogin } from "./queries";
-import { permissions } from "@/configs/permissions";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
   const { user, login } = useAuthStore((state) => state);
@@ -44,9 +43,7 @@ export default function Login() {
     });
   };
 
-  if (user) {
-    return <Navigate to={permissions[user.role]?.[0] ?? "/"} />;
-  }
+  if (user) return <Navigate to="/" />;
 
   return (
     <Center w="100vw" h="100vh" bg="gray.0">
