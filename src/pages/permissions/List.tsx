@@ -1,13 +1,14 @@
+import { AuthorizedPage } from "@/components/Can";
 import { DataTable } from "@/components/table/DataTable";
+import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
-import { formatDateTimeZone } from "@/utils/date";
-import { useGetPermissions } from "./quries";
 import {
   PermissionCreateForm,
   PermissionDisableForm,
   PermissionUpdateForm,
 } from "./Form";
+import { useGetPermissions } from "./quries";
 
 const columns: MRT_ColumnDef<Permission, unknown>[] = [
   {
@@ -67,22 +68,24 @@ export function PermissionsList() {
   const { data, isLoading } = useGetPermissions();
 
   return (
-    <Stack>
-      <Group justify="space-between" align="center">
-        <Title order={3}>PERMISSION LIST</Title>
-        <Flex gap="sm">
-          <PermissionCreateForm />
-        </Flex>
-      </Group>
-      <DataTable<Permission>
-        data={data?.data ?? []}
-        columns={columns}
-        isLoading={isLoading}
-        columnPinning={{
-          right: ["_id"],
-        }}
-        total={data?.totalCount ?? 0}
-      />
-    </Stack>
+    <AuthorizedPage permission="PERMISSION_LIST">
+      <Stack>
+        <Group justify="space-between" align="center">
+          <Title order={3}>PERMISSION LIST</Title>
+          <Flex gap="sm">
+            <PermissionCreateForm />
+          </Flex>
+        </Group>
+        <DataTable<Permission>
+          data={data?.data ?? []}
+          columns={columns}
+          isLoading={isLoading}
+          columnPinning={{
+            right: ["_id"],
+          }}
+          total={data?.totalCount ?? 0}
+        />
+      </Stack>
+    </AuthorizedPage>
   );
 }

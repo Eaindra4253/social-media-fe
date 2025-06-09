@@ -32,6 +32,7 @@ declare global {
     phoneNumber: string;
     role: "ADMIN" | "SCANNER" | "SUPER_ADMIN" | "FINANCE";
     outletType: "GNG" | "CAPITAL" | "PREMIER";
+    permissions: string[];
     createdAt: string;
     updatedAt: string;
     isActive: boolean;
@@ -217,7 +218,7 @@ declare global {
     id: number;
     name: string;
     description: string;
-    permissions: Permission[];
+    permissions: string;
     isActive: boolean;
     createdAt: string;
     updatedAt: string;

@@ -1,5 +1,6 @@
-import { useDisclosure } from "@mantine/hooks";
-import { useCreateRole, useUpdateRole } from "./quries";
+import { PermissionsSelect } from "@/components/selects/PermissionSelect";
+import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
+import { createRoleSchema, updateRoleSchema } from "@/configs/schema";
 import {
   ActionIcon,
   Button,
@@ -9,6 +10,9 @@ import {
   Textarea,
   TextInput,
 } from "@mantine/core";
+import { useForm, zodResolver } from "@mantine/form";
+import { useDisclosure } from "@mantine/hooks";
+import { modals } from "@mantine/modals";
 import {
   IconCircleCheck,
   IconCircleX,
@@ -16,11 +20,7 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import { z } from "zod";
-import { useForm, zodResolver } from "@mantine/form";
-import { createRoleSchema, updateRoleSchema } from "@/configs/schema";
-import { modals } from "@mantine/modals";
-import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
-import { PermissionsSelect } from "@/components/selects/PermissionSelect";
+import { useCreateRole, useUpdateRole } from "./quries";
 
 export function RoleCreateForm() {
   const [opened, { close, open }] = useDisclosure();
@@ -44,9 +44,7 @@ export function RoleCreateForm() {
 type RoleFormProps = {
   isPending: boolean;
   initialValues?: z.infer<typeof updateRoleSchema>;
-  handleSubmit: (
-    values: z.infer<typeof createRoleSchema> | z.infer<typeof updateRoleSchema>
-  ) => Promise<void>;
+  handleSubmit: (values: Record<string, unknown>) => Promise<void>;
 };
 
 export function RoleForm({
@@ -68,7 +66,10 @@ export function RoleForm({
   return (
     <form
       onSubmit={form.onSubmit((values) => {
-        handleSubmit(values).then(() => form.reset());
+        handleSubmit({
+          ...values,
+          permissions: values.permissions.join(","),
+        }).then(() => form.reset());
       })}
     >
       <Stack>
@@ -123,8 +124,8 @@ export function RoleUpdateForm({ data }: { data: Role }) {
           isPending={isPending}
           initialValues={{
             name: data.name,
-            permissions: data.permissions.map((p) => p.id.toString()),
-            description: data.description,
+            permissions: data.permissions?.split(",", -1),
+            description: data?.description ?? "",
           }}
           handleSubmit={(values) => mutateAsync(values).then(close)}
         />

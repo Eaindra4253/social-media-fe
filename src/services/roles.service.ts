@@ -5,9 +5,9 @@ export function getRoles(params?: Record<string, unknown>) {
 }
 
 export function createRole(data: Record<string, unknown>) {
-  return api.post("/role", data);
+  return api.post("/roles", data);
 }
 
 export function updateRole(id: number, data: Record<string, unknown>) {
-  return api.put(`/role/${id}`, data);
+  return api.patch(`/roles/${id}`, data);
 }

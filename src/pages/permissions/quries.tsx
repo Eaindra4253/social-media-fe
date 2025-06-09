@@ -24,20 +24,6 @@ export function useGetPermissions() {
   });
 }
 
-export function useGetPermissionSelect() {
-  return useQuery({
-    queryKey: ["permissions"],
-    queryFn: () => getPermissions().then((res) => res.data),
-    select: (data) => {
-      const items = data.data ?? [];
-      return items.map((perm) => ({
-        value: perm.id.toString(),
-        label: perm.name,
-      }));
-    },
-  });
-}
-
 export function useCreatePermission() {
   const queryClient = useQueryClient();
   return useMutation({

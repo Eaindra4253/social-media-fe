@@ -1,3 +1,4 @@
+import { Can } from "@/components/Can";
 import { DateRangeFilter } from "@/components/Filter";
 import {
   DefaultMantineColor,
@@ -103,38 +104,40 @@ export function DashboardPage() {
             </Grid.Col>
           </Grid>
         )}
-        <Divider />
-        <Title order={3}>Premier Lucky Draw</Title>
-        {isLoading ? (
-          <SkeletonLoader />
-        ) : (
-          <Grid grow>
-            <Grid.Col span={{ md: 4 }}>
-              <ReportCard
-                title="Active"
-                total={data?.premierLuckyDraw?.active?.amount}
-                count={data?.premierLuckyDraw?.active?.count}
-                bg="green"
-              />
-            </Grid.Col>
-            <Grid.Col span={{ md: 4 }}>
-              <ReportCard
-                title="Pending Payment"
-                total={data?.premierLuckyDraw?.unPaid?.amount}
-                count={data?.premierLuckyDraw?.unPaid?.count}
-                bg="orange"
-              />
-            </Grid.Col>
-            <Grid.Col span={{ md: 4 }}>
-              <ReportCard
-                title="Credited"
-                total={data?.premierLuckyDraw?.credited?.amount}
-                count={data?.premierLuckyDraw?.credited?.count}
-                bg="blue"
-              />
-            </Grid.Col>
-          </Grid>
-        )}
+        <Can permission="PREMIER_LUCKY_DRAW">
+          <Divider />
+          <Title order={3}>Premier Lucky Draw</Title>
+          {isLoading ? (
+            <SkeletonLoader />
+          ) : (
+            <Grid grow>
+              <Grid.Col span={{ md: 4 }}>
+                <ReportCard
+                  title="Active"
+                  total={data?.premierLuckyDraw?.active?.amount}
+                  count={data?.premierLuckyDraw?.active?.count}
+                  bg="green"
+                />
+              </Grid.Col>
+              <Grid.Col span={{ md: 4 }}>
+                <ReportCard
+                  title="Pending Payment"
+                  total={data?.premierLuckyDraw?.unPaid?.amount}
+                  count={data?.premierLuckyDraw?.unPaid?.count}
+                  bg="orange"
+                />
+              </Grid.Col>
+              <Grid.Col span={{ md: 4 }}>
+                <ReportCard
+                  title="Credited"
+                  total={data?.premierLuckyDraw?.credited?.amount}
+                  count={data?.premierLuckyDraw?.credited?.count}
+                  bg="blue"
+                />
+              </Grid.Col>
+            </Grid>
+          )}
+        </Can>
       </Stack>
     </Stack>
   );

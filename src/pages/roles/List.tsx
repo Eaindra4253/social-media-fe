@@ -1,9 +1,10 @@
+import { AuthorizedPage } from "@/components/Can";
 import { DataTable } from "@/components/table/DataTable";
+import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
-import { formatDateTimeZone } from "@/utils/date";
+import { RoleCreateForm, RoleUpdateForm } from "./Form";
 import { useGetRoles } from "./quries";
-import { RoleCreateForm, RoleDisableForm, RoleUpdateForm } from "./Form";
 
 const columns: MRT_ColumnDef<Role, unknown>[] = [
   {
@@ -14,7 +15,7 @@ const columns: MRT_ColumnDef<Role, unknown>[] = [
   {
     accessorKey: "permissions",
     header: "Permissions",
-    size: 150,
+    size: 200,
   },
   {
     accessorKey: "description",
@@ -46,12 +47,7 @@ const columns: MRT_ColumnDef<Role, unknown>[] = [
     header: "Actions",
     size: 50,
     Cell: ({ row }) => {
-      return (
-        <Flex gap="xs">
-          <RoleUpdateForm data={row.original} key={row.id} />
-          <RoleDisableForm data={row.original} key={`${row.id}-disable`} />
-        </Flex>
-      );
+      return <RoleUpdateForm data={row.original} key={row.id} />;
     },
   },
 ];
@@ -60,22 +56,24 @@ export function RolesList() {
   const { data, isLoading } = useGetRoles();
 
   return (
-    <Stack>
-      <Group justify="space-between" align="center">
-        <Title order={3}>Roles LIST</Title>
-        <Flex gap="sm">
-          <RoleCreateForm />
-        </Flex>
-      </Group>
-      <DataTable<Role>
-        data={data?.data ?? []}
-        columns={columns}
-        isLoading={isLoading}
-        columnPinning={{
-          right: ["_id"],
-        }}
-        total={data?.totalCount ?? 0}
-      />
-    </Stack>
+    <AuthorizedPage permission="ROLE_LIST">
+      <Stack>
+        <Group justify="space-between" align="center">
+          <Title order={3}>Roles LIST</Title>
+          <Flex gap="sm">
+            <RoleCreateForm />
+          </Flex>
+        </Group>
+        <DataTable<Role>
+          data={data?.data ?? []}
+          columns={columns}
+          isLoading={isLoading}
+          columnPinning={{
+            right: ["_id"],
+          }}
+          total={data?.totalCount ?? 0}
+        />
+      </Stack>
+    </AuthorizedPage>
   );
 }

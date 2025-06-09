@@ -1,3 +1,4 @@
+import { RoleSelect } from "@/components/selects/RoleSelect";
 import { ERROR_COLOR, SUCCESS_COLOR, WARNING_COLOR } from "@/configs/constants";
 import { createUserSchema, updateUserSchema } from "@/configs/schema";
 import {
@@ -223,29 +224,11 @@ export function UserForm({
           placeholder="Enter Email"
           {...form.getInputProps("email")}
         />
-        <Select
+        <RoleSelect
           searchable={false}
           label="Role"
           placeholder="Select Role"
           clearable
-          data={[
-            {
-              label: "Super Admin",
-              value: "SUPER_ADMIN",
-            },
-            {
-              label: "Admin",
-              value: "ADMIN",
-            },
-            {
-              label: "Scanner",
-              value: "SCANNER",
-            },
-            {
-              label: "Finance",
-              value: "FINANCE",
-            }
-          ]}
           {...form.getInputProps("role")}
         />
         <Select

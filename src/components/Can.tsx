@@ -1,17 +1,21 @@
-import { permissions } from "@/configs/permissions";
 import { useAuthStore } from "@/stores/auth.store";
 import { PropsWithChildren } from "react";
-import { Navigate } from "react-router-dom";
+import { UnauthorizedPage } from "./pages/UnauthorizePage";
 
-export const Can = ({
-  children,
-  roles,
-}: PropsWithChildren & { roles: string[] }) => {
+type CanProps = PropsWithChildren & { permission: string };
+
+export const Can = ({ children, permission }: CanProps) => {
   const user = useAuthStore((state) => state.user);
 
-  if (roles.includes(user!.role)) {
-    return children;
-  }
+  if (user?.permissions.includes(permission)) return children;
 
-  return <Navigate to={permissions[user!.role][0]} />;
+  return null;
+};
+
+export const AuthorizedPage = ({ children, permission }: CanProps) => {
+  const user = useAuthStore((state) => state.user);
+
+  if (user?.permissions.includes(permission)) return children;
+
+  return <UnauthorizedPage />;
 };

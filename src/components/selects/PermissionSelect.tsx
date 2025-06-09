@@ -1,24 +1,26 @@
-import { useGetPermissionSelect } from "@/pages/permissions/quries";
 import { MultiSelect, MultiSelectProps } from "@mantine/core";
+import { useGetPermissionSelect } from "./queries";
 
 export interface PermissionOption {
   value: string;
   label: string;
 }
 
-type PermissionsSelectProps = Omit<MultiSelectProps, "data" | "value" | "onChange">;
+type PermissionsSelectProps = Omit<
+  MultiSelectProps,
+  "data" | "value" | "onChange"
+>;
 
 export function PermissionsSelect(props: PermissionsSelectProps) {
-  const { data: permissionOptions = [], isLoading } = useGetPermissionSelect();
+  const { data, isLoading } = useGetPermissionSelect();
 
   return (
     <MultiSelect
-      data={permissionOptions}
+      data={data}
       clearable
       searchable
       disabled={isLoading}
-      {...props} 
+      {...props}
     />
   );
 }
-
