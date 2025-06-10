@@ -1,3 +1,4 @@
+import { AuthorizedPage } from "@/components/Can";
 import {
   DateRangeFilter,
   OutletTypeFilter,
@@ -16,7 +17,6 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { DownloadReport } from "./DownloadReport";
 import { usePurchaseReports } from "./quries";
-import { AuthorizedPage } from "@/components/Can";
 
 const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
@@ -66,35 +66,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     accessorKey: "mobifinReferenceId",
     header: "Mobifin Reference Id",
   },
-  {
-    accessorKey: "status",
-    header: "Status",
-    size: 150,
-    Cell: ({ row }) => {
-      let c: string = SUCCESS_COLOR;
-      const expiredAt = new Date(row.original.expiredAt);
-      const now = new Date();
-      let status = row.original.status;
 
-      if (status === "PURCHASED") {
-        c = PURCHASED_COLOR;
-        status = "ACTIVE";
-        if (now > expiredAt) {
-          status = "EXPIRED";
-          c = ERROR_COLOR;
-        }
-      }
-
-      return (
-        <Flex align="center" justify="flex-start" gap="xs">
-          <IconCircleFilled size={10} color={c} />
-          <Text fw="bold" fz="xs" c="gray" tt="capitalize">
-            {status.toLocaleLowerCase()}
-          </Text>
-        </Flex>
-      );
-    },
-  },
   {
     accessorKey: "transactionId",
     header: "Transaction Id",
@@ -169,6 +141,35 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
       return row.original.expiredAt
         ? formatDateTimeZone(row.original.expiredAt)
         : "-";
+    },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    size: 150,
+    Cell: ({ row }) => {
+      let c: string = SUCCESS_COLOR;
+      const expiredAt = new Date(row.original.expiredAt);
+      const now = new Date();
+      let status = row.original.status;
+
+      if (status === "PURCHASED") {
+        c = PURCHASED_COLOR;
+        status = "ACTIVE";
+        if (now > expiredAt) {
+          status = "EXPIRED";
+          c = ERROR_COLOR;
+        }
+      }
+
+      return (
+        <Flex align="center" justify="flex-start" gap="xs">
+          <IconCircleFilled size={10} color={c} />
+          <Text fw="bold" fz="xs" c="gray" tt="capitalize">
+            {status.toLocaleLowerCase()}
+          </Text>
+        </Flex>
+      );
     },
   },
 ];

@@ -1,3 +1,4 @@
+import { AuthorizedPage, Can } from "@/components/Can";
 import { CopyText } from "@/components/CopyText";
 import {
   CardCouponStatusFilter,
@@ -12,7 +13,6 @@ import { MRT_ColumnDef } from "mantine-react-table";
 import { ExcelUploadButton } from "./ExcelUploadButton";
 import { CardCouponForm } from "./Form";
 import { useCardCouponReports } from "./quries";
-import { AuthorizedPage } from "@/components/Can";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
@@ -224,7 +224,9 @@ export function CardCouponList() {
             <SearchInput />
             <PaymentStatusFilter />
             <CardCouponStatusFilter />
-            <ExcelUploadButton />
+            <Can permission="PREMIER_LUCKY_DRAW">
+              <ExcelUploadButton />
+            </Can>
           </Flex>
         </Group>
         <DataTable<CardCoupon>

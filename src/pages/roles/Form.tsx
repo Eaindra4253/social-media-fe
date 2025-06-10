@@ -157,19 +157,17 @@ export function RoleDisableForm({ data }: { data: Role }) {
   };
 
   return (
-    <>
-      <ActionIcon
-        size="sm"
-        color={statusField === "Active" ? ERROR_COLOR : SUCCESS_COLOR}
-        variant="transparent"
-        onClick={confirmDialog}
-      >
-        {statusField === "Active" ? (
-          <IconCircleX size={20} />
-        ) : (
-          <IconCircleCheck size={20} />
-        )}
-      </ActionIcon>
-    </>
+    <ActionIcon
+      size="sm"
+      color={statusField === "Active" ? ERROR_COLOR : SUCCESS_COLOR}
+      variant="transparent"
+      onClick={confirmDialog}
+    >
+      {statusField === "Active" ? (
+        <IconCircleX size={20} />
+      ) : (
+        <IconCircleCheck size={20} />
+      )}
+    </ActionIcon>
   );
 }
