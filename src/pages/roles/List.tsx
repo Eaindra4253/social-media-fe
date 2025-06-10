@@ -3,7 +3,7 @@ import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
-import { RoleCreateForm, RoleUpdateForm } from "./Form";
+import { PermissionModal, RoleCreateForm, RoleUpdateForm } from "./Form";
 import { useGetRoles } from "./quries";
 
 const columns: MRT_ColumnDef<Role, unknown>[] = [
@@ -16,6 +16,9 @@ const columns: MRT_ColumnDef<Role, unknown>[] = [
     accessorKey: "permissions",
     header: "Permissions",
     size: 200,
+    Cell: ({ row }) => (
+      <PermissionModal permissions={row.original.permissions} />
+    ),
   },
   {
     accessorKey: "description",
