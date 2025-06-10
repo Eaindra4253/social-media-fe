@@ -7,7 +7,7 @@ type CanProps = PropsWithChildren & { permission: string };
 export const Can = ({ children, permission }: CanProps) => {
   const user = useAuthStore((state) => state.user);
 
-  if (user?.permissions.includes(permission)) return children;
+  if (user?.permissions?.includes(permission)) return children;
 
   return null;
 };
@@ -15,7 +15,7 @@ export const Can = ({ children, permission }: CanProps) => {
 export const AuthorizedPage = ({ children, permission }: CanProps) => {
   const user = useAuthStore((state) => state.user);
 
-  if (user?.permissions.includes(permission)) return children;
+  if (user?.permissions?.includes(permission)) return children;
 
   return <UnauthorizedPage />;
 };
