@@ -159,8 +159,8 @@ export function SideBar({ menus }: { menus: SidebarMenuType[] }) {
               return <SideBarMenuItem isRoot key={item.label} {...item} />;
             }
             return (
-              <Can permission={item.permission}>
-                <SideBarMenuItem isRoot key={item.label} {...item} />
+              <Can permission={item.permission} key={item.label}>
+                <SideBarMenuItem isRoot {...item} />
               </Can>
             );
           })}
