@@ -19,7 +19,7 @@ export const createUserSchema = z.object({
   password: z.string().refine((val) => val.length > 0, "Password is required"),
   email: z.string(),
   outletType: z.any().nullable(),
-  role: z.enum(["SCANNER", "ADMIN", "SUPER_ADMIN", "FINANCE"], {
+  role: z.string().refine((val) => val.length > 0, {
     message: "Role is required",
   }),
   isActive: z.boolean(),
@@ -31,11 +31,7 @@ export const updateUserSchema = z.object({
     .refine((value) => value.length, { message: "Username is required" }),
   email: z.string(),
   outletType: z.any().nullable(),
-  role: z
-    .enum(["SCANNER", "ADMIN", "SUPER_ADMIN", "FINANCE"], {
-      message: "Role is required",
-    })
-    .nullable(),
+  role: z.string().min(1, { message: "Role is required" }).nullable(),
 });
 
 export const makePaymentSchema = z.object({

@@ -9,6 +9,7 @@ import {
   Stack,
   Textarea,
   TextInput,
+  Badge,
 } from "@mantine/core";
 import { useForm, zodResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
@@ -77,6 +78,7 @@ export function RoleForm({
           label="Name"
           placeholder="Enter Role Name"
           {...form.getInputProps("name")}
+          readOnly={!!initialValues}
         />
 
         <PermissionsSelect
@@ -169,5 +171,43 @@ export function RoleDisableForm({ data }: { data: Role }) {
         <IconCircleCheck size={20} />
       )}
     </ActionIcon>
+  );
+}
+
+interface PermissionModalProps {
+  permissions: string;
+}
+
+export function PermissionModal({ permissions }: PermissionModalProps) {
+  const [opened, { open, close }] = useDisclosure(false);
+
+  const permissionList = permissions
+    .split(",")
+    .map((perm: string) => perm.trim())
+    .filter((perm: string) => perm.length > 0);
+
+  if (permissionList.length === 0) return null;
+
+  return (
+    <>
+      <Button variant="light" size="xs" onClick={open}>
+        View Permission
+      </Button>
+      <Modal
+        opened={opened}
+        onClose={close}
+        title="Permissions List"
+        size="lg"
+        centered
+      >
+        <Stack>
+          {permissionList.map((perm, index) => (
+            <Badge key={index} variant="light">
+              {perm}
+            </Badge>
+          ))}
+        </Stack>
+      </Modal>
+    </>
   );
 }
