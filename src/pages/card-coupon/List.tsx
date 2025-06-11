@@ -224,7 +224,7 @@ export function CardCouponList() {
             <SearchInput />
             <PaymentStatusFilter />
             <CardCouponStatusFilter />
-            <Can permission="PREMIER_LUCKY_DRAW">
+            <Can permission="LUCKY_DRAW_UPLOAD">
               <ExcelUploadButton />
             </Can>
           </Flex>

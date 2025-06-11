@@ -28,7 +28,7 @@ export const menus: SidebarMenuType[] = [
     permission: "AX_TRANSACTION_LIST",
   },
   {
-    label: "Card Coupon Report",
+    label: "Premier Lucky Draw Report",
     path: "/card-coupon",
     icon: <IconReportAnalytics size={16} />,
     permission: "PREMIER_LUCKY_DRAW",
