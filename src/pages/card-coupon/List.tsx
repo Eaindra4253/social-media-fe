@@ -219,7 +219,7 @@ export function CardCouponList() {
     <AuthorizedPage permission="PREMIER_LUCKY_DRAW">
       <Stack>
         <Group justify="space-between" align="center">
-          <Title order={3}>Premier Lucky Draw Reports</Title>
+          <Title order={3}>PREMIER LUCKY DRAW Report</Title>
           <Flex gap="sm">
             <SearchInput />
             <PaymentStatusFilter />

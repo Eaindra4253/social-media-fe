@@ -209,6 +209,7 @@ export function UserForm({
           label="Username"
           placeholder="Enter Username"
           {...form.getInputProps("username")}
+          readOnly={!!initialValues}
         />
         {!initialValues && (
           <PasswordInput
