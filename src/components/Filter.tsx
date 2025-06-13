@@ -10,9 +10,9 @@ import { useEffect, useState } from "react";
 type OutletTypeSelectProps = Omit<SelectProps, "data">;
 
 export function SearchInput() {
-  const { setParam } = useParamsHelper();
+  const { setParam, getParam } = useParamsHelper();
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(getParam("search") ?? "");
 
   const [value] = useDebouncedValue(search, 500);
 
