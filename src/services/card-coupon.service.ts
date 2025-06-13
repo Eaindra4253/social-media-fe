@@ -15,3 +15,10 @@ export function uploadExcel(data: FormData) {
     headers: { "Content-Type": "multipart/form-data" },
   });
 }
+
+export function getPremierReportsDownload(params?: Record<string, unknown>) {
+  return api.get("/card-coupon/download", {
+    params,
+    responseType: "blob",
+  });
+}

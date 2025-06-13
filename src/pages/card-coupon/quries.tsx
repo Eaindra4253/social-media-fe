@@ -1,6 +1,7 @@
 import { cardCouponKeys } from "@/configs/queryKeys";
 import { useParamsHelper } from "@/hooks/useParamHelper";
-import { getCardCouponReports, makePayment, uploadExcel } from "@/services/card-coupon.service";
+import { getCardCouponReports, getPremierReportsDownload, makePayment, uploadExcel } from "@/services/card-coupon.service";
+import { formatDateTimeZone } from "@/utils/date";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -62,6 +63,39 @@ export function useUploadExcel() {
       notifications.show({
         title: "Error",
         message: "Failed to upload Excel file",
+        color: "red",
+      });
+    },
+  });
+}
+
+export function usePremierDownloadReports() {
+  const { searchParams } = useParamsHelper();
+
+  const formatted = formatDateTimeZone(new Date());
+
+  const params = {
+    ...Object.fromEntries([...searchParams]),
+  };
+
+  return useMutation({
+    mutationFn: () => getPremierReportsDownload(params),
+    onSuccess: (response) => {
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.target = "_blank";
+      a.download = `Premier Monsoon Campaign Report - ${formatted}.xlsx`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    },
+    onError: () => {
+      notifications.show({
+        title: "Error",
+        message: "Cannot download report",
         color: "red",
       });
     },

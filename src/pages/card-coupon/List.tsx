@@ -12,6 +12,7 @@ import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { ExcelUploadButton } from "./ExcelUploadButton";
 import { useCardCouponReports } from "./quries";
+import { DownloadReport } from "./DownloadReport";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
@@ -187,6 +188,7 @@ export function CardCouponList() {
             <Can permission="LUCKY_DRAW_UPLOAD">
               <ExcelUploadButton />
             </Can>
+            <DownloadReport />
           </Flex>
         </Group>
         <DataTable<CardCoupon>
