@@ -11,7 +11,6 @@ import { Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
 import { ExcelUploadButton } from "./ExcelUploadButton";
-import { CardCouponForm } from "./Form";
 import { useCardCouponReports } from "./quries";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
@@ -147,7 +146,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
     accessorKey: "paymentStatus",
     header: "Disburse Status",
-    size: 80,
+    size: 120,
     Cell: ({ row }) => {
       const status = row.original.CardCouponTransaction?.paymentStatus;
 
@@ -173,7 +172,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
     accessorKey: "status",
     header: "Coupon Status",
-    size: 80,
+    size: 100,
     Cell: ({ row }) => {
       const status = row.original.status;
 
@@ -186,26 +185,6 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
           <Text fw="bold" fz="xs" c="gray" tt="capitalize">
             {status === "USED" ? "Claimed" : status?.toLocaleLowerCase()}
           </Text>
-        </Flex>
-      );
-    },
-  },
-  {
-    accessorKey: "_id",
-    header: "Actions",
-    size: 100,
-    Cell: ({ row }) => {
-      const paymentStatus = row.original.CardCouponTransaction?.paymentStatus;
-
-      return (
-        <Flex gap="xs">
-          <CardCouponForm
-            enable={paymentStatus === "PENDING" || paymentStatus === "FAILED"}
-            data={{
-              transactionId: row.original.CardCouponTransaction?.id ?? "",
-              remark: "",
-            }}
-          />
         </Flex>
       );
     },
