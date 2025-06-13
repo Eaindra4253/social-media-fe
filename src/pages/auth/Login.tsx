@@ -14,12 +14,15 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { Navigate, useLocation } from "react-router-dom";
 import { useLogin } from "./queries";
-import { Navigate } from "react-router-dom";
 
 export default function Login() {
   const { user, login } = useAuthStore((state) => state);
+
   const theme = useMantineTheme();
+
+  const location = useLocation();
 
   const { isPending, mutateAsync } = useLogin();
 
@@ -43,7 +46,7 @@ export default function Login() {
     });
   };
 
-  if (user) return <Navigate to="/" />;
+  if (user) return <Navigate to={location.state?.from ?? "/"} replace />;
 
   return (
     <Center w="100vw" h="100vh" bg="gray.0">
