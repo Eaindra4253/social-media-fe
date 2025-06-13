@@ -260,7 +260,7 @@ export function PaymentStatusFilter() {
       ]}
       checkIconPosition="right"
       size="xs"
-      placeholder="Payment Status Filter"
+      placeholder="Disburse Status Filter"
       value={useParamsHelper().getParam("paymentStatus")}
       onChange={(e) => {
         setParam("paymentStatus", e);
@@ -282,7 +282,7 @@ export function CardCouponStatusFilter() {
           value: "ACTIVE",
         },
         {
-          label: "Used",
+          label: "Claimed",
           value: "USED",
         },
       ]}

@@ -22,12 +22,12 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
   },
   {
     accessorKey: "priceCode",
-    header: "Price Code",
+    header: "Prize Code",
     size: 100,
   },
   {
     accessorKey: "price",
-    header: "Price",
+    header: "Prize",
     size: 100,
     Cell: ({ row }) => {
       return (
@@ -146,7 +146,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
 
   {
     accessorKey: "paymentStatus",
-    header: "Payment Status",
+    header: "Disburse Status",
     size: 80,
     Cell: ({ row }) => {
       const status = row.original.CardCouponTransaction?.paymentStatus;
@@ -172,7 +172,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: "Coupon Status",
     size: 80,
     Cell: ({ row }) => {
       const status = row.original.status;
@@ -184,7 +184,7 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
             color={status === "ACTIVE" ? "#00A300" : "#FFB800"}
           />
           <Text fw="bold" fz="xs" c="gray" tt="capitalize">
-            {status?.toLocaleLowerCase()}
+            {status === "USED" ? "Claimed" : status?.toLocaleLowerCase()}
           </Text>
         </Flex>
       );
@@ -219,7 +219,7 @@ export function CardCouponList() {
     <AuthorizedPage permission="PREMIER_LUCKY_DRAW">
       <Stack>
         <Group justify="space-between" align="center">
-          <Title order={3}>PREMIER LUCKY DRAW Report</Title>
+          <Title order={3}>PREMIER Monsoon Campaign Report</Title>
           <Flex gap="sm">
             <SearchInput />
             <PaymentStatusFilter />
