@@ -70,42 +70,49 @@ export function DashboardPage() {
   return (
     <Stack>
       <Stack>
-        <Group justify="space-between">
-          <Title order={3}>Reward Coupon</Title>
-          <DateRangeFilter />
-        </Group>
-        {isLoading ? (
-          <SkeletonLoader />
-        ) : (
-          <Grid grow>
-            <Grid.Col span={{ md: 4 }}>
-              <ReportCard
-                title="Active"
-                total={data?.rewardCoupon?.active?.amount}
-                count={data?.rewardCoupon?.active?.count}
-                bg="green"
-              />
-            </Grid.Col>
-            <Grid.Col span={{ md: 4 }}>
-              <ReportCard
-                title="Used"
-                total={data?.rewardCoupon?.used?.amount}
-                count={data?.rewardCoupon?.used?.count}
-                bg="orange"
-              />
-            </Grid.Col>
-            <Grid.Col span={{ md: 4 }}>
-              <ReportCard
-                title="Expired"
-                total={data?.rewardCoupon?.expired?.amount}
-                count={data?.rewardCoupon?.expired?.count}
-                bg="primary"
-              />
-            </Grid.Col>
-          </Grid>
-        )}
+        <Can permission="COUPON_PURCHASE_LIST">
+          <Group justify="space-between">
+            <Title order={3}>Reward Coupon</Title>
+            <DateRangeFilter />
+          </Group>
+          {isLoading ? (
+            <SkeletonLoader />
+          ) : (
+            <Grid grow>
+              <Grid.Col span={{ md: 4 }}>
+                <ReportCard
+                  title="Active"
+                  total={data?.rewardCoupon?.active?.amount}
+                  count={data?.rewardCoupon?.active?.count}
+                  bg="green"
+                />
+              </Grid.Col>
+              <Grid.Col span={{ md: 4 }}>
+                <ReportCard
+                  title="Used"
+                  total={data?.rewardCoupon?.used?.amount}
+                  count={data?.rewardCoupon?.used?.count}
+                  bg="orange"
+                />
+              </Grid.Col>
+              <Grid.Col span={{ md: 4 }}>
+                <ReportCard
+                  title="Expired"
+                  total={data?.rewardCoupon?.expired?.amount}
+                  count={data?.rewardCoupon?.expired?.count}
+                  bg="primary"
+                />
+              </Grid.Col>
+            </Grid>
+          )}
+        </Can>
         <Can permission="PREMIER_LUCKY_DRAW">
-          <Divider />
+          <Can permission="COUPON_PURCHASE_LIST">
+            <Can permission="PREMIER_LUCKY_DRAW">
+              <Divider />
+            </Can>
+          </Can>
+
           <Title order={3}>Premier Lucky Draw</Title>
           {isLoading ? (
             <SkeletonLoader />

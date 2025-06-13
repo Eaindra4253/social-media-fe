@@ -20,25 +20,6 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     size: 100,
   },
   {
-    accessorKey: "priceCode",
-    header: "Prize Code",
-    size: 100,
-  },
-  {
-    accessorKey: "price",
-    header: "Prize",
-    size: 100,
-    Cell: ({ row }) => {
-      return (
-        row.original.price || (
-          <Text size="xs" c="gray.5">
-            UNCLAIMED
-          </Text>
-        )
-      );
-    },
-  },
-  {
     accessorKey: "referenceId",
     header: "Reference ID",
     size: 150,
