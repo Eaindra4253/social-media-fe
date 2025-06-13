@@ -15,8 +15,8 @@ import { useCardCouponReports } from "./quries";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
-    accessorKey: "batchCode",
-    header: "Batch Code",
+    accessorKey: "price",
+    header: "Prize",
     size: 100,
   },
   {
