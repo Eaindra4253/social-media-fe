@@ -250,10 +250,6 @@ export function PaymentStatusFilter() {
           value: "SUCCESS",
         },
         {
-          label: "PENDING",
-          value: "PENDING",
-        },
-        {
           label: "FAILED",
           value: "FAILED",
         },

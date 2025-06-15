@@ -1,17 +1,13 @@
-import { Button } from "@mantine/core";
-import { usePremierDownloadReports } from "./quries";
+import { ActionIcon } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
+import { usePremierDownloadReports } from "./quries";
 
 export function DownloadReport() {
   const { mutate } = usePremierDownloadReports();
 
   return (
-    <Button
-      onClick={() => mutate()}
-      size="xs"
-      leftSection={<IconDownload size={16} />}
-    >
-      Download Excel
-    </Button>
+    <ActionIcon onClick={() => mutate()} size="xs" variant="transparent">
+      <IconDownload size={16} />
+    </ActionIcon>
   );
 }

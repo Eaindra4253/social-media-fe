@@ -1,7 +1,7 @@
 import { AuthorizedPage, Can } from "@/components/Can";
-import { CopyText } from "@/components/CopyText";
 import {
   CardCouponStatusFilter,
+  DateRangeFilter,
   PaymentStatusFilter,
   SearchInput,
 } from "@/components/Filter";
@@ -10,9 +10,9 @@ import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Text, Title } from "@mantine/core";
 import { IconCircleFilled } from "@tabler/icons-react";
 import { MRT_ColumnDef } from "mantine-react-table";
+import { DownloadReport } from "./DownloadReport";
 import { ExcelUploadButton } from "./ExcelUploadButton";
 import { useCardCouponReports } from "./quries";
-import { DownloadReport } from "./DownloadReport";
 
 const columns: MRT_ColumnDef<CardCoupon>[] = [
   {
@@ -24,53 +24,21 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     accessorKey: "referenceId",
     header: "Reference ID",
     size: 150,
-    Cell: ({ row }) => {
-      const trans = row.original.CardCouponTransaction;
-
-      if (!trans)
-        return (
-          <Text size="xs" c="gray.5">
-            UNCLAIMED
-          </Text>
-        );
-
-      return trans.referenceId ? (
-        <CopyText>{String(trans.referenceId)}</CopyText>
-      ) : (
-        <Text size="xs" c="orange.5" fw="bold">
-          UNPAID
-        </Text>
-      );
-    },
+    Cell: ({ row }) => row.original.CardCouponTransaction?.referenceId || "-",
   },
   {
     accessorKey: "claimBy",
     header: "Claimed By",
     size: 150,
     Cell: ({ row }) =>
-      row.original.CardCouponTransaction?.claimBy?.fullName || (
-        <Text size="xs" c="gray.5">
-          UNCLAIMED
-        </Text>
-      ),
+      row.original.CardCouponTransaction?.claimBy?.fullName || "-",
   },
   {
     accessorKey: "phoneNumber",
     header: "Claimed By Phone",
     size: 150,
-    Cell: ({ row }) => {
-      const phoneNumber =
-        row.original.CardCouponTransaction?.claimBy?.phoneNumber;
-
-      if (!phoneNumber)
-        return (
-          <Text size="xs" c="gray.5">
-            UNCLAIMED
-          </Text>
-        );
-
-      return <CopyText>{phoneNumber}</CopyText>;
-    },
+    Cell: ({ row }) =>
+      row.original.CardCouponTransaction?.claimBy?.phoneNumber || "-",
   },
   {
     accessorKey: "remark",
@@ -85,20 +53,9 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     Cell: ({ row }) => {
       const trans = row.original.CardCouponTransaction;
 
-      if (!trans)
-        return (
-          <Text size="xs" c="gray.5">
-            UNCLAIMED
-          </Text>
-        );
+      if (!trans) return "-";
 
-      return trans?.createdAt ? (
-        formatDateTimeZone(trans?.createdAt)
-      ) : (
-        <Text size="xs" c="orange.5" fw="bold">
-          UNPAID
-        </Text>
-      );
+      return formatDateTimeZone(trans?.createdAt);
     },
   },
   {
@@ -108,20 +65,9 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     Cell: ({ row }) => {
       const trans = row.original.CardCouponTransaction;
 
-      if (!trans)
-        return (
-          <Text size="xs" c="gray.5">
-            UNCLAIMED
-          </Text>
-        );
+      if (!trans?.paymentDate) return "-";
 
-      return trans?.paymentDate ? (
-        formatDateTimeZone(trans?.paymentDate)
-      ) : (
-        <Text size="xs" c="orange.5" fw="bold">
-          UNPAID
-        </Text>
-      );
+      return formatDateTimeZone(trans?.paymentDate);
     },
   },
 
@@ -132,17 +78,12 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     Cell: ({ row }) => {
       const status = row.original.CardCouponTransaction?.paymentStatus;
 
-      if (!status)
-        return (
-          <Text size="xs" c="gray.5">
-            UNCLAIMED
-          </Text>
-        );
+      if (!status) return "-";
       return (
         <Flex gap="xs" align="center">
           <IconCircleFilled
             size={12}
-            color={status === "SUCCESS" ? "#00A300" : "#FFB800"}
+            color={status === "SUCCESS" ? "#00A300" : "red"}
           />
           <Text fw="bold" fz="xs" c="gray" tt="capitalize">
             {status?.toLocaleLowerCase()}
@@ -181,10 +122,11 @@ export function CardCouponList() {
       <Stack>
         <Group justify="space-between" align="center">
           <Title order={3}>PREMIER Monsoon Campaign Report</Title>
-          <Flex gap="sm">
+          <Flex gap="sm" align="center">
             <SearchInput />
             <PaymentStatusFilter />
             <CardCouponStatusFilter />
+            <DateRangeFilter />
             <Can permission="LUCKY_DRAW_UPLOAD">
               <ExcelUploadButton />
             </Can>

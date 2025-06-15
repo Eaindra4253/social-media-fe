@@ -1,6 +1,11 @@
 import { cardCouponKeys } from "@/configs/queryKeys";
 import { useParamsHelper } from "@/hooks/useParamHelper";
-import { getCardCouponReports, getPremierReportsDownload, makePayment, uploadExcel } from "@/services/card-coupon.service";
+import {
+  getCardCouponReports,
+  getPremierReportsDownload,
+  makePayment,
+  uploadExcel,
+} from "@/services/card-coupon.service";
 import { formatDateTimeZone } from "@/utils/date";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
@@ -10,11 +15,13 @@ export function useCardCouponReports() {
   const { getParam } = useParamsHelper();
 
   const query = {
+    fromDate: getParam("fromDate") ?? undefined,
+    toDate: getParam("toDate") ?? undefined,
     page: getParam("page") ?? 1,
     limit: getParam("limit") ?? 10,
     search: getParam("search") ?? undefined,
     status: getParam("status") ?? undefined,
-    paymentStatus: getParam("paymentStatus") ?? undefined
+    paymentStatus: getParam("paymentStatus") ?? undefined,
   };
 
   return useQuery({
@@ -27,7 +34,8 @@ export function useCardCouponReports() {
 export function useMakePayment(transactionId: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: Payment) => makePayment({ ...data, transactionId } as Payment),
+    mutationFn: async (data: Payment) =>
+      makePayment({ ...data, transactionId } as Payment),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: cardCouponKeys.all });
       notifications.show({
