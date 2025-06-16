@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { useUploadExcel } from "./quries";
 import { IconUpload } from "@tabler/icons-react";
+import { VersionSelect } from "@/components/selects/VersionSelect";
 
 export function ExcelUploadButton() {
   const [opened, { open, close }] = useDisclosure(false);
   const { mutate: uploadExcel, status } = useUploadExcel();
   const [file, setFile] = useState<File | null>(null);
   const isLoading = status === "pending";
+  const [version, setVersion] = useState<"V1" | "V2">("V1");
 
   const handleUpload = () => {
     if (!file) {
@@ -23,6 +25,7 @@ export function ExcelUploadButton() {
 
     const formData = new FormData();
     formData.append("file", file);
+    formData.append("version", version);
     uploadExcel(formData, {
       onSettled: () => {
         setFile(null);
@@ -33,11 +36,7 @@ export function ExcelUploadButton() {
 
   return (
     <>
-      <Button
-        onClick={open}
-        leftSection={<IconUpload size={16} />}
-        size="xs"
-      >
+      <Button onClick={open} leftSection={<IconUpload size={16} />} size="xs">
         Upload Excel
       </Button>
       <Modal
@@ -51,13 +50,22 @@ export function ExcelUploadButton() {
             {(props) => <Button {...props}>Select Excel File</Button>}
           </FileButton>
 
+          <VersionSelect value={version} onChange={setVersion} />
+
           {file && (
             <Box>
               <Text size="sm">{file.name}</Text>
             </Box>
           )}
 
-          <Button onClick={handleUpload} loading={isLoading} disabled={isLoading}>Submit</Button>
+          <Button
+            onClick={handleUpload}
+            loading={isLoading}
+            disabled={isLoading}
+            mt="xs"
+          >
+            Submit
+          </Button>
         </Stack>
       </Modal>
     </>
