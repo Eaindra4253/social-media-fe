@@ -4,6 +4,7 @@ import { IconAlertCircle, IconX } from "@tabler/icons-react";
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 
 const api = axios.create({
+  timeout: 5 * 60 * 1000,
   baseURL: import.meta.env.VITE_API_URL,
   headers: {},
 });
