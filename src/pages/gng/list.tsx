@@ -21,21 +21,15 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   {
     accessorKey: "gngTransactionId",
     header: "GNG Transaction Id",
+    size: 250,
     Cell: ({ row }) => {
       return row.original.gngTransactionId ?? "-";
     },
   },
   {
-    accessorKey: "ccnTransactionId",
-    header: "CCN Transaction Id",
-    size: 300,
-    Cell: ({ row }) => {
-      return row.original.ccnTransactionId ?? "-";
-    },
-  },
-  {
     accessorKey: "storeCode",
     header: "Store Code",
+    size: 200,
     Cell: ({ row }) => {
       return row.original.storeCode ?? "-";
     },
@@ -43,27 +37,47 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   {
     accessorKey: "staffId",
     header: "Staff Id",
+    size: 200,
     Cell: ({ row }) => {
       return row.original.staffId ?? "-";
     },
   },
   {
-    accessorKey: "gngCouponAmount",
-    header: "GNG Coupon Amount",
+    accessorKey: "coupons",
+    header: "Coupons",
+    size: 300,
     Cell: ({ row }) => {
-      return row.original.gngCouponAmount ?? "-";
+      return row.original.coupons ?? "-";
+    },
+  },
+  {
+    accessorKey: "couponTotalAmount",
+    header: "Coupon Total Amount",
+    size: 300,
+    Cell: ({ row }) => {
+      return row.original.couponTotalAmount ?? "-";
     },
   },
   {
     accessorKey: "paySlipAmount",
-    header: "Pay Slip Amount",
+    header: "PaySlip Amount",
+    size: 300,
     Cell: ({ row }) => {
       return row.original.paySlipAmount ?? "-";
     },
   },
   {
+    accessorKey: "changeAmount",
+    header: "Change Amount",
+    size: 300,
+    Cell: ({ row }) => {
+      return row.original.changeAmount ?? "-";
+    },
+  },
+  {
     accessorKey: "paySlipId",
     header: "PaySlip Id",
+    size: 200,
     Cell: ({ row }) => {
       return row.original.paySlipId ?? "-";
     },
@@ -71,39 +85,9 @@ const columns: MRT_ColumnDef<GngReport>[] = [
   {
     accessorKey: "terminal",
     header: "Terminal",
-    Cell: ({ row }) => {
-      return row.original.terminal ?? "-";
-    },
-  },
-  {
-    accessorKey: "userPhoneNumber",
-    header: "User Phone Number",
-    Cell: ({ row }) => {
-      return row.original.userPhoneNumber ?? "-";
-    },
-  },
-  {
-    accessorKey: "usedDate",
-    header: "UsedDate",
     size: 200,
     Cell: ({ row }) => {
-      return row.original.usedDate
-        ? formatDateTimeZone(row.original.usedDate)
-        : "-";
-    },
-  },
-  {
-    accessorKey: "couponCode",
-    header: "Coupon Code",
-    Cell: ({ row }) => {
-      return row.original.couponCode ?? "-";
-    },
-  },
-  {
-    accessorKey: "ccnCouponAmount",
-    header: "CCN Coupon Amount",
-    Cell: ({ row }) => {
-      return row.original.ccnCouponAmount ?? "-";
+      return row.original.terminal ?? "-";
     },
   },
 ];

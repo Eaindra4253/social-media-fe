@@ -109,17 +109,14 @@ declare global {
   interface GngReport {
     transDateTime: string;
     gngTransactionId: string;
-    ccnTransactionId: string;
     storeCode: string;
     staffId: string;
-    gngCouponAmount: number;
-    paySlipAmount: number;
+    coupons: string;
+    couponTotalAmount: string;
+    paySlipAmount: string;
+    changeAmount: string;
     paySlipId: string;
     terminal: string;
-    usedDate: string;
-    couponCode: string;
-    ccnCouponAmount: number;
-    userPhoneNumber: string;
   }
 
   interface CreateCouponRequest {
