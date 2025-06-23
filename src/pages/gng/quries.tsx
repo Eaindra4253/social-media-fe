@@ -26,13 +26,15 @@ export function useGngReports() {
   });
 }
 
-export function useGngDownloadReports() {
-  const { searchParams } = useParamsHelper();
+export function useGngDownloadReports(limit = 10) {
+  const { getParam } = useParamsHelper();
 
   const formatted = formatDateTimeZone(new Date());
 
   const params = {
-    ...Object.fromEntries([...searchParams]),
+    fromDate: getParam("fromDate") ?? undefined,
+    toDate: getParam("toDate") ?? undefined,
+    limit,
   };
 
   return useMutation({

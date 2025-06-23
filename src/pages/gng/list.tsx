@@ -118,7 +118,7 @@ export function ReportList() {
           <Title order={3}>GNG COUPON Report</Title>
           <Flex gap="sm">
             <DateRangeFilter />
-            <DownloadReport />
+            <DownloadReport limit={data?.totalCount ?? 0} />
           </Flex>
         </Group>
         <DataTable<GngReport>
