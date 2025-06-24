@@ -1,3 +1,4 @@
+import { OutletTypeSelect } from "@/components/selects/OutletTypeSelect";
 import { RoleSelect } from "@/components/selects/RoleSelect";
 import { ERROR_COLOR, SUCCESS_COLOR, WARNING_COLOR } from "@/configs/constants";
 import { createUserSchema, updateUserSchema } from "@/configs/schema";
@@ -7,7 +8,6 @@ import {
   Group,
   Modal,
   PasswordInput,
-  Select,
   Stack,
   TextInput,
 } from "@mantine/core";
@@ -232,25 +232,11 @@ export function UserForm({
           clearable
           {...form.getInputProps("role")}
         />
-        <Select
+        <OutletTypeSelect
           searchable={false}
           label="Outlet Type"
           placeholder="Select Outlet Type"
           clearable
-          data={[
-            {
-              label: "GNG",
-              value: "GNG",
-            },
-            {
-              label: "CAPITAL",
-              value: "CAPITAL",
-            },
-            {
-              label: "PREMIER",
-              value: "PREMIER",
-            },
-          ]}
           {...form.getInputProps("outletType")}
         />
         <Group justify="flex-end" gap="sm">

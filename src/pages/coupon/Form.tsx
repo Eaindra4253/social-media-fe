@@ -23,6 +23,7 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import { useCreateCoupon, useUpdateCoupon } from "./queries";
+import { OutletTypeSelect } from "@/components/selects/OutletTypeSelect";
 
 export function CouponUpdateForm({ data }: { data: Coupon }) {
   const [opened, { close, open }] = useDisclosure();
@@ -230,14 +231,8 @@ export function CouponForm({
           {...form.getInputProps("validDays")}
         />
         {!user?.outletType ? (
-          <Select
-            label="Outlet Type"
+          <OutletTypeSelect
             placeholder="Pick one"
-            data={[
-              { value: "PREMIER", label: "PREMIER" },
-              { value: "GNG", label: "GNG" },
-              { value: "CAPITAL", label: "CAPITAL" },
-            ]}
             {...form.getInputProps("outletType")}
           />
         ) : null}

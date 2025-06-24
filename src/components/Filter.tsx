@@ -6,8 +6,10 @@ import { DateInput, DateInputProps } from "@mantine/dates";
 import { useDebouncedValue } from "@mantine/hooks";
 import { IconCalendar, IconSearch } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
-
-type OutletTypeSelectProps = Omit<SelectProps, "data">;
+import {
+  OutletTypeSelect,
+  OutletTypeSelectProps,
+} from "./selects/OutletTypeSelect";
 
 export function SearchInput() {
   const { setParam, getParam } = useParamsHelper();
@@ -194,17 +196,11 @@ export function OutletTypeFilter(props: OutletTypeSelectProps) {
   if (user?.outletType) return null;
 
   return (
-    <Select
-      searchable={false}
+    <OutletTypeSelect
+      miw={150}
+      placeholder="Filter Outlet Type"
       size="xs"
-      clearable
-      placeholder="Outlet Type"
       onChange={(value) => setParam("outletType", value)}
-      data={[
-        { value: "PREMIER", label: "PREMIER" },
-        { value: "GNG", label: "GNG" },
-        { value: "CAPITAL", label: "CAPITAL" },
-      ]}
       {...props}
     />
   );
