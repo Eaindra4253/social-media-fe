@@ -1,6 +1,7 @@
 import { photoKeys } from "@/configs/queryKeys";
 import { useParamsHelper } from "@/hooks/useParamHelper";
 import { deletePhoto, getPhotos, uploadPhoto } from "@/services/photo.service";
+import { useAuthStore } from "@/stores/auth.store";
 import { notifications } from "@mantine/notifications";
 import { IconCheck } from "@tabler/icons-react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -8,11 +9,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 export function useGetPhotos() {
   const { getParam } = useParamsHelper();
 
+  const user = useAuthStore((state) => state.user);
+
   const params = {
+    outletType: user?.outletType ?? getParam("outletType") ?? undefined,
     page: getParam("page") ?? 1,
     limit: getParam("limit") ?? 10,
     type: getParam("type") ?? undefined,
-    outletType: getParam("outletType") ?? undefined,
   };
 
   return useQuery({
