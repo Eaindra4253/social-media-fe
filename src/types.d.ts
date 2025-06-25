@@ -16,8 +16,20 @@ declare global {
     pageSize: number;
   };
 
-  type LoginResponse = User & {
+  type LoginResponse = SystemUser & {
     accessToken: string;
+  };
+
+  type SystemUser = {
+    id: number;
+    username: string;
+    email: string;
+    createdAt: string;
+    updatedAt: string;
+    role: string;
+    outletType?: string;
+    isActive: boolean;
+    permissions: string[];
   };
 
   type User = {
@@ -69,6 +81,7 @@ declare global {
     transactions: Transactions;
     coupon: Coupon;
     user: User;
+    scanBy?: SystemUser;
   }
 
   interface Transactions {

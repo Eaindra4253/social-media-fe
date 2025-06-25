@@ -1,9 +1,9 @@
 import { useAuthStore } from "@/stores/auth.store";
 
-export function useCheckActions(userRole: "ADMIN" | "SCANNER"): boolean {
-  const role = useAuthStore((state) => state.user?.role);
+export function useCheckPermission(permission: string): boolean {
+  const user = useAuthStore((state) => state.user);
 
-  if (!role) return false;
+  if (!user) return false;
 
-  return role === userRole;
+  return user.permissions.includes(permission);
 }

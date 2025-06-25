@@ -9,14 +9,12 @@ export function useScanQrCode() {
   const navigate = useNavigate();
 
   return useMutation({
-    mutationFn: async (data: { purchaseId: string; apiKey: string }) => {
-      const response = await purchasedCoupon({
+    mutationFn: async (data: { purchaseId: string; apiKey: string }) =>
+      purchasedCoupon({
         purchaseId: data.purchaseId,
         apiKey: data.apiKey,
-      });
-      return response.data;
-    },
-    onSuccess: (data) => {
+      }),
+    onSuccess: (response) => {
       notifications.show({
         color: "green",
         title: "Success",
@@ -24,7 +22,7 @@ export function useScanQrCode() {
         message: "QR Code Scanned Successfully",
       });
 
-      navigate("/qr-scanner/success", { state: data });
+      navigate("/qr-scanner/success", { state: response.data });
     },
     onError: (error: AxiosError<ApiErrorResponse>) => {
       const message = error?.response?.data?.message;

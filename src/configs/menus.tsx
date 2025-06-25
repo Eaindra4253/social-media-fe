@@ -28,7 +28,7 @@ export const menus: SidebarMenuType[] = [
     permission: "AX_TRANSACTION_LIST",
   },
   {
-    label: "PREMIER Monsoon Campaign Report",
+    label: "PREMIER Monsoon",
     path: "/card-coupon",
     icon: <IconReportAnalytics size={16} />,
     permission: "PREMIER_LUCKY_DRAW",

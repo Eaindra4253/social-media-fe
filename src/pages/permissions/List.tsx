@@ -3,11 +3,7 @@ import { DataTable } from "@/components/table/DataTable";
 import { formatDateTimeZone } from "@/utils/date";
 import { Flex, Group, Stack, Title } from "@mantine/core";
 import { MRT_ColumnDef } from "mantine-react-table";
-import {
-  PermissionCreateForm,
-  PermissionDisableForm,
-  PermissionUpdateForm,
-} from "./Form";
+import { PermissionCreateForm, PermissionUpdateForm } from "./Form";
 import { useGetPermissions } from "./quries";
 
 const columns: MRT_ColumnDef<Permission, unknown>[] = [
@@ -54,10 +50,6 @@ const columns: MRT_ColumnDef<Permission, unknown>[] = [
       return (
         <Flex gap="xs">
           <PermissionUpdateForm data={row.original} key={row.id} />
-          <PermissionDisableForm
-            data={row.original}
-            key={`${row.id}-disable`}
-          />
         </Flex>
       );
     },

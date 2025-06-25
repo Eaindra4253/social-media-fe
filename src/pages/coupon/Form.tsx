@@ -1,3 +1,4 @@
+import { OutletTypeSelect } from "@/components/selects/OutletTypeSelect";
 import { PhotoSelect } from "@/components/selects/PhotoSelect";
 import { ERROR_COLOR, SUCCESS_COLOR } from "@/configs/constants";
 import { createCouponSchema } from "@/configs/schema";
@@ -23,7 +24,6 @@ import {
   IconPlus,
 } from "@tabler/icons-react";
 import { useCreateCoupon, useUpdateCoupon } from "./queries";
-import { OutletTypeSelect } from "@/components/selects/OutletTypeSelect";
 
 export function CouponUpdateForm({ data }: { data: Coupon }) {
   const [opened, { close, open }] = useDisclosure();
@@ -247,6 +247,10 @@ export function CouponForm({
               label: "GNG COUPON",
             },
             { value: "MERCHANDISE_COUPON", label: "CAPITAL COUPON" },
+            {
+              value: "HOTPOT_CITY_DISCOUNT_COUPON_PRODUCT",
+              label: "Hotpot City",
+            },
           ]}
           {...form.getInputProps("productId")}
         />

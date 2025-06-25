@@ -20,16 +20,6 @@ import { usePurchaseReports } from "./quries";
 
 const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
-    accessorKey: "createdAt",
-    header: "Purchase Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.createdAt
-        ? formatDateTimeZone(row.original.createdAt)
-        : "-";
-    },
-  },
-  {
     accessorKey: "coupon.name",
     header: "Coupon Name",
     size: 230,
@@ -66,6 +56,44 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     accessorKey: "mobifinReferenceId",
     header: "Mobifin Reference Id",
   },
+  {
+    accessorKey: "usedDate",
+    header: "Used Date",
+    size: 180,
+    Cell: ({ row }) => {
+      return row.original.usedDate
+        ? formatDateTimeZone(row.original.usedDate)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "expiredAt",
+    header: "Expire Date",
+    size: 180,
+    Cell: ({ row }) => {
+      return row.original.expiredAt
+        ? formatDateTimeZone(row.original.expiredAt)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "createdAt",
+    header: "Purchase Date",
+    size: 180,
+    Cell: ({ row }) => {
+      return row.original.createdAt
+        ? formatDateTimeZone(row.original.createdAt)
+        : "-";
+    },
+  },
+  {
+    accessorKey: "scanBy",
+    header: "Scan By",
+    size: 150,
+    Cell: ({ row }) => {
+      return row.original.scanBy?.username ?? "-";
+    },
+  },
 
   {
     accessorKey: "transactionId",
@@ -94,7 +122,7 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
   {
     accessorKey: "axTransactionId",
     header: "AX Transaction Id",
-    size: 150,
+    size: 200,
     Cell: ({ row }) => {
       return row.original.transactions?.axTransactionId ?? "-";
     },
@@ -124,27 +152,8 @@ const columns: MRT_ColumnDef<PurchaseReport>[] = [
     },
   },
   {
-    accessorKey: "usedDate",
-    header: "Used Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.usedDate
-        ? formatDateTimeZone(row.original.usedDate)
-        : "-";
-    },
-  },
-  {
-    accessorKey: "expiredAt",
-    header: "Expire Date",
-    size: 200,
-    Cell: ({ row }) => {
-      return row.original.expiredAt
-        ? formatDateTimeZone(row.original.expiredAt)
-        : "-";
-    },
-  },
-  {
     accessorKey: "status",
+    Header: <StatusFilter />,
     header: "Status",
     size: 150,
     Cell: ({ row }) => {
@@ -186,7 +195,6 @@ export function TransactionList() {
             <SearchInput />
             <DateRangeFilter />
             <OutletTypeFilter maw={120} />
-            <StatusFilter />
             <DownloadReport />
           </Flex>
         </Group>

@@ -72,9 +72,10 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
   },
 
   {
+    Header: <PaymentStatusFilter />,
     accessorKey: "paymentStatus",
     header: "Disburse Status",
-    size: 120,
+    size: 160,
     Cell: ({ row }) => {
       const status = row.original.CardCouponTransaction?.paymentStatus;
 
@@ -93,9 +94,10 @@ const columns: MRT_ColumnDef<CardCoupon>[] = [
     },
   },
   {
+    Header: <CardCouponStatusFilter />,
     accessorKey: "status",
     header: "Coupon Status",
-    size: 100,
+    size: 120,
     Cell: ({ row }) => {
       const status = row.original.status;
 
@@ -124,8 +126,6 @@ export function CardCouponList() {
           <Title order={3}>PREMIER Monsoon Campaign Report</Title>
           <Flex gap="sm" align="center">
             <SearchInput />
-            <PaymentStatusFilter />
-            <CardCouponStatusFilter />
             <DateRangeFilter />
             <Can permission="LUCKY_DRAW_UPLOAD">
               <ExcelUploadButton />

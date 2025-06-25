@@ -197,6 +197,7 @@ export function OutletTypeFilter(props: OutletTypeSelectProps) {
 
   return (
     <OutletTypeSelect
+      clearable
       miw={150}
       placeholder="Filter Outlet Type"
       size="xs"
@@ -225,7 +226,7 @@ export function CouponStatusFilter(props: SelectProps) {
       ]}
       checkIconPosition="right"
       size="xs"
-      placeholder="Status Filter"
+      placeholder="Status"
       value={useParamsHelper().getParam("isActive")}
       onChange={(e) => {
         setParam("isActive", e);
@@ -252,7 +253,7 @@ export function PaymentStatusFilter() {
       ]}
       checkIconPosition="right"
       size="xs"
-      placeholder="Disburse Status Filter"
+      placeholder="Disburse Status"
       value={useParamsHelper().getParam("paymentStatus")}
       onChange={(e) => {
         setParam("paymentStatus", e);
@@ -280,7 +281,7 @@ export function CardCouponStatusFilter() {
       ]}
       checkIconPosition="right"
       size="xs"
-      placeholder="Status Filter"
+      placeholder="Status"
       value={useParamsHelper().getParam("status")}
       onChange={(e) => {
         setParam("status", e);
