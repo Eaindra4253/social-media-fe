@@ -1,101 +1,125 @@
-import Logo from "@/assets/icon.png";
+import AuthForm from "./Form";
+import { useState } from "react";
+import bg from "@/assets/bg.png";
+import { useLogin, useRegister } from "./queries";
 import { useAuthStore } from "@/stores/auth.store";
+import LoginRegisterControl from "./LoginRegisterControl";
+import { Navigate, useNavigate } from "react-router-dom";
 import {
-  Button,
-  Center,
-  Flex,
-  Image,
+  Box,
+  Container,
   Paper,
-  PasswordInput,
+  Center,
   Stack,
-  TextInput,
   Title,
-  useMantineTheme,
+  Text,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
-import { Navigate, useLocation } from "react-router-dom";
-import { useLogin } from "./queries";
+import { WHITE } from "@/configs/constants";
 
-export default function Login() {
-  const { user, login } = useAuthStore((state) => state);
+export default function LoginPage() {
+  const auth = useAuthStore((state) => state.auth);
+  const navigate = useNavigate();
+  const [tab, setTab] = useState<"login" | "register">("login");
 
-  const theme = useMantineTheme();
+  const loginMutation = useLogin();
+  const registerMutation = useRegister();
 
-  const location = useLocation();
-
-  const { isPending, mutateAsync } = useLogin();
-
-  const form = useForm({
-    initialValues: {
-      username: "",
-      password: "",
-    },
-    validate: {
-      username: (value: string) =>
-        value.length > 0 ? null : "Username is required",
-      password: (value: string) =>
-        value.length > 0 ? null : "Password is required",
-    },
-  });
-
-  const onSubmit = (values: Record<string, unknown>) => {
-    mutateAsync(values).then((response) => {
-      login(response.data);
-      form.reset();
-    });
+  const handleSubmit = (
+    values: Partial<AuthUser> & {
+      password: string;
+      password_confirmation?: string;
+    }
+  ) => {
+    if (tab === "login") {
+      loginMutation.mutateAsync(values).then(() => {
+        navigate("/home");
+      });
+    } else {
+      registerMutation.mutateAsync(values).then(() => {
+        setTab("login");
+        navigate("/login");
+      });
+    }
   };
 
-  if (user) return <Navigate to={location.state?.from ?? "/"} replace />;
+  if (auth) return <Navigate to="/home" replace />;
+
+  const isPending =
+    tab === "login" ? loginMutation.isPending : registerMutation.isPending;
 
   return (
-    <Center w="100vw" h="100vh" bg="gray.0">
-      <Stack gap="xs" align="center">
-        <Image src={Logo} alt="CTZPay Logo" w={80} h={80} mx="auto" />
-        <Flex align="baseline" justify="center">
-          <Title c="primary">R</Title>
-          <Title order={4} ta="center">
-            eward&nbsp;
-          </Title>
-          <Title c="primary">S</Title>
-          <Title order={4} ta="center">
-            ystem
-          </Title>
-        </Flex>
+    <Box
+      style={{
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 16,
+      }}
+    >
+      <Container size="sm" px={{ base: "sm", md: "md" }}>
+        <Center mb="md">
+          <Stack align="center">
+            <Title  fz={{ base: "1.5rem", sm: "1.75rem", md: "2rem" }}>
+              Social
+            </Title>
+            <Text
+              c="dimmed"
+              size="sm"
+              ta="center"
+            >
+              Connect with friends and share your moments
+            </Text>
+          </Stack>
+        </Center>
 
-        <Paper p="xl" w={340} radius="md" shadow="md">
-          <form onSubmit={form.onSubmit(onSubmit)}>
-            <Stack gap="md">
-              <Title order={4} ta="left" c="primary">
-                Log in
-              </Title>
+        <Center mb="md">
+          <LoginRegisterControl mode={tab} onModeChange={setTab} />
+        </Center>
 
-              <TextInput
-                label="Email or mobile number"
-                placeholder="Please enter username"
-                {...form.getInputProps("username")}
-              />
-
-              <PasswordInput
-                label="Password"
-                placeholder="Please enter PIN"
-                visibilityToggleIcon={({ reveal }) =>
-                  reveal ? (
-                    <IconEye color={theme.colors.primary[6]} />
-                  ) : (
-                    <IconEyeOff color={theme.colors.primary[6]} />
-                  )
-                }
-                {...form.getInputProps("password")}
-              />
-
-              <Button type="submit" fullWidth loading={isPending} mt={10}>
-                Log in
-              </Button>
-            </Stack>
-          </form>
+        <Paper
+          shadow="xl"
+          radius="md"
+          p={{ base: "sm", md: "md" }}
+          withBorder
+          bg="primary.10"
+          w="100%"
+          maw={500}
+          mx="auto"
+        >
+          <AuthForm
+            mode={tab}
+            isSubmitting={isPending}
+            onSubmit={handleSubmit}
+          />
         </Paper>
-      </Stack>
-    </Center>
+
+        <Center mt="md">
+          <Paper
+            shadow="sm"
+            radius="md"
+            p={{ base: "sm", md: "md" }}
+            w="100%"
+            maw={500}
+            withBorder
+            bg="primary.10"
+            mx="auto"
+          >
+            <Stack gap="xs" align="center">
+              <Text size="sm" c={WHITE} ta="center">
+                Demo account for testing:
+              </Text>
+              <Text size="sm" c={WHITE} ta="center">
+                Email: demo@example.com , Password: demo123
+              </Text>
+            </Stack>
+          </Paper>
+        </Center>
+      </Container>
+    </Box>
   );
 }

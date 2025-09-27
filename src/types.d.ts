@@ -9,228 +9,30 @@ declare global {
     message: string;
   };
 
-  type ApiResponseList<T> = {
-    data: T[];
-    totalCount: number;
-    page: number;
-    pageSize: number;
-  };
-
-  type LoginResponse = SystemUser & {
-    accessToken: string;
-  };
-
-  type SystemUser = {
-    id: number;
-    username: string;
-    email: string;
-    createdAt: string;
-    updatedAt: string;
-    role: string;
-    outletType?: string;
-    isActive: boolean;
-    permissions: string[];
-  };
-
-  type User = {
-    id: number;
-    username: string;
-    fullName: string;
-    uniqueId: string;
-    retryCount: number;
-    lastBlockedDatetime: string;
-    email: string;
-    password: string;
-    phoneNumber: string;
-    role: "ADMIN" | "SCANNER" | "SUPER_ADMIN" | "FINANCE";
-    outletType: "GNG" | "CAPITAL" | "PREMIER";
-    permissions: string[];
-    createdAt: string;
-    updatedAt: string;
-    isActive: boolean;
-  };
-
-  type QrScanResponse = {
-    transactionId: string;
-    amount: number;
-    couponName: string;
-    couponType: string;
-    outletType: string;
-  };
-
-  type DecryptedQrScan = {
-    name: string;
-    purchaseId: string;
-    amount: number;
-    outletType: string;
-    apiKey: string;
-    totalUsed: number;
-  };
-
-  interface PurchaseReport {
-    id: number;
-    userId: number;
-    couponId: number;
-    status: string;
-    usedDate: string;
-    paymentStatus: string;
-    mobifinReferenceId: string;
-    expiredAt: string;
-    createdAt: string;
-    updatedAt: string;
-    transactions: Transactions;
-    coupon: Coupon;
-    user: User;
-    scanBy?: SystemUser;
-  }
-
-  interface Transactions {
+  interface AuthUser {
     id: string;
-    status: string;
-    createdAt: string;
-    updatedAt: string;
-    axTransactionId?: string;
-    staffId?: string;
-    storeId?: string;
-    receiptNo?: string;
-    receiptAmount?: number;
-    couponAmount?: number;
-    purchaseId: number;
-  }
-
-  interface Coupon {
-    id: number;
-    code: string;
     name: string;
-    thumbnail: string;
-    imageUrl: string;
-    category: string;
-    logo: string;
-    couponType: string;
-    outletType: string;
-    description: string;
-    remark: string;
-    amount: number;
-    createdAt: string;
-    updatedAt: string;
-    validDays: number;
-    isActive: boolean;
-    productId: string;
-    purchases: [];
+    email: string;
+    profile_picture_url?: string | null;
+    created_at: string;
   }
 
-  interface GngReport {
-    transDateTime: string;
-    gngTransactionId: string;
-    storeCode: string;
-    staffId: string;
-    coupons: string;
-    couponTotalAmount: string;
-    paySlipAmount: string;
-    changeAmount: string;
-    paySlipId: string;
-    terminal: string;
+  interface RegisterResponse {
+    user: AuthUser;
+    token: string;
   }
 
-  interface CreateCouponRequest {
-    code: string;
-    name: string;
-    description: string;
-    amount: number;
-    thumbnail: string;
-    remark: string;
-    imageUrl: string;
-    logo: string;
-    category: string;
-    couponType: string;
-    outletType?: string;
-    validDays: number;
-    productId: string;
-  }
-
-  interface Image {
-    id: number;
-    url: string;
-    filename: string;
-    type: string;
-    outletType: string;
-    createdAt: string;
-    updatedAt: string;
-  }
-
-  interface Settings {
-    id: number;
-    enableWhiteList: boolean;
-    whiteList: string;
-  }
-
-  interface CardCoupon {
-    id: number;
-    serialNo: string;
-    coupon: string;
-    optimizer: string;
-    priceCode: string;
-    price: number;
-    batchCode: string;
-    status: string;
-    createdAt: string;
-    updatedAt: string;
-    CardCouponTransaction: CardCouponTransaction;
-  }
-
-  interface CardCouponTransaction {
+  interface LoginResponse {
     id: string;
-    cardCouponId: string;
-    claimById: number;
-    referenceId: number;
-    createdAt: string;
-    updatedAt: string;
-    paymentDate: string;
-    paymentStatus: string;
-    remark: string;
-    claimBy: User;
+    user: AuthUser;
+    name: string;
+    profile_picture_url: string;
+    token: string;
   }
 
-  interface Payment {
-    remark: string;
-    transactionId: string;
+  interface PostData {
+    title: string;
+    content: string;
+    image?: string;
   }
-
-  type DashboardItem = {
-    amount: number;
-    count: number;
-  };
-
-  type DashboardData = {
-    rewardCoupon: {
-      active: DashboardItem;
-      expired: DashboardItem;
-      used: DashboardItem;
-    };
-    premierLuckyDraw: {
-      active: DashboardItem;
-      credited: DashboardItem;
-      unPaid: DashboardItem;
-    };
-  };
-
-  type Permission = {
-    id: number;
-    name: string;
-    code: string;
-    isActive: boolean;
-    description: string;
-    createdAt: string;
-    updatedAt: string;
-  };
-
-  type Role = {
-    id: number;
-    name: string;
-    description: string;
-    permissions: string;
-    isActive: boolean;
-    createdAt: string;
-    updatedAt: string;
-  };
 }

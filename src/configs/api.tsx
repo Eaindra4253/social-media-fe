@@ -11,10 +11,10 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const { user } = useAuthStore.getState();
+    const { auth } = useAuthStore.getState(); 
 
-    if (user?.accessToken) {
-      config.headers["Authorization"] = `Bearer ${user.accessToken}`;
+    if (auth?.token) {
+      config.headers["Authorization"] = `Bearer ${auth.token}`;
       config.headers["Accept"] = "application/json";
       if (!config.headers["Content-Type"]) {
         config.headers["Content-Type"] = "application/json; charset=utf-8";
@@ -28,11 +28,11 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   (error: AxiosError<ApiErrorResponse>) => {
     if (error.response && error.response.status === 401) {
+      const { removeAuthUser } = useAuthStore.getState();
+
       if (error.response.config.url?.includes("login")) {
         notifications.show({
           id: "unauthorized",
@@ -42,9 +42,8 @@ api.interceptors.response.use(
           icon: <IconX size={16} />,
         });
       } else {
-        console.log(error.response.data);
-        const clearUser = useAuthStore.getState().logout;
-        clearUser();
+
+        removeAuthUser();
 
         notifications.show({
           id: "session-expired",

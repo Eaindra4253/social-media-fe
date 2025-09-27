@@ -1,3 +1,5 @@
+import { Center } from "@mantine/core";
+
 export function ErrorPage() {
-  return <div>Error</div>;
+  return <Center h="100vh">Error</Center>;
 }

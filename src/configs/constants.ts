@@ -1,7 +1,6 @@
-export const SIDEBAR_WIDTH = 220;
-export const HEADER_HEIGHT = 50;
-
-export const SUCCESS_COLOR = "#00C38C";
-export const WARNING_COLOR = "#FFB547";
-export const PURCHASED_COLOR = "#237fc4";
-export const ERROR_COLOR = "#E00000";
+export const BLACK = "black";
+export const INACTIVE_BG_COLOR = "rgba(0, 0, 0, 0.2)";
+export const WHITE = "white";
+export const GRAY = "gray";
+export const INACTIVE_BUTTON_BG_COLOR = "transparent";
+export const INACTIVE_TEXT_COLOR = "black";

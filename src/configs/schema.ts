@@ -1,90 +1,36 @@
 import { z } from "zod";
 
-export const createCouponSchema = z.object({
-  code: z.string().min(1, { message: "Code is required" }),
-  name: z.string().min(1, { message: "Name is required" }),
-  description: z.string().min(1, { message: "Description is required" }),
-  amount: z.number().min(1, { message: "Point Amount is required" }),
-  thumbnail: z.string().min(1, { message: "Thumbnail URL is required" }),
-  imageUrl: z.string().min(1, { message: "Image URL is required" }),
-  logo: z.string().min(1, { message: "Logo is required" }),
-  validDays: z.number().min(1, { message: "Valid Days is required" }),
-  category: z.string().min(1, { message: "Category is required" }),
-  couponType: z.string().min(1, { message: "Coupon Type is required" }),
-  outletType: z.string().min(1, { message: "Outlet Type is required" }),
-});
-
-export const createUserSchema = z.object({
-  username: z.string().min(1, { message: "Username is required" }),
-  password: z.string().refine((val) => val.length > 0, "Password is required"),
-  email: z.string(),
-  outletType: z.any().nullable(),
-  role: z.string().refine((val) => val.length > 0, {
-    message: "Role is required",
-  }),
-  isActive: z.boolean(),
-});
-
-export const updateUserSchema = z.object({
-  username: z
+export const loginSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z
     .string()
-    .refine((value) => value.length, { message: "Username is required" }),
-  email: z.string(),
-  outletType: z.any().nullable(),
-  role: z.string().min(1, { message: "Role is required" }).nullable(),
+    .min(8, { message: "Password must be at least 8 characters" }),
 });
 
-export const makePaymentSchema = z.object({
-  remark: z.string().min(1, { message: "Remark is required" }),
-});
-
-export const userChangePasswordSchema = z
+export const registerSchema = z
   .object({
+    email: z.string().email({ message: "Invalid email address" }),
     password: z
       .string()
-      .refine((value) => value.length, { message: "New Password is required" }),
-    confirmPassword: z.string().refine((value) => value.length, {
-      message: "Confirm Password is required",
-    }),
+      .min(8, { message: "Password must be at least 8 characters" }),
+    name: z
+      .string()
+      .min(1, { message: "Username is required" })
+      .max(255, { message: "Username cannot exceed 255 characters" }),
+    profile_picture_url: z.string().optional().or(z.literal("")),
+    password_confirmation: z
+      .string()
+      .min(1, { message: "Confirm password is required" }),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (password !== confirmPassword) {
+  .superRefine((values, ctx) => {
+    if (values.password !== values.password_confirmation) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        path: ["confirmPassword"],
+        path: ["password_confirmation"],
         message: "Passwords do not match",
       });
     }
   });
 
-export const createPermissionSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  code: z.string().refine((val) => val.length > 0, "Code is required"),
-  description: z.string().optional(),
-});
-
-export const updatePermissionSchema = z.object({
-  name: z
-    .string()
-    .refine((value) => value.length, { message: "Name is required" }),
-  code: z.string().refine((val) => val.length > 0, "Code is required"),
-  description: z.string().optional(),
-});
-
-export const createRoleSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
-  description: z.string().optional(),
-  permissions: z
-    .array(z.string())
-    .min(1, { message: "At least one permission is required" }),
-});
-
-export const updateRoleSchema = z.object({
-  name: z
-    .string()
-    .refine((value) => value.length, { message: "Name is required" }),
-  description: z.string().optional(),
-  permissions: z
-    .array(z.string())
-    .min(1, { message: "At least one permission is required" }),
-});
+export type LoginSchema = z.infer<typeof loginSchema>;
+export type RegisterSchema = z.infer<typeof registerSchema>;

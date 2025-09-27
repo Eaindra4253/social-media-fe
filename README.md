@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+Social Media Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Social Media project built with React, TypeScript, Mantine UI, React Query, Zustand, and Zod. It connects to a backend API to display user profiles, posts, likes, comments, and media (images/videos).
 
-Currently, two official plugins are available:
+Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-- Display user profile (avatar, name, email, post count, likes, comments)
+-- Display user's posts with content, images/videos
+-- Likes and comments count displayed per post
+-- Comments section show when clicking the comment icon and view Comments
+-- Pagination for loading more posts
+-- User authentication state management with Zustand
+-- Form validation using Zod
+-- Responsive UI using Mantine components
+-- File upload support for creating posts (images/videos)
 
-## Expanding the ESLint configuration
+Setup Instructions
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. Clone the repository
 
-- Configure the top-level `parserOptions` property like this:
+   -- git clone <your-repo-url>
+   -- cd social-media-frontend
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+2. Install dependencies
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+   -- npm install
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+   Dependencies include:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+   -- react, react-dom, react-router-dom
+   -- @mantine/core, @mantine/form
+   -- @tabler/icons-react
+   -- @tanstack/react-query
+   -- zustand (for auth state)
+   -- zod (for form validation)
+   -- date-fns
+
+3. Environment Variables
+
+   Create a .env file in the project root:
+
+   -- VITE_API_URL = http://localhost:5000/
+   Replace with your backend API base URL if different.
+
+4. Authentication Store (Zustand)
+
+5. Form Validation Example (Zod + Mantine Form)
+
+6. Run the frontend
+
+   -- npm run dev
+
+7. API Services
+
+   -- Post service example (post.service.ts):
+   -- Profile queries example (queries.tsx):
+
+8. Notes
+
+   -- mages/Videos: Ensure your backend serves src/uploads folder statically so media paths work in the frontend.
+   -- Comments: Hidden by default; only shown when clicking comment icon and View Comments icon .
+   -- Pagination: Use "Load More" button to fetch additional posts.
+   -- Placeholder Images: Currently using https://via.placeholder.com/150 for missing avatars.
+   -- Auth: Zustand manages token and authentication state.
+   -- Form Validation: Zod + Mantine forms ensure valid input.
+
+9. Build for Production
+
+   - npm run build
+   - The production-ready build will be in the dist/ folder.
+
+10. Optional
+
+- Replace placeholder avatars with real user avatars from backend.
+- Customize Mantine theme to match your brand design.

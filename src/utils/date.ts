@@ -1,20 +1,6 @@
-import { DateValue } from "@mantine/dates";
 import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
+import relativeTime from "dayjs/plugin/relativeTime";
 
-export function formatDateTimeZone(date: Date | string) {
-  return new Date(date).toLocaleString("en-US", {
-    timeZone: "Asia/Yangon",
-  });
-}
-
-export function formatDateFilter(date?: DateValue) {
-  if (!date) return undefined;
-  dayjs.extend(timezone);
-  return dayjs(date).tz("Asia/Yangon").format("YYYY-MM-DD");
-}
-
-export function getCurrentDateReport() {
-  dayjs.extend(timezone);
-  return dayjs().tz("Asia/Yangon").format("YYYY-MM-DD");
+export function configureDayjs() {
+  dayjs.extend(relativeTime);
 }

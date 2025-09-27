@@ -2,27 +2,29 @@ import { EncryptStorage } from "encrypt-storage";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export interface AuthStore {
-  user?: LoginResponse;
-  login: (user: LoginResponse) => void;
-  logout: () => void;
+const encryptStorage = new EncryptStorage("auth-storage");
+export interface AuthState {
+  auth?: LoginResponse;
+  setAuthUser: (token: LoginResponse) => void;
+  removeAuthUser: () => void;
 }
 
-const storage = new EncryptStorage("auth-storage");
-
-export const useAuthStore = create<AuthStore>()(
+export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      user: undefined,
-      login: (user) => set({ user }),
-      logout: () => set({ user: undefined }),
+      auth: undefined,
+      setAuthUser: (auth) => set(() => ({ auth })),
+      removeAuthUser: () => {
+        set(() => ({ auth: undefined }));
+        encryptStorage.removeItem("auth-storage");
+      },
     }),
     {
       name: "auth-storage",
       storage: {
-        getItem: (name) => storage.getItem(name),
-        setItem: (name, value) => storage.setItem(name, value),
-        removeItem: (name) => storage.removeItem(name),
+        getItem: (name) => encryptStorage.getItem(name),
+        setItem: (name, value) => encryptStorage.setItem(name, value),
+        removeItem: (name) => encryptStorage.removeItem(name),
       },
     }
   )
