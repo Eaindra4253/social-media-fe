@@ -119,7 +119,7 @@ export default function Profile() {
           <Title
             order={4}
             m="auto"
-            style={{ width: "95%", maxWidth: rem(960) }}
+            style={{ width: "80%", maxWidth: rem(500) }}
           >
             Your Posts
           </Title>
