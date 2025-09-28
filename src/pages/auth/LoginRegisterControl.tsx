@@ -16,9 +16,11 @@ export default function LoginRegisterControl({ mode, onModeChange }: Props) {
 
   return (
     <Group
-      gap={0}
+      gap={4}
       grow
-      w={{ base: "100%", sm: 400, md: 500 }} 
+      wrap="wrap"
+      w="100%"
+      maw={500}
       p={4}
       style={{
         backgroundColor: INACTIVE_BG_COLOR,
@@ -28,10 +30,10 @@ export default function LoginRegisterControl({ mode, onModeChange }: Props) {
     >
       <Button
         radius="xl"
+        fullWidth
         onClick={() => onModeChange("login")}
         style={{
-          backgroundColor:
-            mode === "login" ? WHITE : INACTIVE_BUTTON_BG_COLOR,
+          backgroundColor: mode === "login" ? WHITE : INACTIVE_BUTTON_BG_COLOR,
           color: INACTIVE_TEXT_COLOR,
         }}
       >
@@ -40,12 +42,11 @@ export default function LoginRegisterControl({ mode, onModeChange }: Props) {
 
       <Button
         radius="xl"
+        fullWidth
         onClick={() => onModeChange("register")}
         style={{
           backgroundColor:
-            mode === "register"
-              ? WHITE
-              : INACTIVE_BUTTON_BG_COLOR,
+            mode === "register" ? WHITE : INACTIVE_BUTTON_BG_COLOR,
           color: INACTIVE_TEXT_COLOR,
         }}
       >

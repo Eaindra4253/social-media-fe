@@ -25,15 +25,10 @@ export default function LoginPage() {
   const registerMutation = useRegister();
 
   const handleSubmit = (
-    values: Partial<AuthUser> & {
-      password: string;
-      password_confirmation?: string;
-    }
+    values: Partial<AuthUser> & { password: string; password_confirmation?: string }
   ) => {
     if (tab === "login") {
-      loginMutation.mutateAsync(values).then(() => {
-        navigate("/home");
-      });
+      loginMutation.mutateAsync(values).then(() => navigate("/home"));
     } else {
       registerMutation.mutateAsync(values).then(() => {
         setTab("login");
@@ -58,20 +53,21 @@ export default function LoginPage() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: 16,
+        paddingInline: "1rem",
       }}
     >
-      <Container size="sm" px={{ base: "sm", md: "md" }}>
+      <Container
+        size="sm"
+        px={{ base: "sm", md: "md" }}
+        py="xl"
+        w="100%"
+      >
         <Center mb="md">
-          <Stack align="center">
-            <Title  fz={{ base: "1.5rem", sm: "1.75rem", md: "2rem" }}>
+          <Stack align="center" gap="xs">
+            <Title fz={{ base: "1.5rem", sm: "1.75rem", md: "2rem" }}>
               Social
             </Title>
-            <Text
-              c="dimmed"
-              size="sm"
-              ta="center"
-            >
+            <Text c="dimmed" size="sm" ta="center">
               Connect with friends and share your moments
             </Text>
           </Stack>
@@ -84,25 +80,21 @@ export default function LoginPage() {
         <Paper
           shadow="xl"
           radius="md"
-          p={{ base: "sm", md: "md" }}
+          p={{ base: "sm", sm: "md" }}
           withBorder
           bg="primary.10"
           w="100%"
           maw={500}
           mx="auto"
         >
-          <AuthForm
-            mode={tab}
-            isSubmitting={isPending}
-            onSubmit={handleSubmit}
-          />
+          <AuthForm mode={tab} isSubmitting={isPending} onSubmit={handleSubmit} />
         </Paper>
 
         <Center mt="md">
           <Paper
             shadow="sm"
             radius="md"
-            p={{ base: "sm", md: "md" }}
+            p={{ base: "sm", sm: "md" }}
             w="100%"
             maw={500}
             withBorder

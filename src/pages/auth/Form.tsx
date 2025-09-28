@@ -29,7 +29,7 @@ export default function AuthForm({ mode, isSubmitting, onSubmit }: Props) {
     <form onSubmit={form.onSubmit(onSubmit)}>
       <Stack gap="sm">
         <Stack gap={2}>
-          <Text size="md" w={500}>
+          <Text size="md">
             {isRegisterMode ? "Create account" : "Welcome Back"}
           </Text>
           <Text c="dimmed" size="sm">
@@ -45,6 +45,7 @@ export default function AuthForm({ mode, isSubmitting, onSubmit }: Props) {
             placeholder="Your username"
             {...form.getInputProps("name")}
             radius="md"
+            w="100%"
           />
         )}
 
@@ -53,6 +54,7 @@ export default function AuthForm({ mode, isSubmitting, onSubmit }: Props) {
           placeholder="you@example.com"
           {...form.getInputProps("email")}
           radius="md"
+          w="100%"
         />
 
         <PasswordInput
@@ -60,6 +62,7 @@ export default function AuthForm({ mode, isSubmitting, onSubmit }: Props) {
           placeholder="Your password"
           {...form.getInputProps("password")}
           radius="md"
+          w="100%"
         />
 
         {isRegisterMode && (
@@ -69,12 +72,14 @@ export default function AuthForm({ mode, isSubmitting, onSubmit }: Props) {
               placeholder="Confirm your password"
               {...form.getInputProps("password_confirmation")}
               radius="md"
+              w="100%"
             />
             <TextInput
               label="Profile Picture URL (optional)"
               placeholder="https://example.com/photo.jpg"
               {...form.getInputProps("profile_picture_url")}
               radius="md"
+              w="100%"
             />
           </>
         )}
