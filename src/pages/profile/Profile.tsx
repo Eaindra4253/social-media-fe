@@ -14,13 +14,15 @@ import {
 import { UserPost } from "@/components/UserPost";
 import { Header } from "@/components/Header";
 import { useProfile } from "@/pages/profile/queries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMyPosts } from "@/pages/post/queries";
 import dayjs from "dayjs";
+import { mergePosts } from "@/utils/posts";
 
 export default function Profile() {
   const [page, setPage] = useState(1);
   const limit = 10;
+  const [allPosts, setAllPosts] = useState<any[]>([]);
 
   const { data: profileData, isLoading: isProfileLoading } = useProfile();
 
@@ -28,7 +30,23 @@ export default function Profile() {
     data: postsData,
     isLoading: isPostsLoading,
     isError: isPostsError,
+    isFetching,
   } = useMyPosts(page, limit);
+
+  useEffect(() => {
+    if (!postsData?.posts && page > 1) {
+      setPage(1);
+      return;
+    }
+
+    if (!postsData?.posts) return;
+
+    if (page === 1) {
+      setAllPosts(postsData.posts);
+    } else {
+      setAllPosts((prev) => mergePosts(prev, postsData.posts));
+    }
+  }, [postsData?.posts, page]);
 
   if (isProfileLoading) {
     return (
@@ -48,9 +66,15 @@ export default function Profile() {
     commentsCount: profileData?.comment_count ?? 0,
   };
 
+  const handleLoadMore = () => {
+    if (postsData && page < postsData.totalPages) {
+      setPage((prev) => prev + 1);
+    }
+  };
+
   return (
     <>
-      <Header avatarUrl={profileData?.profile_picture_url}/>
+      <Header avatarUrl={profileData?.profile_picture_url} />
       <Container size="sm" py="md">
         <Stack gap="md">
           <Paper
@@ -58,10 +82,7 @@ export default function Profile() {
             p="lg"
             radius="md"
             m="auto"
-            style={{
-              width: "80%",
-              maxWidth: rem(960),
-            }}
+            style={{ width: "80%", maxWidth: rem(960) }}
           >
             <Title order={4} mb="md">
               Profile
@@ -95,28 +116,27 @@ export default function Profile() {
           <Title
             order={4}
             m="auto"
-            style={{
-              width: "80%",
-              maxWidth: rem(960),
-            }}
+            style={{ width: "80%", maxWidth: rem(960) }}
           >
             Your Posts
           </Title>
 
-          {isPostsLoading && (
+          {isPostsLoading && page === 1 && (
             <Center>
               <Loader />
             </Center>
           )}
           {isPostsError && <Text c="red">Failed to load posts.</Text>}
 
-          {postsData?.posts?.map((post: any) => (
+          {allPosts.map((post) => (
             <UserPost
               key={post._id}
               postId={post._id}
               user={{
                 name: post.user.name,
-                avatar: post.user.profile_picture_url ?? "https://via.placeholder.com/150",
+                avatar:
+                  post.user.profile_picture_url ??
+                  "https://via.placeholder.com/150",
                 handle: post.user.name,
                 time: dayjs(post.created_at).fromNow(),
               }}
@@ -125,14 +145,18 @@ export default function Profile() {
               video={post.video}
               likes={post.reactionCount ?? 0}
               commentCount={post.commentCount ?? 0}
-              allowUpdate={true}
-              hideCommentInput={true}
+              allowUpdate
+              hideCommentInput
             />
           ))}
 
           {postsData && page < postsData.totalPages && (
             <Center>
-              <Button variant="light" onClick={() => setPage((p) => p + 1)}>
+              <Button
+                variant="light"
+                onClick={handleLoadMore}
+                loading={isFetching}
+              >
                 Load More
               </Button>
             </Center>
