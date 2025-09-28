@@ -66,6 +66,14 @@ export const Home = () => {
             </Stack>
           </Center>
 
+           {!isLoading && !isFetching && allPosts.length === 0 && !isError && (
+            <Center>
+              <Text c="dimmed" size="lg">
+                No posts available
+              </Text>
+            </Center>
+          )}
+
           {allPosts.map((post: any) => (
             <UserPost
               key={post._id}
