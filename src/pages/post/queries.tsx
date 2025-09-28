@@ -34,7 +34,7 @@ export function useEditPost() {
   return useMutation({
     mutationFn: (params: { postId: string; data: FormData }) =>
       editPost(params.postId, params.data),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["my-posts"] });
       queryClient.invalidateQueries({ queryKey: ["all-posts"] });
     },
