@@ -6,7 +6,7 @@
 ### Features
 
   - Display user profile (profile_picture_url, name, email, post count, likes, comments)
-  - Display user's posts with content, images/videos (not focus on play video in my repo)
+  - Display user's posts with content, images/videos (Video streaming is not supported, as handling video was not part of the requirements)
   - Likes and comments count displayed per post
   - Comments section show when clicking the comment icon and then click view Comments
   - Pagination for loading more posts
@@ -38,25 +38,29 @@
 
 3. Environment Variables
 
-   Create a .env file in the project root:
+   **Create a .env file in the project root: (For Local)**
 
    - VITE_API_URL = http://localhost:5000/
    Replace with your backend API base URL if different.
 
-4. Authentication Store (Zustand)
+   **Set the VITE_API_URL key and its value in the Environment Variables on the Vercel dashboard for the production environment (For Porduction).**
+   
+   - VITE_API_URL = BACKEND_PROUCTION_URL
+    
+5. Authentication Store (Zustand)
 
-5. Form Validation Example (Zod + Mantine Form)
+6. Form Validation Example (Zod + Mantine Form)
 
-6. Run the frontend
+7. Run the frontend
 
    - npm run dev
 
-7. API Services
+8. API Services
 
    - service example (service.ts):
    - queries example (queries.tsx):
 
-8. Notes
+9. Notes
 
    - mages/Videos: Ensure your backend serves src/uploads folder statically so media paths work in the frontend.
    - Comments: Hidden by default; only shown when clicking comment icon and View Comments icon .
@@ -65,12 +69,15 @@
    - Auth: Zustand manages token and authentication state.
    - Form Validation: Zod + Mantine forms ensure valid input.
 
-9. Build for Production
+10. Build for Production
 
    - npm run build
    - The production-ready build will be in the dist/ folder.
 
-10. Optional
+11. Optional
 
 - Replace placeholder avatars with real user avatars from backend.
 - Customize Mantine theme to match your brand design.
+
+Demo Link (Frontend)
+- https://social-media-fe-sepia.vercel.app/
