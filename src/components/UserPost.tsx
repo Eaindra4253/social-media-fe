@@ -7,7 +7,6 @@ import {
   ActionIcon,
   FileInput,
   Button,
-  rem,
   Box,
   Stack,
 } from "@mantine/core";
