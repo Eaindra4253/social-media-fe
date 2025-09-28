@@ -78,11 +78,14 @@ export default function Profile() {
       <Container size="sm" py="md">
         <Stack gap="md">
           <Paper
-            withBorder
-            p="lg"
+            shadow="sm"
             radius="md"
-            m="auto"
-            style={{ width: "80%", maxWidth: rem(960) }}
+            p="md"
+            style={{
+              width: "95%",
+              maxWidth: 500,
+              margin: "20px auto",
+            }}
           >
             <Title order={4} mb="md">
               Profile
