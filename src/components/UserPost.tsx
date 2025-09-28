@@ -84,9 +84,7 @@ export function UserPost({
     modals.openConfirmModal({
       title: "Are you sure you want to delete this post?",
       labels: { confirm: "Delete", cancel: "Cancel" },
-      onConfirm: () => {
-        deletePostMutation.mutate(postId);
-      },
+      onConfirm: () => deletePostMutation.mutate(postId),
     });
   };
 
@@ -103,17 +101,17 @@ export function UserPost({
 
   return (
     <Paper
-      withBorder
-      p="md"
+      shadow="sm"
       radius="md"
-      m="auto"
+      p="md"
       style={{
-        width: "80%", 
-        maxWidth: rem(960),
+        width: "95%",
+        maxWidth: 500,
+        margin: "20px auto",
       }}
     >
-      <Group mb="xs" justify="space-between" align="flex-start">
-        <Group align="flex-start" gap="sm">
+      <Group mb="xs" justify="space-between" align="flex-start" wrap="nowrap">
+        <Group align="flex-start" gap="sm" wrap="nowrap">
           <Avatar src={user.avatar} radius="xl" size="md" />
           <Box style={{ minWidth: 0 }}>
             <Text fw={500} lineClamp={1}>
@@ -127,12 +125,17 @@ export function UserPost({
 
         {allowUpdate && (
           <Group gap={4}>
-            <ActionIcon variant="subtle" onClick={() => setEditMode(!editMode)}>
+            <ActionIcon
+              variant="subtle"
+              aria-label="Edit post"
+              onClick={() => setEditMode(!editMode)}
+            >
               <IconEdit size={18} />
             </ActionIcon>
             <ActionIcon
               variant="subtle"
               color="red"
+              aria-label="Delete post"
               onClick={() => handleDelete(postId)}
             >
               <IconTrash size={18} />
@@ -187,16 +190,23 @@ export function UserPost({
             <Image
               src={image}
               alt="post image"
-              radius="md"
-              mb="sm"
-              style={{ width: "100%", maxHeight: 400, objectFit: "cover" }}
+              w="100%"
+              h="100%"
+              mah={500} 
+              maw={800}
+              fit="fill"
             />
           )}
 
           {video && (
             <video
               controls
-              style={{ width: "100%", borderRadius: 8, maxHeight: 400 }}
+              style={{
+                width: "100%",
+                maxWidth: "100%",
+                borderRadius: 8,
+                maxHeight: 400,
+              }}
             >
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
@@ -211,6 +221,7 @@ export function UserPost({
             variant="subtle"
             onClick={handleToggleLike}
             color={liked ? "red" : "gray"}
+            aria-label="Like post"
           >
             {liked ? <IconHeartFilled size={18} /> : <IconHeart size={18} />}
           </ActionIcon>
@@ -223,6 +234,7 @@ export function UserPost({
           <ActionIcon
             variant="subtle"
             onClick={() => setShowComments(!showComments)}
+            aria-label="Toggle comments"
           >
             <IconMessageCircle size={18} />
           </ActionIcon>

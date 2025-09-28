@@ -96,13 +96,13 @@ export const PostCreator = ({ avatarUrl }: Props) => {
 
   return (
     <Paper
-      withBorder
-      p="md"
+      shadow="sm"
       radius="md"
-      m="auto"
+      p="md"
       style={{
-        width: "80%",
-        maxWidth: rem(960),
+        width: "95%",
+        maxWidth: 500,
+        margin: "20px auto",
       }}
     >
       <Group mb="xs">
